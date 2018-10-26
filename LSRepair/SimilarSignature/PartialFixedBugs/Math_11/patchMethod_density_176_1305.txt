@@ -1,0 +1,15 @@
+//**********************************************************
+//  bcdev_beam:org.esa.beam.cluster:PrincipleComponentAnalysis:response:double[]#sample:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] sample) {
+        if (sample.length != sampleSize)
+            throw new IllegalArgumentException("Expected input vector to be in sample space");
+
+        DenseMatrix64F dots = new DenseMatrix64F(numComponents, 1);
+        DenseMatrix64F s = DenseMatrix64F.wrap(sampleSize, 1, sample);
+
+        CommonOps.mult(V_t, s, dots);
+
+        return NormOps.normF(dots);
+    }

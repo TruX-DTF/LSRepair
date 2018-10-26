@@ -1,0 +1,11 @@
+//**********************************************************
+//  siyinyang_weka:weka.core.pmml:NormContinuous:getResult:double[]#incoming:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] incoming) throws Exception {
+    
+    double[] a = m_linearNormOrig;
+    double[] b = m_linearNormNorm;
+    
+    return computeNorm(a, b, incoming);
+  }

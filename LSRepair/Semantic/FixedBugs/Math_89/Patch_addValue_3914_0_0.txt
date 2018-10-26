@@ -1,0 +1,12 @@
+//**********************************************************
+//  Math_89#org/apache/commons/math/stat/Frequency.java#addValue#void#Object
+//**********************************************************
+===Buggy Code===
+addValue((Comparable<?>) v);
+===Patch Code===
+org.geogebra.common.kernel.statistics.FrequencyGgb.java
+if (v instanceof Comparable<?>) {
+addValue((Comparable<?>) v);
+ } else {
+ throw new IllegalArgumentException("Illegal argument " + v); 
+}

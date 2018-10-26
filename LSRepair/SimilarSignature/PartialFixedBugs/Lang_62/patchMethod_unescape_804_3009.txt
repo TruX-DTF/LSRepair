@@ -1,0 +1,27 @@
+//**********************************************************
+//  DSpace_xoai:org.dspace.xoai.util:XMLUtils:format:String#unformattedXml:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String unformattedXml) {
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            Transformer transformer;
+            transformer = factory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            //initialize StreamResult with File object to save to file
+            StreamResult result = new StreamResult(out);
+            StreamSource source = new StreamSource(new ByteArrayInputStream(unformattedXml.getBytes()));
+            transformer.transform(source, result);
+            return out.toString();
+        } catch (Exception e) {
+            return "";
+        }
+    }

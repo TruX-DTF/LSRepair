@@ -1,0 +1,31 @@
+//**********************************************************
+//  acontes_scheduling:org.ow2.proactive.resourcemanager.nodesource.infrastructure:EC2Deployer:getInstanceHostname:String#id:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String id) {
+        Jec2 ec2req = getEC2Wrapper();
+
+        if (ec2req == null)
+            return "";
+
+        try {
+            for (ReservationDescription desc : ec2req.describeInstances(new String[] {})) {
+                for (Instance inst : desc.getInstances()) {
+                    if (id.equals(inst.getInstanceId())) {
+                        return inst.getDnsName();
+                    }
+                }
+            }
+        } catch (EC2Exception e) {
+            return "";
+        }
+        return "";
+    }

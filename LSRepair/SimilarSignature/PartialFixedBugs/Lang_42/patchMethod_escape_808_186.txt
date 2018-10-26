@@ -1,0 +1,29 @@
+//**********************************************************
+//  truemped_heritrix3:org.archive.util:TextUtils:writeEscapedForHTML:String#s#Writer#w:void
+//**********************************************************
+/**
+     * <p>
+     * Escapes the characters in the <code>String</code> passed and writes the result to the <code>Writer</code>
+     * passed.
+     * </p>
+     * 
+     * @param writer
+     *            The <code>Writer</code> to write the results of the escaping to. Assumed to be a non-null value.
+     * @param str
+     *            The <code>String</code> to escape. Assumed to be a non-null value.
+     * @throws IOException
+     *             when <code>Writer</code> passed throws the exception from calls to the {@link Writer#write(int)}
+     *             methods.
+     * 
+     * @see #escape(String)
+     * @see Writer
+     */
+    public void escape(String s, Writer w)
+    throws IOException {
+        PrintWriter out = new PrintWriter(w);
+        BufferedReader reader = new BufferedReader(new StringReader(s));
+        String line;
+        while((line=reader.readLine()) != null){
+            out.println(StringEscapeUtils.escapeHtml(line));
+        }
+    }

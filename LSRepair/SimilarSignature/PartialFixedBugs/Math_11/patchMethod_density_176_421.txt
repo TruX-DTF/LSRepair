@@ -1,0 +1,9 @@
+//**********************************************************
+//  Icy-imaging_Icy-Kernel:icy.math:MathUtil:min:double[]#array:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] array)
+    {
+        return ArrayMath.min(array);
+
+    }

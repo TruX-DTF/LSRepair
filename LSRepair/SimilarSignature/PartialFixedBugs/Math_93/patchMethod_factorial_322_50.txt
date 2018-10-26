@@ -1,0 +1,30 @@
+//**********************************************************
+//  davros-_platform_frameworks_base:android.database:MergeCursor:getLong:int#column:long
+//**********************************************************
+/**
+     * Returns n!. Shorthand for <code>n</code> <a
+     * href="http://mathworld.wolfram.com/Factorial.html"> Factorial</a>, the
+     * product of the numbers <code>1,...,n</code>.
+     * <p>
+     * <Strong>Preconditions</strong>:
+     * <ul>
+     * <li> <code>n >= 0</code> (otherwise
+     * <code>IllegalArgumentException</code> is thrown)</li>
+     * <li> The result is small enough to fit into a <code>long</code>. The
+     * largest value of <code>n</code> for which <code>n!</code> <
+     * Long.MAX_VALUE</code> is 20. If the computed value exceeds <code>Long.MAX_VALUE</code>
+     * an <code>ArithMeticException </code> is thrown.</li>
+     * </ul>
+     * </p>
+     * 
+     * @param n argument
+     * @return <code>n!</code>
+     * @throws ArithmeticException if the result is too large to be represented
+     *         by a long integer.
+     * @throws IllegalArgumentException if n < 0
+     */
+    public static long factorial(int column)
+    {
+        return mCursor.getLong(column);
+    }
+

@@ -1,0 +1,8 @@
+//**********************************************************
+//  glinde_EDMOAL:data.objects.doubleArray:DAEuclideanNorm:length:double[]#x:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] x)
+	{
+		return Math.sqrt(this.lengthSq(x));
+	}

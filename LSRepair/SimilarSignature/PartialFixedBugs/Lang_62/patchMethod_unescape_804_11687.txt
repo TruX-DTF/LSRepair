@@ -1,0 +1,32 @@
+//**********************************************************
+//  SmartBear_soapui:com.eviware.soapui.support.xml:XmlUtils:extractNamespaces:String#xpath:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String xpath) {
+        String result = xpath;
+        int ix = xpath.lastIndexOf("declare namespace");
+        if (ix != -1) {
+            ix = xpath.indexOf('\'', ix + 1);
+            if (ix != -1) {
+                ix = xpath.indexOf('\'', ix + 1);
+                if (ix != -1) {
+                    ix = xpath.indexOf(';');
+                    if (ix != -1) {
+                        result = xpath.substring(0, ix + 1);
+                    }
+                }
+            }
+        } else {
+            result = "";
+        }
+
+        return result;
+    }

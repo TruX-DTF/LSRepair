@@ -1,0 +1,79 @@
+//**********************************************************
+//  MyAOSP_frameworks_base:android.speech.tts:TtsEngines:parseLocaleString:String#localeString:Locale
+//**********************************************************
+/**
+     * <p>Converts a String to a Locale.</p>
+     *
+     * <p>This method takes the string format of a locale and creates the
+     * locale object from it.</p>
+     *
+     * <pre>
+     *   LocaleUtils.toLocale("en")         = new Locale("en", "")
+     *   LocaleUtils.toLocale("en_GB")      = new Locale("en", "GB")
+     *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
+     * </pre>
+     *
+     * <p>(#) The behaviour of the JDK variant constructor changed between JDK1.3 and JDK1.4.
+     * In JDK1.3, the constructor upper cases the variant, in JDK1.4, it doesn't.
+     * Thus, the result from getVariant() may vary depending on your JDK.</p>
+     *
+     * <p>This method validates the input strictly.
+     * The language code must be lowercase.
+     * The country code must be uppercase.
+     * The separator must be an underscore.
+     * The length must be correct.
+     * </p>
+     *
+     * @param str  the locale String to convert, null returns null
+     * @return a Locale, null if null input
+     * @throws IllegalArgumentException if the string is an invalid format
+     */
+    public static Locale toLocale(String localeString) {
+        String language = "", country = "", variant = "";
+        if (!TextUtils.isEmpty(localeString)) {
+            String[] split = localeString.split(
+                    "[" + LOCALE_DELIMITER_OLD + LOCALE_DELIMITER_NEW + "]");
+            language = split[0].toLowerCase();
+            if (split.length == 0) {
+                Log.w(TAG, "Failed to convert " + localeString + " to a valid Locale object. Only" +
+                            " separators");
+                return null;
+            }
+            if (split.length > 3) {
+                Log.w(TAG, "Failed to convert " + localeString + " to a valid Locale object. Too" +
+                        " many separators");
+                return null;
+            }
+            if (split.length >= 2) {
+                country = split[1].toUpperCase();
+            }
+            if (split.length >= 3) {
+                variant = split[2];
+            }
+
+        }
+
+        String normalizedLanguage = sNormalizeLanguage.get(language);
+        if (normalizedLanguage != null) {
+            language = normalizedLanguage;
+        }
+
+        String normalizedCountry= sNormalizeCountry.get(country);
+        if (normalizedCountry != null) {
+            country = normalizedCountry;
+        }
+
+        if (DBG) Log.d(TAG, "parseLocalePref(" + language + "," + country +
+                "," + variant +")");
+
+        Locale result = new Locale(language, country, variant);
+        try {
+            result.getISO3Language();
+            result.getISO3Country();
+            return result;
+        } catch(MissingResourceException e) {
+            Log.w(TAG, "Failed to convert " + localeString + " to a valid Locale object.");
+            return null;
+        }
+    }
+

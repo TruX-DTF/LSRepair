@@ -1,0 +1,22 @@
+//**********************************************************
+//  andredlight_multiact:org.ruboto:Script:toSnakeCase:String#s:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String s) {
+        return s.replaceAll(
+            String.format("%s|%s|%s",
+                "(?<=[A-Z])(?=[A-Z][a-z])",
+                "(?<=[^A-Z])(?=[A-Z])",
+                "(?<=[A-Za-z])(?=[^A-Za-z])"
+            ),
+            "_"
+        ).toLowerCase();
+    }

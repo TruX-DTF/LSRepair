@@ -1,0 +1,7 @@
+//**********************************************************
+//  sancha_jrae:math:ArrayMath:mean:double[]#a:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] a) {
+		return sum(a) / a.length;
+	}

@@ -1,0 +1,11 @@
+//**********************************************************
+//  Icy-imaging_Icy-Kernel:icy.math:ArrayMath:sum:double[]#input:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] input)
+    {
+        double sum = 0;
+        for (double d : input)
+            sum += d;
+        return sum;
+    }

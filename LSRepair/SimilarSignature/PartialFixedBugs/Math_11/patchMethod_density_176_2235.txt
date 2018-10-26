@@ -1,0 +1,10 @@
+//**********************************************************
+//  northern-bites_nbites:nbtool.gui.logviews.images:GradientCalculator:calculateGradMagn:double[]#grad:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] grad) {
+    	double gradX = grad[0];
+    	double gradY = grad[1];
+    	
+    	return java.lang.Math.sqrt(gradX*gradX + gradY*gradY);
+	}

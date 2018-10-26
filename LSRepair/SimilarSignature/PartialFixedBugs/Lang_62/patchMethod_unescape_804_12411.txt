@@ -1,0 +1,23 @@
+//**********************************************************
+//  tg-endeavoru-jellybean_android_frameworks_base:com.android.internal.telephony.gsm:GsmDataConnectionTracker:getActiveApnString:String#apnType:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String apnType) {
+        if (DBG) log( "get active apn string for type:" + apnType);
+        ApnContext apnContext = mApnContexts.get(apnType);
+        if (apnContext != null) {
+            ApnSetting apnSetting = apnContext.getApnSetting();
+            if (apnSetting != null) {
+                return apnSetting.apn;
+            }
+        }
+        return null;
+    }

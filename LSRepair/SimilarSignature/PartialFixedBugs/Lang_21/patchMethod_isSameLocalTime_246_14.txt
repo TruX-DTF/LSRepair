@@ -1,0 +1,28 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.calendar.util:JCalendarUtil:isSameDayOfWeek:Calendar#jCalendar1#Calendar#jCalendar2:boolean
+//**********************************************************
+/**
+     * <p>Checks if two calendar objects represent the same local time.</p>
+     *
+     * <p>This method compares the values of the fields of the two objects.
+     * In addition, both calendars must be the same of the same type.</p>
+     * 
+     * @param cal1  the first calendar, not altered, not null
+     * @param cal2  the second calendar, not altered, not null
+     * @return true if they represent the same millisecond instant
+     * @throws IllegalArgumentException if either date is <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isSameLocalTime(
+		Calendar jCalendar1, Calendar jCalendar2) {
+
+		int dayOfWeek1 = jCalendar1.get(Calendar.DAY_OF_WEEK);
+		int dayOfWeek2 = jCalendar2.get(Calendar.DAY_OF_WEEK);
+
+		if (dayOfWeek1 == dayOfWeek2) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}

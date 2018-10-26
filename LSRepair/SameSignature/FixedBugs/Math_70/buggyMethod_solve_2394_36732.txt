@@ -1,0 +1,8 @@
+//**********************************************************
+//  Math_70#org/apache/commons/math/analysis/solvers/BisectionSolver.java#solve#double#UnivariateRealFunction#double#double#double
+//**********************************************************
+/** {@inheritDoc} */
+    public double solve(final UnivariateRealFunction f, double min, double max, double initial)
+        throws MaxIterationsExceededException, FunctionEvaluationException {
+        return solve(min, max);
+    }

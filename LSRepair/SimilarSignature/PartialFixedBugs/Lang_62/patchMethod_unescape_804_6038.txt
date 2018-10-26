@@ -1,0 +1,34 @@
+//**********************************************************
+//  xetr0v_mpc-client:org.moparscape.msc.client:ChatFilter:filterChat:String#arg0:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String arg0) {
+        char ac[] = arg0.toLowerCase().toCharArray();
+        fgi(ac);
+        fgg(ac);
+        fgh(ac);
+        fhd(ac);
+        for(int i = 0; i < ffk.length; i++) {
+            for(int j = -1; (j = arg0.indexOf(ffk[i], j + 1)) != -1;) {
+                char ac1[] = ffk[i].toCharArray();
+                for(int k = 0; k < ac1.length; k++)
+                    ac[k + j] = ac1[k];
+
+            }
+
+        }
+
+        if(ffb) {
+            fge(arg0.toCharArray(), ac);
+            fgf(ac);
+        }
+        return new String(ac);
+    }

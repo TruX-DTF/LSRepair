@@ -1,0 +1,26 @@
+//**********************************************************
+//  TeamSourcery_frameworks_base:com.android.server.pm:PackageManagerService:getApkName:String#codePath:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String codePath) {
+        if (codePath == null) {
+            return null;
+        }
+        int sidx = codePath.lastIndexOf("/");
+        int eidx = codePath.lastIndexOf(".");
+        if (eidx == -1) {
+            eidx = codePath.length();
+        } else if (eidx == 0) {
+            Slog.w(TAG, " Invalid code path, "+ codePath + " Not a valid apk name");
+            return null;
+        }
+        return codePath.substring(sidx+1, eidx);
+    }

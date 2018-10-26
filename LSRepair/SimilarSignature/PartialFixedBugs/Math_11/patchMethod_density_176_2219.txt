@@ -1,0 +1,10 @@
+//**********************************************************
+//  ekis_algos:edu.princeton.algs4:SparseVector:dot:double[]#that:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] that) {
+        double sum = 0.0;
+        for (int i : st.keys())
+            sum += that[i] * this.get(i);
+        return sum;
+    }

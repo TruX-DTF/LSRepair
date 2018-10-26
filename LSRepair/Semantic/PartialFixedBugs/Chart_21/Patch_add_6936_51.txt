@@ -1,0 +1,11 @@
+//**********************************************************
+//  Chart_21#org/jfree/data/statistics/DefaultBoxAndWhiskerCategoryDataset.java#add#void#BoxAndWhiskerItem#Comparable#Comparable
+//**********************************************************
+===Buggy Code===
+this.maximumRangeValue = maxval;
+===Patch Code===
+com.laytonsmith.tools.ProfilerSummary.java
+if (maxval < 0 || maxval > 1) {
+return;
+}
+this.maximumRangeValue = maxval;

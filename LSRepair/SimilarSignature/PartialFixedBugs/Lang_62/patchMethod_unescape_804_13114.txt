@@ -1,0 +1,25 @@
+//**********************************************************
+//  DawnScience_dawn-isencia:com.isencia.util.commandline:Commandline:quoteArgument:String#argument:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String argument) throws CommandLineException {
+    if (argument.indexOf("\"") > -1) {
+      if (argument.indexOf("\'") > -1) {
+        throw new CommandLineException("Can't handle single and double quotes in same argument");
+      } else {
+        return '\'' + argument + '\'';
+      }
+    } else if (argument.indexOf("\'") > -1 || argument.indexOf(" ") > -1) {
+      return '\"' + argument + '\"';
+    } else {
+      return argument;
+    }
+  }

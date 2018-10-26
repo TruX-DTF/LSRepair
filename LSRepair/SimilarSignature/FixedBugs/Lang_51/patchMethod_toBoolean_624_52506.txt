@@ -1,0 +1,32 @@
+//**********************************************************
+//  eucalyptus_eucalyptus:com.eucalyptus.blockstorage:StorageManagers:apply:String#arg0:boolean
+//**********************************************************
+    /**
+     * <p>Converts a String to a boolean (optimised for performance).</p>
+     * 
+     * <p><code>'true'</code>, <code>'on'</code> or <code>'yes'</code>
+     * (case insensitive) will return <code>true</code>. Otherwise,
+     * <code>false</code> is returned.</p>
+     * 
+     * <p>This method performs 4 times faster (JDK1.4) than
+     * <code>Boolean.valueOf(String)</code>. However, this method accepts
+     * 'on' and 'yes' as true values.
+     *
+     * <pre>
+     *   BooleanUtils.toBoolean(null)    = false
+     *   BooleanUtils.toBoolean("true")  = true
+     *   BooleanUtils.toBoolean("TRUE")  = true
+     *   BooleanUtils.toBoolean("tRUe")  = true
+     *   BooleanUtils.toBoolean("on")    = true
+     *   BooleanUtils.toBoolean("yes")   = true
+     *   BooleanUtils.toBoolean("false") = false
+     *   BooleanUtils.toBoolean("x gti") = false
+     * </pre>
+     *
+     * @param str  the String to check
+     * @return the boolean value of the string, <code>false</code> if no match
+     */
+    public static boolean toBoolean(String arg0) {
+      return !(arg0.startsWith("(") && arg0.endsWith(")"));
+    }
+

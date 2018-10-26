@@ -1,0 +1,17 @@
+//**********************************************************
+//  lveci_nest:org.esa.nest.gpf:MosaicOp:getBandName:String#name:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String name) {
+        if (name.contains("::"))
+            return name.substring(0, name.indexOf("::"));
+        return name;
+    }

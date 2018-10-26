@@ -1,0 +1,36 @@
+//**********************************************************
+//  JessedeDoes_ImpactIR:nl.namescape.tokenizer:TEITokenizer:preTokenizeString:String#inputString:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String inputString)
+	{
+		try 
+		{
+			out = new StringWriter();
+			byte[] bytes = inputString.getBytes("UTF-8");
+			InputStream input = new ByteArrayInputStream(bytes);
+			if (parser == null)
+			{
+				SAXParserFactory factory = SAXParserFactory.newInstance();
+				factory.setFeature("http://apache.org/xml/features/validation/schema", false);
+				factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+			    parser = factory.newSAXParser(); // waarom steeds opnieuw?
+			}
+			this.insideTokenizedElement = true;
+			parser.parse(input, this);
+			out.close();
+			return out.toString();
+		} catch (Throwable err) 
+		{
+			err.printStackTrace ();
+		}
+		return null;
+	}

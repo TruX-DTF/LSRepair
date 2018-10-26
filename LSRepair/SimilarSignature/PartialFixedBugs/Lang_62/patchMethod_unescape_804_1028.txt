@@ -1,0 +1,32 @@
+//**********************************************************
+//  davros-_platform_frameworks_base:android.telephony:PhoneNumberUtils:stripSeparators:String#phoneNumber:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String phoneNumber) {
+        if (phoneNumber == null) {
+            return null;
+        }
+        int len = phoneNumber.length();
+        StringBuilder ret = new StringBuilder(len);
+
+        for (int i = 0; i < len; i++) {
+            char c = phoneNumber.charAt(i);
+            // Character.digit() supports ASCII and Unicode digits (fullwidth, Arabic-Indic, etc.)
+            int digit = Character.digit(c, 10);
+            if (digit != -1) {
+                ret.append(digit);
+            } else if (isNonSeparator(c)) {
+                ret.append(c);
+            }
+        }
+
+        return ret.toString();
+    }

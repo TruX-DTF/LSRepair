@@ -1,0 +1,27 @@
+//**********************************************************
+//  Math_63#org/apache/commons/math/util/MathUtils.java#equals#boolean#double[]#double[]
+//**********************************************************
+/**
+     * Returns true iff both arguments are null or have same dimensions and all
+     * their elements are equal as defined by
+     * {@link #equals(double,double) this method}.
+     *
+     * @param x first array
+     * @param y second array
+     * @return true if the values are both null or have same dimension
+     * and equal elements.
+     */
+    public static boolean equals(double[] x, double[] y) {
+        if ((x == null) || (y == null)) {
+            return !((x == null) ^ (y == null));
+        }
+        if (x.length != y.length) {
+            return false;
+        }
+        for (int i = 0; i < x.length; ++i) {
+            if (!equals(x[i], y[i])) {
+                return false;
+            }
+        }
+        return true;
+    }

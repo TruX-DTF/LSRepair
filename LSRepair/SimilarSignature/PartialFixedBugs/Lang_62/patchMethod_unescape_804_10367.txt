@@ -1,0 +1,34 @@
+//**********************************************************
+//  groovy_groovy-eclipse:org.eclipse.jdt.internal.core:JavaModelManager:getOption:String#optionName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String optionName) {
+
+		if (JavaCore.CORE_ENCODING.equals(optionName)){
+			return JavaCore.getEncoding();
+		}
+		// backward compatibility
+		if (isDeprecatedOption(optionName)) {
+			return JavaCore.ERROR;
+		}
+		int optionLevel = getOptionLevel(optionName);
+		if (optionLevel != UNKNOWN_OPTION){
+			IPreferencesService service = Platform.getPreferencesService();
+			String value = service.get(optionName, null, this.preferencesLookup);
+			if (value == null && optionLevel == DEPRECATED_OPTION) {
+				// May be a deprecated option, retrieve the new value in compatible options
+				String[] compatibleOptions = (String[]) this.deprecatedOptions.get(optionName);
+				value = service.get(compatibleOptions[0], null, this.preferencesLookup);
+			}
+			return value==null ? null : value.trim();
+		}
+		return null;
+	}

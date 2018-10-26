@@ -1,0 +1,13 @@
+//**********************************************************
+//  kutschkem_Jayes:org.eclipse.recommenders.jayes.util:MathUtils:absMax:double[]#vector:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] vector) {
+        double result = 0;
+        for (double d : vector) {
+            if (d != Double.NEGATIVE_INFINITY && Math.abs(d) > Math.abs(result)) {
+                result = d;
+            }
+        }
+        return result;
+    }

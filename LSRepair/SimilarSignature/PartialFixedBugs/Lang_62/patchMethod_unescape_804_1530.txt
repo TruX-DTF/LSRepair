@@ -1,0 +1,26 @@
+//**********************************************************
+//  pjaol_searchsaw:com.pjaol.ESB.formatters:StringSimplifier:simplifiedString:String#orig:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String orig) {
+            String str = orig;
+            if (str == null) {
+                    return null;
+            }
+            str = stripDiacritics(str);
+            str = stripNonDiacritics(str);
+            if (str.length() == 0) {
+                    // ugly special case to work around non-existing empty strings in oracle. store original crapstring as simplified..
+                    //  would return empty string if oracle could store it.
+                    return orig;
+            }
+            return str;
+    }

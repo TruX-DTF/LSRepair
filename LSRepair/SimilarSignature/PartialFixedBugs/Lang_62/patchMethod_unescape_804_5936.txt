@@ -1,0 +1,53 @@
+//**********************************************************
+//  jiangxin_freemind-mmx:freemind.main:HtmlTools:plainToHTML:String#text:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String text) {
+		char myChar;
+		String textTabsExpanded = text.replaceAll("\t", "         "); // Use
+																		// eight
+																		// spaces
+																		// as
+																		// tab
+																		// width.
+		StringBuffer result = new StringBuffer(textTabsExpanded.length()); // Heuristic
+		int lengthMinus1 = textTabsExpanded.length() - 1;
+		result.append("<html><body><p>");
+		for (int i = 0; i < textTabsExpanded.length(); ++i) {
+			myChar = textTabsExpanded.charAt(i);
+			switch (myChar) {
+			case '&':
+				result.append("&amp;");
+				break;
+			case '<':
+				result.append("&lt;");
+				break;
+			case '>':
+				result.append("&gt;");
+				break;
+			case ' ':
+				if (i > 0 && i < lengthMinus1
+						&& (int) textTabsExpanded.charAt(i - 1) > 32
+						&& (int) textTabsExpanded.charAt(i + 1) > 32) {
+					result.append(' ');
+				} else {
+					result.append("&nbsp;");
+				}
+				break;
+			case '\n':
+				result.append("<br>");
+				break;
+			default:
+				result.append(myChar);
+			}
+		}
+		return result.toString();
+	}

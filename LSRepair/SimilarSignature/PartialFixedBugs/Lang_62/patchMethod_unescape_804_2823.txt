@@ -1,0 +1,26 @@
+//**********************************************************
+//  lijunsong_lazy-allocation-in-java-compiler:com.sun.tools.doclets.formats.html:MethodWriterImpl:parseCodeTag:String#tag:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String tag){
+        if(tag == null){
+            return "";
+        }
+
+        String lc = tag.toLowerCase();
+        int begin = lc.indexOf("<code>");
+        int end = lc.indexOf("</code>");
+        if(begin == -1 || end == -1 || end <= begin){
+            return tag;
+        } else {
+            return tag.substring(begin + 6, end);
+        }
+    }

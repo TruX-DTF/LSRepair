@@ -1,0 +1,17 @@
+//**********************************************************
+//  geosolutions-it_imageio-ext:it.geosolutions.imageio.plugins.turbojpeg:TurboJpegImageReader:checkIndex:int#imageIndex:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int imageIndex) {
+        if (imageIndex != 0) {
+            throw new IndexOutOfBoundsException("ImageIndex out of bound: " + imageIndex);
+        }
+    }

@@ -1,0 +1,36 @@
+//**********************************************************
+//  Math_19#org/apache/commons/math3/optimization/direct/CMAESOptimizer.java#checkParameters#void#null
+//**********************************************************
+===Buggy Code===
+if (inputSigma != null) {
+            if (inputSigma.length != init.length) {
+                throw new DimensionMismatchException(inputSigma.length, init.length);
+            }
+            for (int i = 0; i < init.length; i++) {
+                if (inputSigma[i] < 0) {
+                    throw new NotPositiveException(inputSigma[i]);
+                }
+                if (boundaries != null) {
+                    if (inputSigma[i] > boundaries[1][i] - boundaries[0][i]) {
+                        throw new OutOfRangeException(inputSigma[i], 0, boundaries[1][i] - boundaries[0][i]);
+                    }
+                }
+            }
+        }
+===Patch Code===
+de.gmorling.methodvalidation.spring.ValidationInterceptor.java
+if (!(inputSigma != null)) {
+            if (inputSigma.length != init.length) {
+                throw new DimensionMismatchException(inputSigma.length, init.length);
+            }
+            for (int i = 0; i < init.length; i++) {
+                if (inputSigma[i] < 0) {
+                    throw new NotPositiveException(inputSigma[i]);
+                }
+                if (boundaries != null) {
+                    if (inputSigma[i] > boundaries[1][i] - boundaries[0][i]) {
+                        throw new OutOfRangeException(inputSigma[i], 0, boundaries[1][i] - boundaries[0][i]);
+                    }
+                }
+            }
+        }

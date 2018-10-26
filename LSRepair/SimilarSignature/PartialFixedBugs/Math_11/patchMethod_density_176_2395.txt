@@ -1,0 +1,11 @@
+//**********************************************************
+//  svn2github_cytoscape:de.mpg.mpi_inf.bioinf.netanalyzer.data:ArrayUtils:sumSquares:double[]#aArray:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] aArray) {
+		double result = 0;
+		for (final double a : aArray) {
+			result += a * a;
+		}
+		return result;
+	}

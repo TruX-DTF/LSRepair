@@ -1,0 +1,12 @@
+//**********************************************************
+//  Chart_2#org/jfree/data/general/DatasetUtilities.java#iterateDomainBounds#Range#XYDataset#boolean
+//**********************************************************
+===Buggy Code===
+if (!Double.isNaN(uvalue)) {
+                        maximum = Math.max(maximum, uvalue);
+                    }
+===Patch Code===
+loci.plugins.stitching.Pt.java
+if (Double.isNaN(uvalue)) {
+                        maximum = Math.max(maximum, uvalue);
+                    }

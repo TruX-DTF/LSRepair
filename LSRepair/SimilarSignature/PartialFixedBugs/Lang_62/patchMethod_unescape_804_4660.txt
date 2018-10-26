@@ -1,0 +1,21 @@
+//**********************************************************
+//  agilebirds_openflexo:org.openflexo.toolbox:ToolBox:uncapitalize:String#s:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String s) {
+		if (s == null) {
+			return null;
+		}
+		if (s.length() > 0 && Character.isUpperCase(s.charAt(0))) {
+			s = Character.toLowerCase(s.charAt(0)) + s.substring(1);
+		}
+		return s;
+	}

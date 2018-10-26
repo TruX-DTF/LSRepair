@@ -1,0 +1,32 @@
+//**********************************************************
+//  webx_citrus:com.alibaba.citrus.service.velocity.support:EscapeSupport:normalizeReference:String#reference:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String reference) {
+        if (reference == null) {
+            return EMPTY_STRING;
+        }
+
+        Matcher matcher = referencePattern.matcher(reference);
+
+        if (matcher.matches()) {
+            String form1 = matcher.group(2);
+            String form2 = matcher.group(3);
+
+            if (form1 == null) {
+                return form2;
+            } else {
+                return form1;
+            }
+        } else {
+            return reference;
+        }
+    }

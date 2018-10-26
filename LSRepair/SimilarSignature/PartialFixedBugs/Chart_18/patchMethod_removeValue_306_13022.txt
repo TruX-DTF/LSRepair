@@ -1,0 +1,17 @@
+//**********************************************************
+//  geosolutions-it_imageio-ext:it.geosolutions.imageio.utilities:ImageIOUtilities:indent:int#level:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int level) {
+        for (int i = 0; i < level; i++) {
+            System.out.print("  ");
+        }
+    }

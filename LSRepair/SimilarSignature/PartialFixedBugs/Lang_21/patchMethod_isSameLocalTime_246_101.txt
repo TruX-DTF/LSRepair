@@ -1,0 +1,20 @@
+//**********************************************************
+//  AOKP_libcore:libcore.icu:DateIntervalFormat:fallOnDifferentDates:Calendar#c1#Calendar#c2:boolean
+//**********************************************************
+/**
+     * <p>Checks if two calendar objects represent the same local time.</p>
+     *
+     * <p>This method compares the values of the fields of the two objects.
+     * In addition, both calendars must be the same of the same type.</p>
+     * 
+     * @param cal1  the first calendar, not altered, not null
+     * @param cal2  the second calendar, not altered, not null
+     * @return true if they represent the same millisecond instant
+     * @throws IllegalArgumentException if either date is <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isSameLocalTime(Calendar c1, Calendar c2) {
+    return c1.get(Calendar.YEAR) != c2.get(Calendar.YEAR) ||
+        c1.get(Calendar.MONTH) != c2.get(Calendar.MONTH) ||
+        c1.get(Calendar.DAY_OF_MONTH) != c2.get(Calendar.DAY_OF_MONTH);
+  }

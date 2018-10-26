@@ -1,0 +1,39 @@
+//**********************************************************
+//  npetalid_Promasi-Multiplayer:org.jfree.chart.plot:XYPlot:removeRangeMarker:int#index#Marker#marker#Layer#layer#boolean#notify:boolean
+//**********************************************************
+/**
+     * Removes a marker for a specific dataset/renderer and, if requested, 
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param index the dataset/renderer index.
+     * @param marker the marker.
+     * @param layer the layer (foreground or background).
+     *
+     * @return A boolean indicating whether or not the marker was actually 
+     *         removed.
+     *
+     * @since 1.0.10
+     */
+    public boolean removeDomainMarker(int index, Marker marker, Layer layer,
+            boolean notify) {
+        if (marker == null) {
+            throw new IllegalArgumentException("Null 'marker' argument.");
+        }
+        ArrayList markers;
+        if (layer == Layer.FOREGROUND) {
+            markers = (ArrayList) this.foregroundRangeMarkers.get(
+                    new Integer(index));
+        }
+        else {
+            markers = (ArrayList) this.backgroundRangeMarkers.get(
+                    new Integer(index));
+        }
+        if (markers == null) {
+            return false;
+        }
+        boolean removed = markers.remove(marker);
+        if (removed && notify) {
+            fireChangeEvent();
+        }
+        return removed;
+    }

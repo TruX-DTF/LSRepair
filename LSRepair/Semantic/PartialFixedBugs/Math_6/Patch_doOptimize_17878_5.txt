@@ -1,0 +1,30 @@
+//**********************************************************
+//  Math_6#org/apache/commons/math3/optim/nonlinear/scalar/noderiv/CMAESOptimizer.java#doOptimize#PointValuePair#null
+//**********************************************************
+===Buggy Code===
+if (bestValue > bestFitness) {
+                bestValue = bestFitness;
+                lastResult = optimum;
+                optimum = new PointValuePair(fitfun.repair(bestArx.getColumn(0)),
+                                             isMinimize ? bestFitness : -bestFitness);
+                if (getConvergenceChecker() != null &&
+                    lastResult != null) {
+                    if (getConvergenceChecker().converged(iterations, optimum, lastResult)) {
+                        break generationLoop;
+                    }
+                }
+            }
+===Patch Code===
+org.apache.commons.math3.optim.linear.SimplexTableau.java
+if (bestValue != bestFitness) {
+                bestValue = bestFitness;
+                lastResult = optimum;
+                optimum = new PointValuePair(fitfun.repair(bestArx.getColumn(0)),
+                                             isMinimize ? bestFitness : -bestFitness);
+                if (getConvergenceChecker() != null &&
+                    lastResult != null) {
+                    if (getConvergenceChecker().converged(iterations, optimum, lastResult)) {
+                        break generationLoop;
+                    }
+                }
+            }

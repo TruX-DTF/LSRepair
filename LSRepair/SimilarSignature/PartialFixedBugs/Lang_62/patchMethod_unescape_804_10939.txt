@@ -1,0 +1,27 @@
+//**********************************************************
+//  slipcor_pvparena:net.slipcor.pvparena.goals:GoalSabotage:getHeldFlagTeam:String#player:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String player) {
+        if (getFlagMap().size() < 1) {
+            return null;
+        }
+
+        arena.getDebugger().i("getting held TNT of player " + player, player);
+        for (final String sTeam : getFlagMap().keySet()) {
+            arena.getDebugger().i("team " + sTeam + "'s sabotage is carried by "
+                    + getFlagMap().get(sTeam) + "s hands", player);
+            if (player.equals(getFlagMap().get(sTeam))) {
+                return sTeam;
+            }
+        }
+        return null;
+    }

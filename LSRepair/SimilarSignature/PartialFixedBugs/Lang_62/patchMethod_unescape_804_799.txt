@@ -1,0 +1,44 @@
+//**********************************************************
+//  webmetrics_browsermob-proxy:org.browsermob.proxy.jetty.http:ResourceCache:getMimeByExtension:String#filename:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String filename)
+    {
+        String type=null;
+
+        if (filename!=null)
+        {
+            int i=-1;
+            while(type==null)
+            {
+                i=filename.indexOf(".",i+1);
+
+                if (i<0 || i>=filename.length())
+                    break;
+
+                String ext=StringUtil.asciiToLowerCase(filename.substring(i+1));
+                if (_mimeMap!=null)
+                    type = (String)_mimeMap.get(ext);
+                if (type==null)
+                    type=(String)__dftMimeMap.get(ext);
+            }
+        }
+
+        if (type==null)
+        {
+            if (_mimeMap!=null)
+                type=(String)_mimeMap.get("*");
+             if (type==null)
+                 type=(String)__dftMimeMap.get("*");
+        }
+
+        return type;
+    }

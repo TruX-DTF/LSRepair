@@ -1,0 +1,28 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.source.formatter:CSSSourceProcessor:fixHexColors:String#content:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String content) {
+		Matcher matcher = _hexColorPattern.matcher(content);
+
+		while (matcher.find()) {
+			String hexColor = matcher.group(1);
+
+			if (Validator.isNumber(hexColor) || (hexColor.length() < 3)) {
+				continue;
+			}
+
+			content = StringUtil.replace(
+				content, hexColor, StringUtil.toUpperCase(hexColor));
+		}
+
+		return content;
+	}

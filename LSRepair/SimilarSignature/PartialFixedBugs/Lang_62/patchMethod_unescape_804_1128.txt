@@ -1,0 +1,29 @@
+//**********************************************************
+//  apache_hadoop-common:org.apache.hadoop.fs.azure:NativeAzureFileSystem:encodeKey:String#aKey:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String aKey) {
+    // Get the tail end of the key name.
+    //
+    String fileName = aKey.substring(aKey.lastIndexOf(Path.SEPARATOR) + 1,
+        aKey.length());
+
+    // Construct the randomized prefix of the file name. The prefix ensures the
+    // file always drops into the same folder but with a varying tail key name.
+    String filePrefix = AZURE_TEMP_FOLDER + Path.SEPARATOR
+        + UUID.randomUUID().toString();
+
+    // Concatenate the randomized prefix with the tail of the key name.
+    String randomizedKey = filePrefix + fileName;
+
+    // Return to the caller with the randomized key.
+    return randomizedKey;
+  }

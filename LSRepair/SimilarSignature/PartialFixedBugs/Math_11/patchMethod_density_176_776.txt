@@ -1,0 +1,11 @@
+//**********************************************************
+//  tjrantal_RegionGrow:ijGrower:LBP:sum:double[]#arrayIn:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] arrayIn){
+		double temp = 0;
+		for (int i = 0;i< arrayIn.length;++i){
+			temp+=arrayIn[i];
+		}
+		return temp;
+	}

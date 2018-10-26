@@ -1,0 +1,23 @@
+//**********************************************************
+//  drblinken_informatica-examples:chapter14.taxi_company_later_stage:Simulation:wait:int#milliseconds:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int milliseconds)
+    {
+        try
+        {
+            Thread.sleep(milliseconds);
+        } 
+        catch (InterruptedException e)
+        {
+            // ignore the exception
+        }
+    }

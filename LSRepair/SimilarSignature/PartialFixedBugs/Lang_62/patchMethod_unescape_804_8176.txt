@@ -1,0 +1,30 @@
+//**********************************************************
+//  locationtech_udig-platform:org.locationtech.udig.tutorials.shpexport:ShpExportOp:promptSaveDialog:String#typeName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape( final String typeName  ){
+        final String filename = typeName.replace(':', '_');
+        final String[] result = new String[1];
+        
+        PlatformGIS.syncInDisplayThread( new Runnable(){
+            public void run() {
+                Display display = Display.getCurrent();
+                FileDialog dialog = new FileDialog( display.getActiveShell(), SWT.SAVE );
+                
+                dialog.setFileName( filename+".shp");
+                dialog.setText("Export "+typeName );
+                dialog.setFilterExtensions( new String[]{"shp", "SHP"} );
+                result[0] = dialog.open();        
+            }
+        });
+
+        return result[0];
+    }

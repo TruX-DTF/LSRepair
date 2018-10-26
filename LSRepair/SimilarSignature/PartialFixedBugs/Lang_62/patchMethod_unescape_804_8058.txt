@@ -1,0 +1,29 @@
+//**********************************************************
+//  pgroth_hbase-rdf:nl.vu.datalayer.hbase.operations:HBasePredicateCFOperationManager:getPredicate:String#pred:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String pred) throws IOException {
+		String URI = "";
+
+		HTableInterface table = con.getTable("predicates");
+
+		Get g = new Get(Bytes.toBytes(pred));
+		Result r = table.get(g);
+
+		List<KeyValue> rawList = r.list();
+
+		for (Iterator<KeyValue> it = rawList.iterator(); it.hasNext();) {
+			KeyValue k = it.next();
+			URI = Bytes.toString(k.getValue());
+		}
+
+		return URI;
+	}

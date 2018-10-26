@@ -1,0 +1,18 @@
+//**********************************************************
+//  comitsrl_lar_361:org.compiere.model:MDocType:getPrintName:String#AD_Language:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape (String AD_Language)
+	{
+		if (AD_Language == null || AD_Language.length() == 0)
+			return super.getPrintName();
+		return get_Translation (COLUMNNAME_PrintName, AD_Language);
+	}

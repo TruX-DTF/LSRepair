@@ -1,0 +1,30 @@
+//**********************************************************
+//  asterisk-java_asterisk-java:org.asteriskjava.live.internal:AsteriskServerImpl:getGlobalVariable:String#variable:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String variable) throws ManagerCommunicationException
+    {
+        ManagerResponse response;
+        String value;
+
+        initializeIfNeeded();
+        response = sendAction(new GetVarAction(variable));
+        if (response instanceof ManagerError)
+        {
+            return null;
+        }
+        value = response.getAttribute("Value");
+        if (value == null)
+        {
+            value = response.getAttribute(variable); // for Asterisk 1.0.x
+        }
+        return value;
+    }

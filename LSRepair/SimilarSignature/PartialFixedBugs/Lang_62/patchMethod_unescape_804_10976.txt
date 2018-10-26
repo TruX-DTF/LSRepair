@@ -1,0 +1,21 @@
+//**********************************************************
+//  asascience-open_ncSOS:com.asascience.ncsos.service:BaseRequestHandler:getUrnName:String#stationName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String stationName) {
+        String[] feature_name = stationName.split(":");
+        if (feature_name.length > 1 && feature_name[0].equalsIgnoreCase("urn")) {
+            // We already have a URN, so just return it.
+            return stationName;
+        } else {
+            return STATION_URN_BASE + this.global_attributes.get("naming_authority") + ":" + stationName;
+        }
+    }

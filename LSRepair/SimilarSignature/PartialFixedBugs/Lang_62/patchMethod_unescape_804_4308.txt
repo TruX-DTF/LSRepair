@@ -1,0 +1,17 @@
+//**********************************************************
+//  MIND-Tools_sandboxes:org.ow2.mind:PathHelper:getFileName:String#path:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String path) {
+    final int i = path.lastIndexOf('/');
+    if (i == -1) return path;
+    return path.substring(i + 1);
+  }

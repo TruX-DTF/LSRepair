@@ -1,0 +1,26 @@
+//**********************************************************
+//  apache_maven-doxia:org.apache.maven.doxia.parser:XhtmlBaseParser:validAnchor:String#id:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape( String id )
+    {
+        if ( !DoxiaUtils.isValidId( id ) )
+        {
+            String linkAnchor = DoxiaUtils.encodeId( id, true );
+
+            String msg = "Modified invalid link: '" + id + "' to '" + linkAnchor + "'";
+            logMessage( "modifiedLink", msg );
+
+            return linkAnchor;
+        }
+
+        return id;
+    }

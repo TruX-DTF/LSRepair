@@ -1,0 +1,50 @@
+//**********************************************************
+//  jonabbey_Ganymede:arlut.csd.ganymede.server:JythonServerProtocol:processInput:String#input:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String input)
+  {
+    String output;
+    boolean moreInputRequired;
+
+    if (input == null)
+      {
+        // '\nHello {0}\nWelcome to the Ganymede Jython interpreter!\n\nType "quit" to exit.\n{1}'
+        return ts.l("processInput.greeting", socket.getInetAddress().getHostAddress(), prompt);
+      }
+
+    if (input.equals(ts.l("processInput.quitcommand")))
+      {
+        return doneString;
+      }
+
+    try
+      {
+        moreInputRequired = interp.push(input);
+        if (moreInputRequired)
+          {
+            return "... ";
+          }
+
+        buffer.flush();
+        output = buffer.toString();
+        interp.resetbuffer();
+        buffer.getBuffer().setLength(0);
+      }
+    catch (PyException pex)
+      {
+        output = buffer.toString() + "\n" + pex.toString();
+        interp.resetbuffer();
+        buffer.getBuffer().setLength(0);
+      }
+
+    return output + prompt;
+  }

@@ -1,0 +1,23 @@
+//**********************************************************
+//  apache_archiva:org.apache.archiva.repository.content.maven2:ArtifactExtensionMapping:getExtension:String#type:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape( String type )
+    {
+        String ext = mapping.mapTypeToExtension( type );
+
+        if ( ext == null )
+        {
+            ext = type;
+        }
+
+        return ext;
+    }

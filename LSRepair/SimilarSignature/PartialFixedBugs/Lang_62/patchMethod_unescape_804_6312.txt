@@ -1,0 +1,23 @@
+//**********************************************************
+//  d2rq_d2rq:de.fuberlin.wiwiss.d2rq.values:Pattern$URLEncodeFunction:decode:String#s:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String s) {
+			try {
+				return URLDecoder.decode(s, "utf-8");
+			} catch (UnsupportedEncodingException ex) {
+				// Can't happen, UTF-8 is always supported
+				throw new RuntimeException(ex);
+			} catch (IllegalArgumentException ex) {
+				// Broken encoding
+				return null;
+			}
+		}

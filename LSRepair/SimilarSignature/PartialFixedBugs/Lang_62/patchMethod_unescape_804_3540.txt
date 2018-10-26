@@ -1,0 +1,49 @@
+//**********************************************************
+//  adamz667_framework_base:android.media.videoeditor:OverlayFrame:save:String#path:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String path) throws FileNotFoundException, IOException {
+        if (mFilename != null) {
+            return mFilename;
+        }
+
+        // Create the compressed PNG file
+        mBitmapFileName = path + "/" + "Overlay" + getId() + ".png";
+        if (!(new File(mBitmapFileName).exists())) {
+            final FileOutputStream out = new FileOutputStream (mBitmapFileName);
+            mBitmap.compress(CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+        }
+
+        mOFWidth = mBitmap.getWidth();
+        mOFHeight = mBitmap.getHeight();
+
+        mFilename = path + "/" + "Overlay" + getId() + ".rgb";
+
+        /* resize and save rgb as per project aspect ratio */
+        MediaArtistNativeHelper nativeHelper = (super.getMediaItem()).getNativeContext();
+
+        /* get height and width for story board aspect ratio */
+        final Pair<Integer, Integer> maxResolution;
+        final Pair<Integer, Integer>[] resolutions;
+        resolutions = MediaProperties.getSupportedResolutions(nativeHelper.nativeHelperGetAspectRatio());
+
+        // Get the highest resolution
+        maxResolution = resolutions[resolutions.length - 1];
+
+        /* Generate the rgb file with rendering mode */
+        generateOverlayWithRenderingMode (super.getMediaItem(), this,
+                maxResolution.second /* max Height */ ,
+                maxResolution.first /* max Width */);
+
+        return mFilename;
+    }

@@ -1,0 +1,34 @@
+//**********************************************************
+//  resteasy_Resteasy:org.jboss.resteasy.util:Encode:encodeNonCodes:String#string:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String string)
+   {
+      Matcher matcher = nonCodes.matcher(string);
+      StringBuilder builder = new StringBuilder();
+
+
+      // FYI: we do not use the no-arg matcher.find()
+      //      coupled with matcher.appendReplacement()
+      //      because the matched text may contain
+      //      a second % and we must make sure we
+      //      encode it (if necessary).
+      int idx = 0;
+      while (matcher.find(idx))
+      {
+         int start = matcher.start();
+         builder.append(string.substring(idx, start));
+         builder.append("%25");
+         idx = start + 1;
+      }
+      builder.append(string.substring(idx));
+      return builder.toString();
+   }

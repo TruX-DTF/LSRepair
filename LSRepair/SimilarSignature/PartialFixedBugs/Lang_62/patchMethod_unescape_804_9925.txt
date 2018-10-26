@@ -1,0 +1,57 @@
+//**********************************************************
+//  apache_poi:org.apache.poi.hwpf.usermodel:Range:stripFields:String#text:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String text) {
+		// First up, fields can be nested...
+		// A field can be 0x13 [contents] 0x15
+		// Or it can be 0x13 [contents] 0x14 [real text] 0x15
+
+		// If there are no fields, all easy
+		if (text.indexOf('\u0013') == -1)
+			return text;
+
+		// Loop over until they're all gone
+		// That's when we're out of both 0x13s and 0x15s
+		while (text.indexOf('\u0013') > -1 && text.indexOf('\u0015') > -1) {
+			int first13 = text.indexOf('\u0013');
+			int next13 = text.indexOf('\u0013', first13 + 1);
+			int first14 = text.indexOf('\u0014', first13 + 1);
+			int last15 = text.lastIndexOf('\u0015');
+
+			// If they're the wrong way around, give up
+			if (last15 < first13) {
+				break;
+			}
+
+			// If no more 13s and 14s, just zap
+			if (next13 == -1 && first14 == -1) {
+				text = text.substring(0, first13) + text.substring(last15 + 1);
+				break;
+			}
+
+			// If a 14 comes before the next 13, then
+			// zap from the 13 to the 14, and remove
+			// the 15
+			if (first14 != -1 && (first14 < next13 || next13 == -1)) {
+				text = text.substring(0, first13) + text.substring(first14 + 1, last15)
+						+ text.substring(last15 + 1);
+				continue;
+			}
+
+			// Another 13 comes before the next 14.
+			// This means there's nested stuff, so we
+			// can just zap the lot
+			text = text.substring(0, first13) + text.substring(last15 + 1);
+		}
+
+		return text;
+	}

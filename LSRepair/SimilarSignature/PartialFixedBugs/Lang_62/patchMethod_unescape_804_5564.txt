@@ -1,0 +1,26 @@
+//**********************************************************
+//  ewcmsfree_component:com.ewcms.component.util:RegexUtil:FilterScriptAndStyle:String#content:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String content){
+		if (content == null) return null;
+		if (content.isEmpty()) return "";
+		
+		Pattern p_script = Pattern.compile(REGEX_SCRIPT, Pattern.CASE_INSENSITIVE);
+		Matcher m_script = p_script.matcher(content);
+		content = m_script.replaceAll("");
+		
+		Pattern p_style = Pattern.compile(REGEX_STYLE, Pattern.CASE_INSENSITIVE);
+		Matcher m_style = p_style.matcher(content);
+		content = m_style.replaceAll("");
+		
+		return content;
+	}

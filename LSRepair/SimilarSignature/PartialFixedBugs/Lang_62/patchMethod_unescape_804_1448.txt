@@ -1,0 +1,29 @@
+//**********************************************************
+//  radargun_radargun:org.radargun.config:SchemaGenerator:requireImport:String#namespace:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String namespace) {
+      String shortNs = importedNamespaces.get(namespace);
+      if (shortNs != null) return shortNs;
+      String jarMajorMinor = NamespaceHelper.getJarMajorMinor(namespace);
+      if (jarMajorMinor == null) {
+         throw new IllegalStateException("Unknown jar for " + namespace);
+      }
+      shortNs = jarMajorMinor.replaceAll("[^a-zA-Z]", "");
+      if (shortNs.startsWith("radargun")) {
+         shortNs = shortNs.substring(8);
+      }
+      shortNs = String.format("%s%02d", shortNs, nsCounter++);
+      addImport(namespace, jarMajorMinor + ".xsd", shortNs);
+      String shortNsWithColon = shortNs + ':';
+      importedNamespaces.put(namespace, shortNsWithColon);
+      return shortNsWithColon;
+   }

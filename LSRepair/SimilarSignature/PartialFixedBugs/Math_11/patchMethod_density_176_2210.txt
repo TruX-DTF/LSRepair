@@ -1,0 +1,8 @@
+//**********************************************************
+//  societies_SOCIETIES-Platform:org.societies.privacytrust.trust.api.util:MathUtils:min:double[]#input:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] input) {
+		
+		return StatUtils.min(input);
+	}

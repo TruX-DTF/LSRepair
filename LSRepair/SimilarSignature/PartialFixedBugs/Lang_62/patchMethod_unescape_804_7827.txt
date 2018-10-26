@@ -1,0 +1,25 @@
+//**********************************************************
+//  lveci_nest:org.esa.beam.dataio.dimap:DimapProductHelpers:convertBeamUnitToDimapUnit:String#unit:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String unit) {
+        final String unitLowerCase = unit.toLowerCase();
+        if (unitLowerCase.startsWith("meter")) {
+            return "M";
+        } else if (unitLowerCase.startsWith("kilometer")) {
+            return "KM";
+        } else if (unitLowerCase.startsWith("deg")) {
+            return "DEG";
+        } else if (unitLowerCase.startsWith("rad")) {
+            return "RAD";
+        }
+        return unitLowerCase;
+    }

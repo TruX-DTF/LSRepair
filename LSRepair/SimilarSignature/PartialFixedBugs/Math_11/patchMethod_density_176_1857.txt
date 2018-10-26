@@ -1,0 +1,11 @@
+//**********************************************************
+//  apavlo_h-store:edu.brown.utils:MathUtil:arithmeticMean:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(final double[] values) {
+        double sum = 0.0d;
+        for (double v : values) {
+            sum += v;
+        }
+        return sum / (double) values.length;
+    }

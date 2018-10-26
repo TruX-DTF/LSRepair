@@ -1,0 +1,19 @@
+//**********************************************************
+//  ParanoidAndroid_android_frameworks_base:com.android.tools.layoutlib.create:RenameClassAdapter:renameTypeDesc:String#desc:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String desc) {
+        if (desc == null) {
+            return null;
+        }
+
+        return renameType(Type.getType(desc));
+    }

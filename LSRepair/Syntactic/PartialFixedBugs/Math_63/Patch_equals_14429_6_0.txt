@@ -1,0 +1,8 @@
+//**********************************************************
+//  Math_63#org/apache/commons/math/util/MathUtils.java#equals#boolean#double#double
+//**********************************************************
+===Buggy Code===
+return (Double.isNaN(x) && Double.isNaN(y)) || x == y;
+===Patch Code===
+jprante_elasticsearch-index-termlist:org.xbib.elasticsearch.common.termlist.math:Precision:equalsIncludingNaN:double#x#double#y:boolean
+return (Double.isNaN(x) && Double.isNaN(y)) || equals(x, y, 1);

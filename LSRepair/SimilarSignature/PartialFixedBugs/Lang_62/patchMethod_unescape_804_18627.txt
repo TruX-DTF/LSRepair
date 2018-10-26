@@ -1,0 +1,35 @@
+//**********************************************************
+//  ParanoidAndroid_android_frameworks_base:android.emoji:EmojiFactory:getAndroidPuaFromVendorSpecificPua:String#vspString:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String vspString) {
+        if (vspString == null) {
+            return null;
+        }
+        int minVsp = nativeGetMinimumVendorSpecificPua(mNativeEmojiFactory);
+        int maxVsp = nativeGetMaximumVendorSpecificPua(mNativeEmojiFactory);
+        int len = vspString.length();
+        int[] codePoints = new int[vspString.codePointCount(0, len)];
+
+        int new_len = 0;
+        for (int i = 0; i < len; i = vspString.offsetByCodePoints(i, 1), new_len++) {
+            int codePoint = vspString.codePointAt(i);
+            if (minVsp <= codePoint && codePoint <= maxVsp) {
+                int newCodePoint = getAndroidPuaFromVendorSpecificPua(codePoint);
+                if (newCodePoint > 0) {
+                    codePoints[new_len] = newCodePoint;
+                    continue;
+                }
+            }
+            codePoints[new_len] = codePoint;
+        }
+        return new String(codePoints, 0, new_len);
+    }

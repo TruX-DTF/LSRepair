@@ -1,0 +1,10 @@
+//**********************************************************
+//  davemckain_qtiworks:uk.ac.ed.ph.jqtiplus.node.expression.operator.math:StatsFunctions:sampleVariance:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] values) {
+        if (values.length < 2) {
+            return Double.NaN;
+        }
+        return sumSquaresOfDifferencesFromMean(values) / (values.length - 1);
+    }

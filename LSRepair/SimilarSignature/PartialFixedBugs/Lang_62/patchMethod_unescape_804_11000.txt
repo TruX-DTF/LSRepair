@@ -1,0 +1,43 @@
+//**********************************************************
+//  apache_archiva:org.apache.archiva.rest.services:DefaultCommonServices:getAllI18nResources:String#locale:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape( String locale )
+        throws ArchivaRestServiceException
+    {
+
+        String cachedi18n = cachei18n.get( StringUtils.isEmpty( locale ) ? "en" : StringUtils.lowerCase( locale ) );
+        if ( cachedi18n != null )
+        {
+            return cachedi18n;
+        }
+
+        try
+        {
+
+            Properties all = utilServices.getI18nProperties( locale );
+            StringBuilder resourceName = new StringBuilder( RESOURCE_NAME );
+            loadResource( all, resourceName, locale );
+
+            String i18n = fromProperties( all );
+            cachei18n.put( StringUtils.isEmpty( locale ) ? "en" : StringUtils.lowerCase( locale ), i18n );
+            return i18n;
+        }
+        catch ( IOException e )
+        {
+            throw new ArchivaRestServiceException( e.getMessage(),
+                                                   Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e );
+        }
+        catch ( RedbackServiceException e )
+        {
+            throw new ArchivaRestServiceException( e.getMessage(), e.getHttpErrorCode(), e );
+        }
+    }

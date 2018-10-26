@@ -1,0 +1,28 @@
+//**********************************************************
+//  idega_com.idega.builder:com.idega.builder.business:PageUrl:getStringCheckedWithExistingUrls:String#inputUrl:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String inputUrl){
+		//check the url:
+		int index=1;
+		String url=inputUrl;
+		while(doesUrlExist(url)){
+			//ad a number to the end
+			if(inputUrl.endsWith(this.SLASH)){
+				url=inputUrl.substring(0,inputUrl.length()-1)+index+this.SLASH;
+			}
+			else{
+				url=inputUrl+index+this.SLASH;
+			}
+			index++;
+		}
+		return url;
+	}

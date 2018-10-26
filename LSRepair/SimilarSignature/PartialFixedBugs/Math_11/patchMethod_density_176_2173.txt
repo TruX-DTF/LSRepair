@@ -1,0 +1,7 @@
+//**********************************************************
+//  apache_poi:org.apache.poi.ss.formula.functions:Irr:irr:double[]#income:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] income) {
+        return irr(income, 0.1d);
+    }

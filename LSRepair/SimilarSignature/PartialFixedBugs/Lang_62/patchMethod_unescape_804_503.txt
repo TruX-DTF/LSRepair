@@ -1,0 +1,33 @@
+//**********************************************************
+//  alkacon_opencms-core:org.opencms.file.wrapper:CmsObjectWrapper:restoreLink:String#path:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String path) {
+
+        if ((path != null) && (path.startsWith("#"))) {
+            return path;
+        }
+
+        String ret = null;
+
+        // iterate through all wrappers and call "restoreLink" till one does not return null
+        List<I_CmsResourceWrapper> wrappers = getWrappers();
+        Iterator<I_CmsResourceWrapper> iter = wrappers.iterator();
+        while (iter.hasNext()) {
+            I_CmsResourceWrapper wrapper = iter.next();
+            ret = wrapper.restoreLink(m_cms, m_cms.getRequestContext().removeSiteRoot(path));
+            if (ret != null) {
+                return ret;
+            }
+        }
+
+        return path;
+    }

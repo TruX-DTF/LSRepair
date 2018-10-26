@@ -1,0 +1,22 @@
+//**********************************************************
+//  dana-i2cat_opennaas:org.opennaas.extensions.roadm.wonesys.actionsets.actions:WonesysAction:convertLittleBigEndian:String#value:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String value) {
+
+		StringBuilder builder = new StringBuilder();
+
+		int totalBytes = value.length() / 2;
+		for (int i = totalBytes; i > 0; i--) {
+			builder.append(value.substring(i * 2 - 2, i * 2));
+		}
+		return builder.toString();
+	}

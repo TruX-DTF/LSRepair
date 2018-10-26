@@ -1,0 +1,18 @@
+//**********************************************************
+//  sanger-pathogens_crawl2:org.genedb.crawl.bam:BioDataFileStore:getAlignmentFromName:String#sequenceName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String sequenceName) {
+		if (sequences.containsKey(sequenceName)) {
+			return sequences.get(sequenceName);
+		}
+		return sequenceName;
+	}

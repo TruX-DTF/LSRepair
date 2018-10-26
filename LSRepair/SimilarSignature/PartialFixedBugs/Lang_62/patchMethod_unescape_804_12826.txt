@@ -1,0 +1,23 @@
+//**********************************************************
+//  changshan_struts:org.apache.struts2.views.util:UrlHelper:translateAndDecode:String#input:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String input) {
+        String translatedInput = translateVariable(input);
+        String encoding = getEncodingFromConfiguration();
+
+        try {
+            return URLDecoder.decode(translatedInput, encoding);
+        } catch (UnsupportedEncodingException e) {
+            LOG.warn("Could not encode URL parameter '" + input + "', returning value un-encoded");
+            return translatedInput;
+        }
+    }

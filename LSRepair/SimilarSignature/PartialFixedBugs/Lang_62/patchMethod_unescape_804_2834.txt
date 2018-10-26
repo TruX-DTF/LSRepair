@@ -1,0 +1,21 @@
+//**********************************************************
+//  lijunsong_lazy-allocation-in-java-compiler:com.sun.tools.doclets.internal.toolkit.util:Group:regExpGroupName:String#pkgName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String pkgName) {
+        for (int j = 0; j < sortedRegExpList.size(); j++) {
+            String regexp = sortedRegExpList.get(j);
+            if (pkgName.startsWith(regexp)) {
+                return regExpGroupMap.get(regexp);
+            }
+        }
+        return null;
+    }

@@ -1,0 +1,30 @@
+//**********************************************************
+//  akraievoy_elw:elw.web:FormatTool:esc:String#str:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String str) {
+        if (str == null || str.length() == 0) {
+            return "";
+        }
+
+        final StringBuilder res = new StringBuilder();
+        for (int pos = 0; pos < str.length(); pos++) {
+            final char strChr = str.charAt(pos);
+            final int chrIdx = escSearches.indexOf(strChr);
+            if (chrIdx < 0) {
+                res.append(strChr);
+            } else {
+                res.append(escReplaces[chrIdx]);
+            }
+        }
+
+        return res.toString();
+    }

@@ -1,0 +1,8 @@
+//**********************************************************
+//  apache_commons-math:org.apache.commons.math4.optim.nonlinear.scalar:MultivariateOptimizer:computeObjectiveValue:double[]#params:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] params) {
+        super.incrementEvaluationCount();
+        return function.value(params);
+    }

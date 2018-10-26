@@ -1,0 +1,32 @@
+//**********************************************************
+//  DevBoost_EMFText:org.antlr:Tool:getLibraryFile:String#fileName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String fileName) throws IOException {
+
+        // First, see if we can find the file in the library directory
+        //
+        File f = new File(getLibraryDirectory() + File.separator + fileName);
+
+        if (f.exists()) {
+
+            // Found in the library directory
+            //
+            return f.getAbsolutePath();
+        }
+
+        // Need to assume it is in the same location as the input file. Note that
+        // this is only relevant for external build tools and when the input grammar
+        // was specified relative to the source directory (working directory if using
+        // the command line.
+        //
+        return parentGrammarDirectory + File.separator + fileName;
+    }

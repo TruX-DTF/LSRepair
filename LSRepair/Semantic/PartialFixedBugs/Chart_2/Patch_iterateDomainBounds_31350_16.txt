@@ -1,0 +1,18 @@
+//**********************************************************
+//  Chart_2#org/jfree/data/general/DatasetUtilities.java#iterateDomainBounds#Range#XYDataset#boolean
+//**********************************************************
+===Buggy Code===
+if (minimum > maximum) {
+            return null;
+        }
+        else {
+            return new Range(minimum, maximum);
+        }
+===Patch Code===
+com.android.internal.widget.ScrollBarUtils.java
+if (minimum < maximum) {
+            return null;
+        }
+        else {
+            return new Range(minimum, maximum);
+        }

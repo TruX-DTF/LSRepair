@@ -1,0 +1,25 @@
+//**********************************************************
+//  collectionspace_services:org.collectionspace.services.account.storage:TenantJpaFilter:checkOrderDirValue:String#input:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String input) {
+    	String returnVal = JPA_ASC;	// This is the default
+        if (null != input && !input.isEmpty()) {
+        	if(Q_DESC.equalsIgnoreCase(input)) {
+        		returnVal = JPA_DESC;
+        	/* Effect of default is same, so skip this
+        	} else if(Q_ASC.equalsIgnoreCase(input)) {
+        		returnVal = JPA_ASC;
+        	*/
+        	}
+        }
+    	return returnVal;
+    }

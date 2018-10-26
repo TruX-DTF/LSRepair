@@ -1,0 +1,41 @@
+//**********************************************************
+//  joechen2010_ProjectModel:cn.jcenterhome.dao:DataBaseDaoImpl:mysqlEscapeString:String#text:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String text) {
+		StringBuffer sb = new StringBuffer(text.length() * 2);
+		StringCharacterIterator iterator = new StringCharacterIterator(text);
+		char character = iterator.current();
+		while (character != StringCharacterIterator.DONE) {
+			switch (character) {
+				case '"':
+					sb.append("\\\"");
+					break;
+				case '\'':
+					sb.append("\\\'");
+					break;
+				case '\\':
+					sb.append("\\\\");
+					break;
+				case '\r':
+					sb.append("\\r");
+					break;
+				case '\n':
+					sb.append("\\n");
+					break;
+				default:
+					sb.append(character);
+					break;
+			}
+			character = iterator.next();
+		}
+		return sb.toString();
+	}

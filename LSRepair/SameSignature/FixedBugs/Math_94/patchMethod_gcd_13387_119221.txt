@@ -1,0 +1,36 @@
+//**********************************************************
+//  MyAOSP_frameworks_base:android.util:Rational:gcd:int#numerator#int#denominator:int
+//**********************************************************
+/**
+     * <p>
+     * Gets the greatest common divisor of the absolute value of two numbers,
+     * using the "binary gcd" method which avoids division and modulo
+     * operations. See Knuth 4.5.2 algorithm B. This algorithm is due to Josef
+     * Stein (1961).
+     * </p>
+     * 
+     * @param u a non-zero number
+     * @param v a non-zero number
+     * @return the greatest common divisor, never zero
+     * @since 1.1
+     */
+    public static int gcd(int numerator, int denominator) {
+        /*
+         * Non-recursive implementation of Euclid's algorithm:
+         *
+         *  gcd(a, 0) := a
+         *  gcd(a, b) := gcd(b, a mod b)
+         *
+         */
+        int a = numerator;
+        int b = denominator;
+
+        while (b != 0) {
+            int oldB = b;
+
+            b = a % b;
+            a = oldB;
+        }
+
+        return Math.abs(a);
+    }

@@ -1,0 +1,46 @@
+//**********************************************************
+//  joechen2010_ProjectModel:cn.jcenterhome.util:Common:nl2br:String#text:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String text) {
+		if (text == null || text.length() == 0) {
+			return text;
+		}
+		StringBuffer sb = new StringBuffer(text.length() * 2);
+		StringCharacterIterator iterator = new StringCharacterIterator(text);
+		char character = iterator.current();
+		while (character != StringCharacterIterator.DONE) {
+			switch (character) {
+				case '\r':
+					sb.append("<br/>");
+					sb.append(character);
+					character = iterator.next();
+					if (character == '\n') {
+						character = iterator.next();
+					}
+					break;
+				case '\n':
+					sb.append("<br/>");
+					sb.append(character);
+					character = iterator.next();
+					if (character == '\r') {
+						sb.append(character);
+						character = iterator.next();
+					}
+					break;
+				default:
+					sb.append(character);
+					character = iterator.next();
+					break;
+			}
+		}
+		return sb.toString();
+	}

@@ -1,0 +1,48 @@
+//**********************************************************
+//  getrailo_railo:railo.commons.io.res.type.ftp:FTPConnectionData:load:String#path:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String path) {
+		username="";
+		password="";
+		host=null;
+		port=21;
+		// TODO impl proxy
+		
+		int atIndex=path.indexOf('@');
+		int slashIndex=path.indexOf('/');
+		if(slashIndex==-1){
+			slashIndex=path.length();
+			path+="/";
+		}
+		int index;
+		
+		// username/password
+		if(atIndex!=-1) {
+			index=path.indexOf(':');
+			if(index!=-1 && index<atIndex) {
+				username=path.substring(0,index);
+				password=path.substring(index+1,atIndex);
+			}
+			else username=path.substring(0,atIndex);
+		}
+		// host port
+		if(slashIndex>atIndex+1) {
+			index=path.indexOf(':',atIndex+1);
+			if(index!=-1 && index>atIndex && index<slashIndex) {
+				host=path.substring(atIndex+1,index);
+				port=Integer.parseInt(path.substring(index+1,slashIndex));
+			}
+			else host=path.substring(atIndex+1,slashIndex);
+		}
+		//if(slashIndex==-1)return "/";
+		return path.substring(slashIndex);
+	}

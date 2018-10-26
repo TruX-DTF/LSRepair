@@ -1,0 +1,74 @@
+//**********************************************************
+//  winterstein_Eclipse-Markdown-Editor-Plugin:winterwell.markdown:StringMethods:format3_oneParagraph:String#p#int#lineWidth#int#tabWidth#String#respectLeadingCharacters:String
+//**********************************************************
+/**
+     * Abbreviates a string nicely.
+     * 
+     * This method searches for the first space after the lower limit and abbreviates
+     * the String there. It will also append any String passed as a parameter
+     * to the end of the String. The upper limit can be specified to forcibly
+     * abbreviate a String.
+     * 
+     * @param str         the string to be abbreviated. If null is passed, null is returned.
+     *                    If the empty String is passed, the empty string is returned.
+     * @param lower       the lower limit.
+     * @param upper       the upper limit; specify -1 if no limit is desired.
+     *                    If the upper limit is lower than the lower limit, it will be
+     *                    adjusted to be the same as the lower limit.
+     * @param appendToEnd String to be appended to the end of the abbreviated string.
+     *                    This is appended ONLY if the string was indeed abbreviated.
+     *                    The append does not count towards the lower or upper limits.
+     * @return the abbreviated String.
+     * @since 2.4
+     */
+    public static String abbreviate(String p, int lineWidth,
+			int tabWidth, String respectLeadingCharacters) {
+		// Collect the reformatted paragraph
+		StringBuilder sb = new StringBuilder(p.length() + 10); // Allow for
+																// some extra
+																// line-breaks
+		// Get respected leading chars
+		String leadingChars = format4_getLeadingChars(p,
+				respectLeadingCharacters);
+		// First Line
+		sb.append(leadingChars);
+		int lineLength = leadingChars.length();
+		int index = leadingChars.length();
+		// Loop
+		while (index < p.length()) {
+			// Get the next word
+			StringBuilder word = new StringBuilder();
+			char c = p.charAt(index);
+			index++;
+			while (!Character.isWhitespace(c)) {
+				word.append(c);
+				if (index == p.length())
+					break;
+				c = p.charAt(index);
+				index++;
+			}
+			// Break the line if the word will not fit
+			if (lineLength + word.length() > lineWidth && lineLength != 0) {
+				trimEnd(sb);
+				sb.append('\n'); // lineEnd(sb);
+				// New line
+				sb.append(leadingChars);
+				lineLength = leadingChars.length();
+			}
+			// Add word
+			sb.append(word);
+			lineLength += word.length();
+			// Add the whitespace
+			if (index != p.length() && lineLength < lineWidth) {
+				if (c == '\n') {
+					c = ' ';
+				}
+				sb.append(c);
+				lineLength += (c == '\t') ? tabWidth : 1;
+			}
+		}
+		// A final trim
+		trimEnd(sb);
+		// Done
+		return sb.toString();
+	}

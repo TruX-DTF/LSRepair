@@ -1,0 +1,13 @@
+//**********************************************************
+//  eclipse_swtbot:org.eclipse.swtbot.eclipse.gef.finder.widgets:SWTBotGefContextMenu:hasStyle:int#style#int#flag:boolean
+//**********************************************************
+/**
+     * Flip qd array if warranted.
+     * @param n number of rows in the block
+     * @param step within the array (1 for flipping all elements, 2 for flipping
+     * only every other element)
+     * @return true if qd array was flipped
+     */
+    private boolean flipIfWarranted(int style, int flag) {
+		return (style & flag) == flag;
+	}

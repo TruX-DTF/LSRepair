@@ -1,0 +1,11 @@
+//**********************************************************
+//  biojava_biojava:org.biojava.nbio.structure.symmetry.core:RotationGroup:minScores:double[]#scores:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] scores) {
+		double score = Double.MAX_VALUE;
+		for (double s: scores) {
+			score = Math.min(score, s);
+		}
+		return score;
+	}

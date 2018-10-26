@@ -1,0 +1,11 @@
+//**********************************************************
+//  apache_commons-math:org.apache.commons.math4.analysis.interpolation:MicrosphereProjectionInterpolator:value:double[]#point:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] point) {
+                return m.value(point,
+                               xval,
+                               yval,
+                               exponent,
+                               noInterpolationTolerance);
+            }

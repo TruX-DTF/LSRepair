@@ -1,0 +1,34 @@
+//**********************************************************
+//  scalagwt_scalagwt-gwt:java.util:Arrays:equals:double[]#array1#double[]#array2:boolean
+//**********************************************************
+/**
+     * Returns true iff both arguments are null or have same dimensions and all
+     * their elements are equal as defined by
+     * {@link #equals(double,double) this method}.
+     *
+     * @param x first array
+     * @param y second array
+     * @return true if the values are both null or have same dimension
+     * and equal elements.
+     */
+    public static boolean equals(double[] array1, double[] array2) {
+    if (array1 == array2) {
+      return true;
+    }
+
+    if (array1 == null || array2 == null) {
+      return false;
+    }
+
+    if (array1.length != array2.length) {
+      return false;
+    }
+
+    for (int i = 0; i < array1.length; ++i) {
+      if (array1[i] != array2[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }

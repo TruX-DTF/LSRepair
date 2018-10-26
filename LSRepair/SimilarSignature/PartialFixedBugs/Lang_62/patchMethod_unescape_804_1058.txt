@@ -1,0 +1,28 @@
+//**********************************************************
+//  davros-_platform_frameworks_base:com.android.server.pm:PackageManagerService:nextPackageToClean:String#lastPackage:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String lastPackage) {
+        // writer
+        synchronized (mPackages) {
+            if (!isExternalMediaAvailable()) {
+                // If the external storage is no longer mounted at this point,
+                // the caller may not have been able to delete all of this
+                // packages files and can not delete any more.  Bail.
+                return null;
+            }
+            if (lastPackage != null) {
+                mSettings.mPackagesToBeCleaned.remove(lastPackage);
+            }
+            return mSettings.mPackagesToBeCleaned.size() > 0
+                    ? mSettings.mPackagesToBeCleaned.get(0) : null;
+        }
+    }

@@ -1,0 +1,61 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.ant.bnd.npm:NpmAnalyzerPlugin:getNpmVersionFilter:String#version:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String version) {
+		StringBuilder sb = new StringBuilder();
+
+		String[] comparatorSets = version.split("\\|\\|");
+
+		// Comparator sets are OR'd together
+
+		if (comparatorSets.length > 1) {
+			sb.append("(|");
+		}
+
+		for (String comparatorSet : comparatorSets) {
+			comparatorSet = comparatorSet.trim();
+
+			if ((comparatorSet.length() == 0) || comparatorSet.equals("*")) {
+				comparatorSet = ">=0";
+			}
+
+			Matcher inclusiveMatcher = _versionInclusiveRangePattern.matcher(
+				comparatorSet);
+			Matcher rangeMatcher = _versionRangePattern.matcher(comparatorSet);
+			Matcher prefixRangeMatcher = _versionPrefixRangePattern.matcher(
+				comparatorSet);
+			Matcher versionMatcher = _versionNamedPattern.matcher(
+				comparatorSet);
+
+			if (inclusiveMatcher.matches()) {
+				appendInclusive(
+					sb, inclusiveMatcher.group(1), inclusiveMatcher.group(9));
+			}
+			else if (rangeMatcher.matches()) {
+				appendRange(sb, rangeMatcher.group(1), rangeMatcher.group(11));
+			}
+			else if (prefixRangeMatcher.matches()) {
+				appendPrefixRange(
+					sb, prefixRangeMatcher.group(1),
+					prefixRangeMatcher.group(2));
+			}
+			else if (versionMatcher.matches()) {
+				appendVersion(sb, versionMatcher);
+			}
+		}
+
+		if (comparatorSets.length > 1) {
+			sb.append(")");
+		}
+
+		return sb.toString();
+	}

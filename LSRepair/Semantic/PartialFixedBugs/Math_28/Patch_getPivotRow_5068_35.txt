@@ -1,0 +1,12 @@
+//**********************************************************
+//  Math_28#org/apache/commons/math3/optimization/linear/SimplexSolver.java#getPivotRow#Integer#SimplexTableau#int
+//**********************************************************
+===Buggy Code===
+if (Precision.equals(entry, 1d, maxUlps) && row.equals(tableau.getBasicRow(column))) {
+                            return row;
+                        }
+===Patch Code===
+com.github.wwadge.hbnpojogen.RelationItem.java
+if (!(Precision.equals(entry, 1d, maxUlps) && row.equals(tableau.getBasicRow(column)))) {
+                            return row;
+                        }

@@ -1,0 +1,16 @@
+//**********************************************************
+//  jaysensharma_MiddlewareMagicDemos:com.middlewaremagic:HelloWorld_Impl:sayHello:String#name:java.lang.String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String name) {
+        System.out.println("\n\t [HelloWorld_Impl] sayHello("+name+") invoked.");
+        return "Hello World !!! Mr. "+ name + " at " + new java.util.Date();
+    }

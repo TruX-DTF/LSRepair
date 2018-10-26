@@ -1,0 +1,36 @@
+//**********************************************************
+//  ymasory_iText-4.2.0:com.lowagie.text:Utilities:unEscapeURL:String#src:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String src) {
+	    StringBuffer bf = new StringBuffer();
+	    char[] s = src.toCharArray();
+	    for (int k = 0; k < s.length; ++k) {
+	        char c = s[k];
+	        if (c == '%') {
+	            if (k + 2 >= s.length) {
+	                bf.append(c);
+	                continue;
+	            }
+	            int a0 = PRTokeniser.getHex(s[k + 1]);
+	            int a1 = PRTokeniser.getHex(s[k + 2]);
+	            if (a0 < 0 || a1 < 0) {
+	                bf.append(c);
+	                continue;
+	            }
+	            bf.append((char)(a0 * 16 + a1));
+	            k += 2;
+	        }
+	        else
+	            bf.append(c);
+	    }
+	    return bf.toString();
+	}

@@ -1,0 +1,15 @@
+//**********************************************************
+//  barrykn_android_frameworks_base-cm72-bkndh1:com.android.commands.bmgr:Bmgr$RestoreObserver:restoreStarting:int#numPackages:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int numPackages) {
+            System.out.println("restoreStarting: " + numPackages + " packages");
+        }

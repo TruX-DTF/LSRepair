@@ -1,0 +1,9 @@
+//**********************************************************
+//  tonyabra_CSC-431---Final-Project:tonyabra_CSC-431---Final-Project.CSC-431---Final-Project:Numeric:norm:double[]#list:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] list) {
+        double[] copy = (double[])list.clone();
+        Arrays.sort(copy);
+        return copy[copy.length-1];
+      }

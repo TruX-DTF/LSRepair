@@ -1,0 +1,39 @@
+//**********************************************************
+//  damirkusar_jsip:gov.nist.javax.sdp.parser:EmailFieldParser:getDisplayName:String#rest:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String rest) {
+		String retval = null;
+
+		try {
+			int begin = rest.indexOf("(");
+			int end = rest.indexOf(")");
+
+			if (begin != -1) {
+				// e=mjh@isi.edu (Mark Handley)
+				retval = rest.substring(begin + 1, end);
+			} else {
+				// The alternative RFC822 name quoting convention 
+				// is also allowed for
+				// email addresses. ex: e=Mark Handley <mjh@isi.edu>
+				int ind = rest.indexOf("<");
+				if (ind != -1) {
+					retval = rest.substring(0, ind);
+				} else {
+					// There is no display name !!!
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return retval;
+	}

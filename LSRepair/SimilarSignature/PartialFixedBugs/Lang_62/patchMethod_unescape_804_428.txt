@@ -1,0 +1,21 @@
+//**********************************************************
+//  alkacon_opencms-core:org.opencms.security:CmsPersistentLoginTokenHandler$Token:decodeName:String#nameHex:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String nameHex) {
+
+            try {
+                return new String(Hex.decodeHex(nameHex.toCharArray()), "UTF-8");
+            } catch (Exception e) {
+                LOG.warn(e.getLocalizedMessage(), e);
+                return null;
+            }
+        }

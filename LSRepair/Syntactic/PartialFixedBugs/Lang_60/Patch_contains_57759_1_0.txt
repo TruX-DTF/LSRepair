@@ -1,0 +1,9 @@
+//**********************************************************
+//  Lang_60#org/apache/commons/lang/text/StrBuilder.java#contains#boolean#char
+//**********************************************************
+===Buggy Code===
+char[] boundaryChars = { ' ', '.', ',', '\"', '\'', '\n', '\t', ':',
+				'!', '\'' };
+===Patch Code===
+shaubert_android-dirty-wall:org.apache.commons.lang3.text:StrBuilder:contains:char#ch:boolean
+char[] boundaryChars = buffer;

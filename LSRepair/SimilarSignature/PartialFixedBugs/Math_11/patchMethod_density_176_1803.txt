@@ -1,0 +1,13 @@
+//**********************************************************
+//  aborg0_rapidminer-vega:com.rapidminer.operator.generator:TriangularFunction:calculate:double[]#args:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] args) throws FunctionException {
+		if (args.length != 1)
+			throw new FunctionException("Triangular function", "needs 1 attributes!");
+		// double a = 100.0d;
+		// double b = 5.0d;
+		// return a * (4.0d * Math.abs(Math.atan(Math.tan((args[0]/ b + 1.0d
+		// / 4.0d) * Math.PI)) / Math.PI) - 1.0d);
+		return args[0] - (int) args[0];
+	}

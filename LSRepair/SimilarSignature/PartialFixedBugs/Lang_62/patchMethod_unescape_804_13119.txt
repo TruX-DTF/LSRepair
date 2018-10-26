@@ -1,0 +1,40 @@
+//**********************************************************
+//  DawnScience_dawn-isencia:com.isencia.passerelle.actor.gui:PasserelleQuery:getStringValue:String#name:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String name) throws NoSuchElementException, IllegalArgumentException {
+		Object result = _entries.get(name);
+		if (result == null) {
+			throw new NoSuchElementException("No item named \"" + name + " \" in the query box.");
+		}
+		if (result instanceof QueryDatePicker) {
+			String res = ((QueryDatePicker) result).getDateTimeAsString();
+			if (logger.isDebugEnabled())
+				logger.debug(((QueryDatePicker) result).getName() + " has value " + res);
+			return res;
+		} else if (result instanceof ParameterGroupButton) {
+			return "";
+		} else if (result instanceof QueryFileChooser) {
+			return ((QueryFileChooser) result).getSelectedFileName();
+		} else {
+			try {
+				return super.getStringValue(name);
+			} catch (IllegalArgumentException e) {
+				// This can happen when the entry is a password field
+				// for some reason the Ptolemy guys think they need to build
+				// a hyper-secure UI...
+				// Although they will naturally store the password
+				// in clear text in the .moml file anyway ;-)
+				char[] value = super.getCharArrayValue(name);
+				return new String(value);
+			}
+		}
+	}

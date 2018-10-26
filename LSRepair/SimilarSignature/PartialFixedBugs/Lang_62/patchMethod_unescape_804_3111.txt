@@ -1,0 +1,29 @@
+//**********************************************************
+//  itstamen_rop:com.rop.security:FileBaseAppSecretManager:getSecret:String#appKey:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String appKey) {
+        if (properties == null) {
+            try {
+                DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
+                Resource resource = resourceLoader.getResource(appSecretFile);
+                properties =   PropertiesLoaderUtils.loadProperties(resource);
+            } catch (IOException e) {
+                throw new RopException("????????????????????????rop.appSecret.properties??????????????????????????????", e);
+            }
+        }
+        String secret = properties.getProperty(appKey);
+
+        if (secret == null) {
+            logger.error("?????????????????????{0}?????????,???????????????????????????????????????", appKey);
+        }
+        return secret;
+    }

@@ -1,0 +1,51 @@
+//**********************************************************
+//  smidget_Network-Inference-Workspace:edu.duke.cs.banjo.utility:StringUtil:compileMemoryInfo:String#_info:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape( final String _info ) {
+        
+        StringBuffer memoryInfo = new StringBuffer();
+        long maxMem;
+        long totalMem;
+        long freeMem;
+
+        Runtime.getRuntime().gc();
+
+        totalMem = Runtime.getRuntime().totalMemory();
+        freeMem = Runtime.getRuntime().freeMemory();
+        maxMem = Runtime.getRuntime().maxMemory();
+
+        if ( _info != null && !_info.equals("") ) {
+
+            memoryInfo.append( _info );
+            memoryInfo.append( BANJO.FEEDBACK_SPACE );
+        }
+        
+        memoryInfo.append( "Banjo is using " + (totalMem - freeMem)/(1024*1024) + 
+                " mb of memory" );
+        
+        // Omit: not that useful
+//        memoryInfo.append( BANJO.FEEDBACK_NEWLINE );
+//        memoryInfo.append( "     " + totalMem/(1024*1024) + " mb " +
+//                "is the total amount of memory actually in use by Banjo." );
+//        
+//        memoryInfo.append( BANJO.FEEDBACK_NEWLINE );
+//        memoryInfo.append( "     " + freeMem/(1024*1024) + " mb " +
+//        		"is the size of the memory currently made available to Banjo " +
+//        		"by the JVM." );
+//
+//        memoryInfo.append( BANJO.FEEDBACK_NEWLINE );
+//        memoryInfo.append( "     " + maxMem/(1024*1024) + " mb " +
+//        		"is the max. amount of memory assigned initially to the JVM " +
+//        		"(controllable via the -Xmx option)." );
+        
+        return memoryInfo.toString();
+    }

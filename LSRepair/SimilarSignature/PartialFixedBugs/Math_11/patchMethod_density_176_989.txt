@@ -1,0 +1,7 @@
+//**********************************************************
+//  svn2github_cytoscape:de.mpg.mpi_inf.bioinf.netanalyzer.data:ArrayUtils:mean:double[]#aArray:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] aArray) {
+		return sum(aArray) / aArray.length;
+	}

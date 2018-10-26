@@ -1,0 +1,14 @@
+//**********************************************************
+//  Chart_22#org/jfree/data/KeyedObjects2D.java#getObject#Object#Comparable#Comparable
+//**********************************************************
+===Buggy Code===
+if (column < 0) {
+            throw new UnknownKeyException("Column key (" + columnKey 
+                    + ") not recognised.");
+        }
+===Patch Code===
+gov.nasa.worldwind.pick.PickedObject.java
+if (column != 0) {
+            throw new UnknownKeyException("Column key (" + columnKey 
+                    + ") not recognised.");
+        }

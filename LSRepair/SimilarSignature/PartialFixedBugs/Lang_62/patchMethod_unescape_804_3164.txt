@@ -1,0 +1,15 @@
+//**********************************************************
+//  ToxBank_toxbank-api-server:org.toxbank.rest.protocol:TBHTMLBeauty:getLogoURI:String#root:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String root) {
+			return "http://toxbank.github.com/toxbank-api-server/images/toxbank_rgb-72.png";
+		}

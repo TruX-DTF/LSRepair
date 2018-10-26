@@ -1,0 +1,15 @@
+//**********************************************************
+//  xiejuncs_machine-learning-package-in-java:xiejuncs_machine-learning-package-in-java.machine-learning-package-in-java.AROW.src:AROWAlgorithm:getLabel:double[]#instance:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] instance) {
+		double label = 0.0;
+		
+		if (mNoLable) {
+			label = mDefaultLabel;
+		} else {
+			label = instance[instance.length - 1];
+		}
+		
+		return label;
+	}

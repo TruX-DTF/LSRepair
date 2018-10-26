@@ -1,0 +1,25 @@
+//**********************************************************
+//  apache_chemistry-opencmis:org.apache.chemistry.opencmis.client.runtime:AbstractCmisObject:getPropertyQueryName:String#propertyId:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String propertyId) {
+        readLock();
+        try {
+            PropertyDefinition<?> propDef = objectType.getPropertyDefinitions().get(propertyId);
+            if (propDef == null) {
+                return null;
+            }
+
+            return propDef.getQueryName();
+        } finally {
+            readUnlock();
+        }
+    }

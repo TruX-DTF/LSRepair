@@ -1,0 +1,15 @@
+//**********************************************************
+//  smidget_Network-Inference-Workspace:org.systemsbiology.gaggle.geese.rShell:RShellGoose:test:int#i:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int i) {
+        System.out.println("RShellGoose test (int i): " + i);
+    }

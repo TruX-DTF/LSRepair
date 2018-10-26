@@ -1,0 +1,8 @@
+//**********************************************************
+//  DawnScience_scisoft-core:uk.ac.diamond.scisoft.analysis.optimize:AbstractOptimizer:calculateResidual:double[]#parameters:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] parameters) {
+		setParameterValues(parameters);
+		return function.residual(true, data, weight, coords);
+	}

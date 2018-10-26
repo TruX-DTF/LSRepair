@@ -1,0 +1,12 @@
+//**********************************************************
+//  brendanofallon_Pipeline:fpClassifier:Classifier:getDistTwoLikelihood:double[]#vals:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] vals) {
+		//double logL = 0.0;
+		double prob = 1.0;
+		for(int i=0; i<vals.length; i++) {
+			prob *= distTwo.getPDF(vals[i]);
+		}
+		return prob;
+	}

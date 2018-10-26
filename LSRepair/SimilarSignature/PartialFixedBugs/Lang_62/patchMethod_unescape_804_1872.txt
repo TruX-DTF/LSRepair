@@ -1,0 +1,21 @@
+//**********************************************************
+//  AndroidDeveloperAlliance_platform_frameworks_base:android.media:RingtoneManager:getThemeWhereClause:String#uriColumn:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String uriColumn) {
+        /* Filter out themes with no ringtone and the default theme (which has no package). */
+        String clause = uriColumn + " IS NOT NULL AND LENGTH(theme_package) > 0";
+        if (mIncludeDrm) {
+            return clause;
+        } else {
+            return clause + " AND " + uriColumn + " NOT LIKE '%/assets/%locked%'";
+        }
+    }

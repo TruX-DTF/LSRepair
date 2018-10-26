@@ -1,0 +1,29 @@
+//**********************************************************
+//  davros-_platform_frameworks_base:com.android.tools.layoutlib.create:AsmGenerator:transformName:String#className:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String className) {
+        String newName = mRenameClasses.get(className);
+        if (newName != null) {
+            return newName;
+        }
+        int pos = className.indexOf('$');
+        if (pos > 0) {
+            // Is this an inner class of a renamed class?
+            String base = className.substring(0, pos);
+            newName = mRenameClasses.get(base);
+            if (newName != null) {
+                return newName + className.substring(pos);
+            }
+        }
+
+        return className;
+    }

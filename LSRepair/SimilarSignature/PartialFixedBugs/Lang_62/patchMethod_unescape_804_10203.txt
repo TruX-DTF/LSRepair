@@ -1,0 +1,75 @@
+//**********************************************************
+//  psanker_iSay:com.patrickanker.isay:MessageFormattingServices:getShortenedURL:String#longURL:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String longURL)
+    {
+        String shortURL = longURL;
+        
+        String _url = "https://www.googleapis.com/urlshortener/v1/url";
+        String _content = "{\"longUrl\":\"" + longURL + "\"}";
+        
+        ISMain.debugLog(_content);
+        
+        DataOutputStream out = null;
+        JsonReader in = null;
+        
+        try {
+            URL url = new URL(_url);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setInstanceFollowRedirects(false);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("charset", "utf-8");
+            connection.setRequestProperty("Content-Length", Integer.toString(_content.getBytes().length));
+            connection.setUseCaches(false);
+            
+            out = new DataOutputStream(connection.getOutputStream());
+            
+            out.writeBytes(_content);
+            out.flush();
+            
+            in = new JsonReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+            in.beginObject();
+            
+            while (in.hasNext()) {
+                String name = in.nextName();
+                
+                if (name.equalsIgnoreCase("id"))
+                    shortURL = in.nextString();
+                else
+                    in.skipValue();
+            }
+            
+        } catch (Throwable t) {
+            // Custom url ... Leave it
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException ex) {
+                    ISMain.log("Shortener output stream did not close properly: " + ex.getMessage(), 2);
+                }
+            }
+            
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException ex) {
+                    ISMain.log("Shortener input stream did not close properly: " + ex.getMessage(), 2);
+                }
+            }
+            
+            return shortURL;
+        }
+    }

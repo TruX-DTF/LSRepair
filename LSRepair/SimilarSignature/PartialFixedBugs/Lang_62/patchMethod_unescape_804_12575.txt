@@ -1,0 +1,57 @@
+//**********************************************************
+//  liinavaker_Schedule:ee.itcollege.android.schedule:ScheduleViewerActivity:checkIfToday:String#date:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String date) {
+		String expectedPattern = "yyyy-MM-dd";
+		SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern);
+		Date datecurrentlyshown = null;
+		try {
+			datecurrentlyshown = formatter.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		String yesterday_string = getDate(-1).toString();
+		String today_string = getDate(0).toString();
+		String tomorrow_string = getDate(+1).toString();
+		String ifclose = "";
+		Date yesterday = null;
+		try {
+			yesterday = formatter.parse(yesterday_string);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Date today = null;
+		try {
+			today = formatter.parse(today_string);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Date tomorrow = null;
+		try {
+			tomorrow = formatter.parse(tomorrow_string);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		if (datecurrentlyshown.equals(yesterday)) {
+			ifclose = "eile";
+		}
+		if (datecurrentlyshown.equals(today)) {
+			ifclose = "t?na";
+		}
+		if (datecurrentlyshown.equals(tomorrow)) {
+			ifclose = "homme";
+		}
+
+		return ifclose;
+	}

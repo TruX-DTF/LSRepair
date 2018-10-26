@@ -1,0 +1,7 @@
+//**********************************************************
+//  aborg0_rapidminer-vega:com.rapidminer.operator.learner.functions:PolynomialRegression$RegressionOptimization:getOffset:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] values) {
+			return values[values.length - 1];
+		}

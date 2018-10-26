@@ -1,0 +1,29 @@
+//**********************************************************
+//  apache_archiva:org.apache.archiva.metadata.repository.storage.maven2:Maven2RepositoryStorage:removePrefix:String#href:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape( final String href )
+    {
+        String[] parts = StringUtils.split( href, '/' );
+        parts = (String[]) ArrayUtils.subarray( parts, 1, parts.length );
+        if ( parts == null || parts.length == 0 )
+        {
+            return "/";
+        }
+
+        String joinedString = StringUtils.join( parts, '/' );
+        if ( href.endsWith( "/" ) )
+        {
+            joinedString = joinedString + "/";
+        }
+
+        return joinedString;
+    }

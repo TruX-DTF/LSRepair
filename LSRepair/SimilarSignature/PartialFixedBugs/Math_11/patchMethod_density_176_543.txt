@@ -1,0 +1,11 @@
+//**********************************************************
+//  tjrantal_MatlabLiveWire:javaEngineLiveWire:LiveWireCosts:arrMax:double[]#matrix:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] matrix){
+		double maximum = Double.NEGATIVE_INFINITY;
+		for (int i  = 0; i< matrix.length;++i){
+			if (matrix[i] > maximum) maximum =  matrix[i];
+		}
+		return maximum;
+	}

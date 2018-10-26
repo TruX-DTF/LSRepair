@@ -1,0 +1,34 @@
+//**********************************************************
+//  gauravkheterpal_noteprise:com.metacube.noteprise.salesforce:CommonSOQL:getQueryForObject:String#object:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String object)
+	{
+		HashMap<String, String> OBJECT_FIELD_MAP = new LinkedHashMap<String, String>();	   
+		OBJECT_FIELD_MAP.put("Case", "CaseNumber");
+		OBJECT_FIELD_MAP.put("CaseComment", "ParentId");
+		OBJECT_FIELD_MAP.put("ContentVersion", "ContentDocumentId");
+		OBJECT_FIELD_MAP.put("Contract", "ContractNumber");
+		OBJECT_FIELD_MAP.put("Event", "Subject");
+		OBJECT_FIELD_MAP.put("FeedComment", "FeedItemId");
+		OBJECT_FIELD_MAP.put("Idea", "Title");
+		OBJECT_FIELD_MAP.put("Note", "Title");
+		OBJECT_FIELD_MAP.put("Solution", "SolutionName");
+		OBJECT_FIELD_MAP.put("Task", "Subject");		
+		
+		String displayField = DISPLAY_LABEL_FIELD;
+		if (OBJECT_FIELD_MAP.get(object) != null)
+		{
+			displayField = OBJECT_FIELD_MAP.get(object);
+		}		
+		String query = SELECT_QUERY_PREFIX + displayField + FROM + object + ORDER_BY_SUFFIX + displayField;
+		return query;
+	}

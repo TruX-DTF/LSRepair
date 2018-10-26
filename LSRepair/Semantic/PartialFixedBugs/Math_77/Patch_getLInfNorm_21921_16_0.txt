@@ -1,0 +1,8 @@
+//**********************************************************
+//  Math_77#org/apache/commons/math/linear/ArrayRealVector.java#getLInfNorm#double#null
+//**********************************************************
+===Buggy Code===
+max += Math.max(max, Math.abs(a));
+===Patch Code===
+com.tempodb.SegmentInnerIterator.java
+max = Math.max(max, Math.abs(a));

@@ -1,0 +1,28 @@
+//**********************************************************
+//  alkacon_opencms-core:org.opencms.gwt:CmsCoreService:unlock:String#sitePath:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String sitePath) throws CmsRpcException {
+
+        try {
+            CmsObject cms = OpenCms.initCmsObject(getCmsObject());
+            cms.getRequestContext().setSiteRoot("");
+            if (cms.existsResource(sitePath, CmsResourceFilter.IGNORE_EXPIRATION)) {
+                CmsResource resource = cms.readResource(sitePath, CmsResourceFilter.IGNORE_EXPIRATION);
+                tryUnlock(resource);
+            }
+        } catch (CmsException e) {
+            return e.getLocalizedMessage(OpenCms.getWorkplaceManager().getWorkplaceLocale(getCmsObject()));
+        } catch (Throwable e) {
+            error(e);
+        }
+        return null;
+    }

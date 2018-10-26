@@ -1,0 +1,58 @@
+//**********************************************************
+//  Chart_5#org/jfree/data/xy/XYSeries.java#addOrUpdate#XYDataItem#Number#Number
+//**********************************************************
+===Buggy Code===
+if (index >= 0 && !this.allowDuplicateXValues) {
+            XYDataItem existing = (XYDataItem) this.data.get(index);
+            try {
+                overwritten = (XYDataItem) existing.clone();
+            }
+            catch (CloneNotSupportedException e) {
+                throw new SeriesException("Couldn't clone XYDataItem!");
+            }
+            existing.setY(y);
+        }
+        else {
+            // if the series is sorted, the negative index is a result from
+            // Collections.binarySearch() and tells us where to insert the
+            // new item...otherwise it will be just -1 and we should just
+            // append the value to the list...
+            if (this.autoSort) {
+                this.data.add(-index - 1, new XYDataItem(x, y));
+            }
+            else {
+                this.data.add(new XYDataItem(x, y));
+            }
+            // check if this addition will exceed the maximum item count...
+            if (getItemCount() > this.maximumItemCount) {
+                this.data.remove(0);
+            }
+        }
+===Patch Code===
+illumos_opengrok:org.opensolaris.opengrok.index:Filter:match:File#file:boolean
+if (index >= 0) {
+            XYDataItem existing = (XYDataItem) this.data.get(index);
+            try {
+                overwritten = (XYDataItem) existing.clone();
+            }
+            catch (CloneNotSupportedException e) {
+                throw new SeriesException("Couldn't clone XYDataItem!");
+            }
+            existing.setY(y);
+        }
+        else {
+            // if the series is sorted, the negative index is a result from
+            // Collections.binarySearch() and tells us where to insert the
+            // new item...otherwise it will be just -1 and we should just
+            // append the value to the list...
+            if (this.autoSort) {
+                this.data.add(-index - 1, new XYDataItem(x, y));
+            }
+            else {
+                this.data.add(new XYDataItem(x, y));
+            }
+            // check if this addition will exceed the maximum item count...
+            if (getItemCount() > this.maximumItemCount) {
+                this.data.remove(0);
+            }
+        }

@@ -1,0 +1,16 @@
+//**********************************************************
+//  Chart_21#org/jfree/data/statistics/DefaultBoxAndWhiskerCategoryDataset.java#add#void#BoxAndWhiskerItem#Comparable#Comparable
+//**********************************************************
+===Buggy Code===
+if (minval < this.minimumRangeValue) {
+                this.minimumRangeValue = minval;
+                this.minimumRangeValueRow = r;
+                this.minimumRangeValueColumn = c;
+            }
+===Patch Code===
+net.sf.andpdf.utils.BiCa.java
+if (minval == this.minimumRangeValue) {
+                this.minimumRangeValue = minval;
+                this.minimumRangeValueRow = r;
+                this.minimumRangeValueColumn = c;
+            }

@@ -1,0 +1,24 @@
+//**********************************************************
+//  grails_grails-core:org.grails.web.servlet.mvc:DefaultRequestStateLookupStrategy:getActionName:String#controllerName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String controllerName) {
+        if (controllerName != null) {
+            if (grailsApplication == null) {
+                final GrailsWebRequest grailsWebRequest = getWebRequest();
+                if (grailsWebRequest!= null)
+                    grailsApplication = grailsWebRequest.getAttributes().getGrailsApplication();
+
+            }
+            return getActionName(grailsApplication, controllerName);
+        }
+        return null;
+    }

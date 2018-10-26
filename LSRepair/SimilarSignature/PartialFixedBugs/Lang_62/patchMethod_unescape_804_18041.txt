@@ -1,0 +1,29 @@
+//**********************************************************
+//  apache_felix:org.apache.felix.webconsole.plugins.memoryusage.internal:MemoryUsageConfigurator:validate:String#value:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String value)
+                {
+                    try
+                    {
+                        int threshold = Integer.parseInt(value);
+                        if (!MemoryUsageConstants.isThresholdValid(threshold))
+                        {
+                            return "Dump Threshold must in the range " + MemoryUsageConstants.MIN_DUMP_THRESHOLD
+                                + " to " + MemoryUsageConstants.MAX_DUMP_THRESHOLD + " or zero";
+                        }
+                        return ""; // everything ok
+                    }
+                    catch (NumberFormatException nfe)
+                    {
+                        return "Dump Threshhold must be numeric";
+                    }
+                }

@@ -1,0 +1,7 @@
+//**********************************************************
+//  apache_poi:org.apache.poi.ss.formula.functions:AggregateFunction:evaluate:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] values) {
+			return StatsLib.avedev(values);
+		}

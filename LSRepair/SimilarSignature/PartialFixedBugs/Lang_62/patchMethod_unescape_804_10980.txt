@@ -1,0 +1,21 @@
+//**********************************************************
+//  asascience-open_ncSOS:com.asascience.ncsos.go:GetObservationRequestHandler:getFillValue:String#obsProp:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String obsProp) {
+        Attribute[] attrs = getAttributesOfVariable(obsProp);
+        for (Attribute attr : attrs) {
+            if (attr.getFullNameEscaped().equalsIgnoreCase(FILL_VALUE_NAME)) {
+                return attr.getValue(0).toString();
+            }
+        }
+        return "";
+    }

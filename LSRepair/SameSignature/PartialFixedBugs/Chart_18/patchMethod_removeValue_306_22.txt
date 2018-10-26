@@ -1,0 +1,18 @@
+//**********************************************************
+//  jentrata_jentrata-msh:hk.hku.cecid.edi.as2.pkg:DispositionNotificationOption:removeValue:int#pos:void
+//**********************************************************
+    /**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int pos) {
+        if (pos >=0 && pos < values.size()) {
+            values.remove(pos);
+        }
+    }
+

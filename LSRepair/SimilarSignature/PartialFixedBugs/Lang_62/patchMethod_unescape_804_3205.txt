@@ -1,0 +1,23 @@
+//**********************************************************
+//  ymasory_iText-4.2.0:com.lowagie.text.pdf:BarcodeCodabar:calculateChecksum:String#code:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String code) {
+        if (code.length() < 2)
+            return code;
+        String text = code.toUpperCase();
+        int sum = 0;
+        int len = text.length();
+        for (int k = 0; k < len; ++k)
+            sum += CHARS.indexOf(text.charAt(k));
+        sum = (sum + 15) / 16 * 16 - sum;
+        return code.substring(0, len - 1) + CHARS.charAt(sum) + code.substring(len - 1);
+    }

@@ -1,0 +1,16 @@
+//**********************************************************
+//  Chart_21#org/jfree/data/statistics/DefaultBoxAndWhiskerCategoryDataset.java#add#void#BoxAndWhiskerItem#Comparable#Comparable
+//**********************************************************
+===Buggy Code===
+if (maxval > this.maximumRangeValue) {
+                this.maximumRangeValue = maxval;
+                this.maximumRangeValueRow = r;
+                this.maximumRangeValueColumn = c;
+            }
+===Patch Code===
+ru.org.linux.spring.dao.UserAgentDao.java
+if (maxval == this.maximumRangeValue) {
+                this.maximumRangeValue = maxval;
+                this.maximumRangeValueRow = r;
+                this.maximumRangeValueColumn = c;
+            }

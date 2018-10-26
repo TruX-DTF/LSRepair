@@ -1,0 +1,10 @@
+//**********************************************************
+//  apache_commons-math:org.apache.commons.math4.stat.descriptive.moment:Variance:evaluate:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(final double[] values) throws MathIllegalArgumentException {
+        if (values == null) {
+            throw new NullArgumentException(LocalizedFormats.INPUT_ARRAY);
+        }
+        return evaluate(values, 0, values.length);
+    }

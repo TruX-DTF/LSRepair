@@ -1,0 +1,11 @@
+//**********************************************************
+//  apache_hbase:org.apache.hadoop.hbase.master.balancer:StochasticLoadBalancer$CostFunction:getSum:double[]#stats:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] stats) {
+      double total = 0;
+      for(double s:stats) {
+        total += s;
+      }
+      return total;
+    }

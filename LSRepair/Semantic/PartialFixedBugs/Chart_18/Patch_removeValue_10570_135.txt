@@ -1,0 +1,12 @@
+//**********************************************************
+//  Chart_18#org/jfree/data/DefaultKeyedValues.java#removeValue#void#int
+//**********************************************************
+===Buggy Code===
+if (index < this.keys.size()) {
+        rebuildIndex();
+        }
+===Patch Code===
+com.sfeir.common.gwt.client.component.validator.InArrayValidator.java
+if (index == this.keys.size()) {
+        rebuildIndex();
+        }

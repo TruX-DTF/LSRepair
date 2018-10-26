@@ -1,0 +1,28 @@
+//**********************************************************
+//  Jasig_email-preview:org.jasig.portlet.emailpreview.util:MessageUtils:cleanHTML:String#message:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String message) {
+        // As a convenience for the caller and to avoid an error, if the message is null, return an empty string
+        // to avoid an exception.
+        if (message == null) {
+            return "";
+        }
+        try {
+            AntiSamy as = new AntiSamy();
+            CleanResults cr = as.scan(message, policy);
+            return cr.getCleanHTML();
+        } catch (ScanException e) {
+            throw new EmailPreviewException("Error cleansing email message", e);
+        } catch (PolicyException e) {
+            throw new EmailPreviewException("Error with AntiSamy policy exception", e);
+        }
+    }

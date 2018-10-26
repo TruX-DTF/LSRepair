@@ -1,0 +1,36 @@
+//**********************************************************
+//  qos-ch_logback-decoder:ch.qos.logback.core.pattern.parser2:PatternParser:unescapeRegexCharsInPattern:String#pattern:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String pattern) {
+    StringBuffer buf = new StringBuffer(pattern);
+
+    try {
+      int numRemovedChars = 0;
+
+      Node n = new Parser<Void>(pattern).parse();
+      while (n != null) {
+        if (n.getType() == Node.LITERAL) {
+          numRemovedChars += unescapeRegexChars(
+              buf,
+              n.getPosition() - numRemovedChars,
+              n.getValue().toString().length()
+              );
+        }
+        n = n.getNext();
+      }
+
+    } catch (ScanException e) {
+      //e.printStackTrace();
+    }
+
+    return buf.toString();
+  }

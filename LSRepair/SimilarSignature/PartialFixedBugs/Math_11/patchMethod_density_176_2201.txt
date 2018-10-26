@@ -1,0 +1,7 @@
+//**********************************************************
+//  apache_chemistry-opencmis:org.apache.chemistry.opencmis.inmemory.content.loremipsum:LoremIpsum:mean:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] values) {
+        return sum(values) / ((Math.max(values.length, 1)));
+    }

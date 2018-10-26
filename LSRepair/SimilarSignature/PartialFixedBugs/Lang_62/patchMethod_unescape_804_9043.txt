@@ -1,0 +1,29 @@
+//**********************************************************
+//  fcrespel_jenkins-cas-plugin:org.jenkinsci.plugins.cas.spring.security:CasRestAuthenticator:fetchServiceTicket:String#grantingTicket:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String grantingTicket) {
+		String serviceTicket = null;
+		HttpURLConnection connection = null;
+		try {
+			connection = openConnection(createServiceTicketUrl(grantingTicket));
+			String post = createServiceTicketPostContent();
+			writeContent(connection, post);
+			serviceTicket = extractServiceTicket(connection);
+		} catch (IOException ex) {
+			LOG.error("Failed to obtain a service ticket from CAS", ex);
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+		}
+		return serviceTicket;
+	}

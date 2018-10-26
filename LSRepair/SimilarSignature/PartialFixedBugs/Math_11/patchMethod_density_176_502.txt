@@ -1,0 +1,7 @@
+//**********************************************************
+//  kutschkem_SmithHeilmann_fork:arkref.ext.fig.basic:ListUtils:mean:double[]#list:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] list) {
+    return sum(list)/list.length;
+  }

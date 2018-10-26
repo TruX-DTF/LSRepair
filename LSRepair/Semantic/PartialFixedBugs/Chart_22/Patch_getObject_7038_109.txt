@@ -1,0 +1,8 @@
+//**********************************************************
+//  Chart_22#org/jfree/data/KeyedObjects2D.java#getObject#Object#Comparable#Comparable
+//**********************************************************
+===Buggy Code===
+return rowData.getObject(columnKey);
+===Patch Code===
+facturatron.facturacion.FacturaTableModel.java
+return null;

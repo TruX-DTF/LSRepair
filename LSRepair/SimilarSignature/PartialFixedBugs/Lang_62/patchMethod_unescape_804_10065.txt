@@ -1,0 +1,28 @@
+//**********************************************************
+//  roundrop_facebook4j:facebook4j.auth:DialogAuthOption:getQuery:String#prefix:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String prefix) {
+        List<String> q = new ArrayList<String>();
+        if (state != null) {
+            q.add("state=" + state);
+        }
+        if (display != null) {
+            q.add("display=" + display.toString().toLowerCase());
+        }
+        if (authType != null) {
+            q.add("auth_type=" + authType.toString().toLowerCase());
+        }
+        if (authNonce != null) {
+            q.add("auth_nonce=" + authNonce);
+        }
+        return prefix + z_F4JInternalStringUtil.join(q.toArray(new String[q.size()]), "&");
+    }

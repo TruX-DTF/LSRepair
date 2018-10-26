@@ -1,0 +1,23 @@
+//**********************************************************
+//  Tasktop_code2cloud.server:com.tasktop.c2c.server.internal.tasks.service:TaskActivityService:truncateActivityData:String#text:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String text) {
+		if (text != null && text.length() > 0) {
+			final int maxLength = 252;
+			String truncated = text.substring(0, computeUtf8StringLength(text, maxLength));
+			if (!truncated.equals(text)) {
+				truncated += "...";
+				text = truncated;
+			}
+		}
+		return text;
+	}

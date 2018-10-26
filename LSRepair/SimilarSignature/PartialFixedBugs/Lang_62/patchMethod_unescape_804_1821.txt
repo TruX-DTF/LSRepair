@@ -1,0 +1,28 @@
+//**********************************************************
+//  AndroidDeveloperAlliance_platform_frameworks_base:android.webkit:WebSettingsClassic:convertObsoleteLanguageCodeToNew:String#langCode:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String langCode) {
+        if (langCode == null) {
+            return null;
+        }
+        if ("iw".equals(langCode)) {
+            // Hebrew
+            return "he";
+        } else if ("in".equals(langCode)) {
+            // Indonesian
+            return "id";
+        } else if ("ji".equals(langCode)) {
+            // Yiddish
+            return "yi";
+        }
+        return langCode;
+    }

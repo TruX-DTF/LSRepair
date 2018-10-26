@@ -1,0 +1,21 @@
+//**********************************************************
+//  griddynamics_yhadoop-common:org.apache.hadoop.hdfs:DFSClient:getLinkTarget:String#path:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String path) throws IOException { 
+    checkOpen();
+    try {
+      return namenode.getLinkTarget(path);
+    } catch (RemoteException re) {
+      throw re.unwrapRemoteException(AccessControlException.class,
+                                     FileNotFoundException.class);
+    }
+  }

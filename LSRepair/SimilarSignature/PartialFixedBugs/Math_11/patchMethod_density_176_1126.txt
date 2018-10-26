@@ -1,0 +1,11 @@
+//**********************************************************
+//  fusesource_rrd4j:org.rrd4j.core:Util:min:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] values) {
+        double min = Double.NaN;
+        for (double value : values) {
+            min = Util.min(min, value);
+        }
+        return min;
+    }

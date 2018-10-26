@@ -1,0 +1,20 @@
+//**********************************************************
+//  Chart_22#org/jfree/data/KeyedObjects2D.java#getObject#Object#Comparable#Comparable
+//**********************************************************
+===Buggy Code===
+if (row >= 0) {
+        KeyedObjects rowData = (KeyedObjects) this.rows.get(row);
+            return rowData.getObject(columnKey);
+        }
+        else {
+            return null;
+        }
+===Patch Code===
+ucar.util.prefs.ui.LayoutM.java
+if (row == 0) {
+        KeyedObjects rowData = (KeyedObjects) this.rows.get(row);
+            return rowData.getObject(columnKey);
+        }
+        else {
+            return null;
+        }

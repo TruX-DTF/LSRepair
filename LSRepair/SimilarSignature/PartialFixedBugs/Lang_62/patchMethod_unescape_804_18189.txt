@@ -1,0 +1,32 @@
+//**********************************************************
+//  soluvas_soluvas-framework:org.soluvas.category:Category2:getEffectiveContentThreeColumns1:String#curLanguageTag:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String curLanguageTag) {
+		if (curLanguageTag.equals(Optional.fromNullable(getLanguage()).or("id-ID"))) {
+			return getContents().get(KEY_CONTENT_THREE_COLUMNS_1);
+		} else {
+			if (getTranslations().isEmpty()) {
+				return getContents().get(KEY_CONTENT_THREE_COLUMNS_1);
+			} else {
+				if (!getTranslations().containsKey(curLanguageTag)) {
+					return getContents().get(KEY_CONTENT_THREE_COLUMNS_1);
+				} else {
+					final Map<String, String> translation = getTranslations().get(curLanguageTag);
+					if (!translation.containsKey(KEY_CONTENT_THREE_COLUMNS_1)) {
+						return getContents().get(KEY_CONTENT_THREE_COLUMNS_1);
+					} else {
+						return translation.get(KEY_CONTENT_THREE_COLUMNS_1);
+					}
+				}
+			}
+		}
+	}

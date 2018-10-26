@@ -1,0 +1,31 @@
+//**********************************************************
+//  sujitpal_hia-examples:com.mycompany.newsclip:KeywordExtractFunction:download:String#url:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String url) {
+    try {
+      URL u = new URL(url);
+      u.openConnection();
+      InputStream istream = u.openStream();
+      StringBuilder buf = new StringBuilder();
+      byte[] b = new byte[1024];
+      int bytesRead = 0;
+      while ((bytesRead = istream.read(b)) > 0) {
+        buf.append(new String(b, 0, bytesRead));
+        b = new byte[1024];
+      }
+      istream.close();
+      return buf.toString();
+    } catch (Exception e) {
+      LOGGER.error(e.getMessage(), e);
+      return null;
+    }
+  }

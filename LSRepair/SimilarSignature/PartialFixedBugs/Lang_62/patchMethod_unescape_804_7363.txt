@@ -1,0 +1,20 @@
+//**********************************************************
+//  mrmag518_iSafe:com.mrmag518.iSafe.EventManager:IPManagement:getIpInYAMLFormat:String#ip:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String ip) {
+        if(!ip.contains(".")) {
+            Log.debug("Invalid IP! (" + ip + ")");
+            return null;
+        }
+        String formatted = ip.replaceAll("\\.", "-");
+        return formatted;
+    }

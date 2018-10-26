@@ -1,0 +1,38 @@
+//**********************************************************
+//  alkacon_opencms-core:org.opencms.file.wrapper:CmsObjectWrapper:rewriteLink:String#path:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String path) {
+
+        CmsResource res = null;
+
+        try {
+            res = readResource(m_cms.getRequestContext().removeSiteRoot(path), CmsResourceFilter.ALL);
+            if (res != null) {
+                String ret = null;
+
+                // iterate through all wrappers and call "rewriteLink" till one does not return null
+                List<I_CmsResourceWrapper> wrappers = getWrappers();
+                Iterator<I_CmsResourceWrapper> iter = wrappers.iterator();
+                while (iter.hasNext()) {
+                    I_CmsResourceWrapper wrapper = iter.next();
+                    ret = wrapper.rewriteLink(m_cms, res);
+                    if (ret != null) {
+                        return ret;
+                    }
+                }
+            }
+        } catch (CmsException ex) {
+            // noop
+        }
+
+        return path;
+    }

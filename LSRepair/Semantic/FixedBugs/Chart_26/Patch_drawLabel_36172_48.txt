@@ -1,0 +1,12 @@
+//**********************************************************
+//  Chart_26#org/jfree/chart/axis/Axis.java#drawLabel#AxisState#AxisState#Graphics2D#PlotRenderingInfo#Rectangle2D#Rectangle2D#RectangleEdge#String
+//**********************************************************
+===Buggy Code===
+if ((label == null) || (label.equals(""))) {
+            return state;
+        }
+===Patch Code===
+com.sun.media.jai.opimage.PeriodicShiftOpImage.java
+if (!((label == null) || (label.equals("")))) {
+            return state;
+        }

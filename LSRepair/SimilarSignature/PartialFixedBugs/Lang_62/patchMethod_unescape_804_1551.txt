@@ -1,0 +1,54 @@
+//**********************************************************
+//  Elbandi_droidtv:com.chrulri.droidtv:StreamActivity:startStream:String#channelconfig:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String channelconfig) {
+        try {
+            Log.d(TAG, ">>> startStream(" + channelconfig + ")");
+            try {
+                removeSocketFile();
+                // config file
+                File configFile = new File(getCacheDir(), DVBLAST_CONFIG_FILENAME);
+                PrintWriter writer = new PrintWriter(configFile);
+                // sNAME/iFREQ/iServiceID
+                String[] params = channelconfig.split(":");
+                // check config length
+                if (params.length != 3) {
+                    throw new IOException("invalid DVB params count[" + params.length + "]");
+                }
+                // parse config
+                String name = params[0];
+                int freq = tryParseInt(params[1], "frequency");
+                int sid = tryParseInt(params[2], "service ID");
+                // print config
+                writer.println(String.format(DVBLAST_CONFIG_CONTENT, sid));
+                writer.close();
+                // run dvblast
+                Log.d(TAG, "dvblast(" + configFile + "," + freq + ")");
+                mUdpSocket = new DatagramSocket(UDP_PORT, Inet4Address.getByName(UDP_IP));
+                mUdpSocket.setSoTimeout(1000);
+                mHttpSocket = new ServerSocket(HTTP_PORT, 10, Inet4Address.getByName(HTTP_IP));
+                mStreamTask = new AsyncStreamTask();
+                mStreamTask.execute();
+                mDvblastTask = new AsyncDvblastTask(configFile, freq);
+                mDvblastTask.execute();
+                mDvblastCtlTask = new AsyncDvblastCtlTask();
+                mDvblastCtlTask.execute();
+                return name;
+            } catch (IOException e) {
+                Log.e(TAG, "starting stream failed", e);
+                ErrorUtils.error(this, "failed to start streaming", e);
+                return null;
+            }
+        } finally {
+            Log.d(TAG, "<<< startStream");
+        }
+    }

@@ -1,0 +1,25 @@
+//**********************************************************
+//  ms969_ChenSun:com.mysql.jdbc:JDBC4CallableStatement:getNString:String#parameterName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String parameterName) throws SQLException {
+		ResultSetInternalMethods rs = getOutputParameters(0); // definitely
+																// not going to
+																// be
+		// from ?=
+
+		String retValue = ((com.mysql.jdbc.JDBC4ResultSet) rs)
+				.getNString(fixParameterName(parameterName));
+
+		this.outputParamWasNull = rs.wasNull();
+
+		return retValue;
+	}

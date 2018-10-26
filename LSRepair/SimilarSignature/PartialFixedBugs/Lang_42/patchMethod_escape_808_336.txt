@@ -1,0 +1,90 @@
+//**********************************************************
+//  brutall_brut.apktool:org.xmlpull.mxp1_serializer:MXSerializer:writeAttributeValue:String#value#Writer#out:void
+//**********************************************************
+/**
+     * <p>
+     * Escapes the characters in the <code>String</code> passed and writes the result to the <code>Writer</code>
+     * passed.
+     * </p>
+     * 
+     * @param writer
+     *            The <code>Writer</code> to write the results of the escaping to. Assumed to be a non-null value.
+     * @param str
+     *            The <code>String</code> to escape. Assumed to be a non-null value.
+     * @throws IOException
+     *             when <code>Writer</code> passed throws the exception from calls to the {@link Writer#write(int)}
+     *             methods.
+     * 
+     * @see #escape(String)
+     * @see Writer
+     */
+    public void escape(String value, Writer out)
+			throws IOException {
+		// .[apostrophe and <, & escaped],
+		final char quot = attributeUseApostrophe ? '\'' : '"';
+		final String quotEntity = attributeUseApostrophe ? "&apos;" : "&quot;";
+
+		int pos = 0;
+		for (int i = 0; i < value.length(); i++) {
+			char ch = value.charAt(i);
+			if (ch == '&') {
+				if (i > pos)
+					out.write(value.substring(pos, i));
+				out.write("&amp;");
+				pos = i + 1;
+			}
+			if (ch == '<') {
+				if (i > pos)
+					out.write(value.substring(pos, i));
+				out.write("&lt;");
+				pos = i + 1;
+			} else if (ch == quot) {
+				if (i > pos)
+					out.write(value.substring(pos, i));
+				out.write(quotEntity);
+				pos = i + 1;
+			} else if (ch < 32) {
+				// in XML 1.0 only legal character are #x9 | #xA | #xD
+				// and they must be escaped otherwise in attribute value they
+				// are normalized to spaces
+				if (ch == 13 || ch == 10 || ch == 9) {
+					if (i > pos)
+						out.write(value.substring(pos, i));
+					out.write("&#");
+					out.write(Integer.toString(ch));
+					out.write(';');
+					pos = i + 1;
+				} else {
+					if (TRACE_ESCAPING)
+						System.err.println(getClass().getName()
+								+ " DEBUG ATTR value.len=" + value.length()
+								+ " " + printable(value));
+
+					throw new IllegalStateException(
+					// "character "+Integer.toString(ch)+" is not allowed in output"+getLocation());
+							"character " + printable(ch) + " ("
+									+ Integer.toString(ch)
+									+ ") is not allowed in output"
+									+ getLocation() + " (attr value="
+									+ printable(value) + ")");
+					// in XML 1.1 legal are [#x1-#xD7FF]
+					// if(ch > 0) {
+					// if(i > pos) out.write(text.substring(pos, i));
+					// out.write("&#");
+					// out.write(Integer.toString(ch));
+					// out.write(';');
+					// pos = i + 1;
+					// } else {
+					// throw new IllegalStateException(
+					// "character zero is not allowed in XML 1.1 output"+getLocation());
+					// }
+				}
+			}
+		}
+		if (pos > 0) {
+			out.write(value.substring(pos));
+		} else {
+			out.write(value); // this is shortcut to the most common case
+		}
+
+	}

@@ -1,0 +1,9 @@
+//**********************************************************
+//  geogebra_geogebra:org.apache.commons.math.analysis.solvers:SecantSolver:solve:UnivariateRealFunction#f#double#min#double#max#double#initial:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double solve(final UnivariateRealFunction f,
+                        final double min, final double max, final double initial)
+        throws MaxIterationsExceededException, FunctionEvaluationException {
+        return solve(f, min, max);
+    }

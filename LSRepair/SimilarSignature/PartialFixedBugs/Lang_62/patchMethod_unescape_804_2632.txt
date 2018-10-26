@@ -1,0 +1,23 @@
+//**********************************************************
+//  getrailo_railo:railo.intergral.fusiondebug.server.util:FDUtil:toClassName:String#str:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String str) {
+		StringBuffer javaName=new StringBuffer();
+		String[] arr=railo.runtime.type.util.ListUtil.listToStringArray(str, '/');
+		
+		for(int i=0;i<arr.length;i++) {
+			if(i==(arr.length-1)) arr[i]=replaceLast(arr[i],'.','$');
+			if(i!=0)javaName.append('.');
+			javaName.append(toVariableName(arr[i]));
+		}
+		return javaName.toString().toLowerCase();
+	}

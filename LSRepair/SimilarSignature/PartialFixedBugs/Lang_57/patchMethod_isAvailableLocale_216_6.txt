@@ -1,0 +1,12 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.portal.kernel.util:DateUtil_IW:isFormatAmPm:java.util.Locale#locale:boolean
+//**********************************************************
+/**
+     * <p>Checks if the locale specified is in the list of available locales.</p>
+     *
+     * @param locale the Locale object to check if it is available
+     * @return true if the locale is a known locale
+     */
+    public static boolean isAvailableLocale(java.util.Locale locale) {
+		return DateUtil.isFormatAmPm(locale);
+	}

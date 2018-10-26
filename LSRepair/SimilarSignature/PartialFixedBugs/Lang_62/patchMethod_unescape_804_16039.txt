@@ -1,0 +1,28 @@
+//**********************************************************
+//  ocpsoft_rewrite:com.ocpsoft.pretty.faces.util:HTTPDecoder:decode:String#value:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String value)
+    {
+        String result = value;
+        if (value != null)
+        {
+            try
+            {
+                result = URLDecoder.decode(value, "UTF-8");
+            }
+            catch (Exception e)
+            {
+                throw new PrettyException("Could not URLDecode value <" + value + ">", e);
+            }
+        }
+        return result;
+    }

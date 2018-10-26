@@ -1,0 +1,46 @@
+//**********************************************************
+//  caelum_guj.com.br:net.jforum.view.forum.common:ViewCommon:contextToLogin:String#returnPath:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String returnPath)
+	{
+		JForumExecutionContext.getTemplateContext().put("returnPath", returnPath);
+		
+		if (ConfigKeys.TYPE_SSO.equals(SystemGlobals.getValue(ConfigKeys.AUTHENTICATION_TYPE))) {
+			String redirect = SystemGlobals.getValue(ConfigKeys.SSO_REDIRECT);
+			
+			if (!StringUtils.isEmpty(redirect)) {
+				URI redirectUri = URI.create(redirect);
+				
+				if (!redirectUri.isAbsolute()) {
+					throw new ForumException("SSO redirect URL should start with a scheme");
+				}
+				
+				try {
+					returnPath = URLEncoder.encode( ViewCommon.getForumLink() + returnPath, "UTF-8");
+				}
+				catch (UnsupportedEncodingException e) {}
+				
+				if (redirect.indexOf('?') == -1) {
+					redirect += "?";
+				}
+				else {
+					redirect += "&";
+				}
+				
+				redirect += "returnUrl=" + returnPath;
+				
+				JForumExecutionContext.setRedirect(redirect);
+			}
+		}
+		
+		return TemplateKeys.USER_LOGIN;
+	}

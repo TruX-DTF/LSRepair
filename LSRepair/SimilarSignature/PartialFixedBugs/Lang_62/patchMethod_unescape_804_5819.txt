@@ -1,0 +1,34 @@
+//**********************************************************
+//  VoltDB_voltdb:org.voltdb.parser:SQLParser$SingleArgumentCommandParser:parse:String#line:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String line) throws SQLParser.Exception
+        {
+            // If it doesn't start with the expected command prefix return null.
+            // Allows better errors for missing or inappropriate arguments,
+            // rather than passing it along to the engine for a strange error.
+            if (line == null || !this.patPrefix.matcher(line).matches()) {
+                return null;
+            }
+            Matcher matcher = this.patFull.matcher(line);
+            String arg = null;
+            if (matcher.matches()) {
+                arg = parseOptionallyQuotedString(matcher.group(1));
+                if (arg == null) {
+                    throw new SQLParser.Exception("Bad %s argument to %s: %s", this.argName, this.prefix, arg);
+                }
+            }
+            else {
+                throw new SQLParser.Exception("Missing %s argument to %s.", this.argName, this.prefix);
+            }
+
+            return arg;
+        }

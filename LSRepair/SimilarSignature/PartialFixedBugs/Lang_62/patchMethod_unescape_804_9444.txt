@@ -1,0 +1,32 @@
+//**********************************************************
+//  rayo_rayo-server:com.rayo.storage.riak:RiakDatastore:getNodeForIpAddress:String#ip:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String ip) {
+
+		log.debug("Finding node for IP address: [%s]", ip);
+	    try {  
+	    	
+	    	JSSourceFunction f = new JSSourceFunction(String.format("function(value, keyData, arg) { ejsLog('/tmp/map_reduce.log', value['values'][0]['metadata']['X-Riak-Deleted']); if (value['values'][0]['metadata']['X-Riak-Deleted']) { return [];} var data = Riak.mapValuesJson(value)[0]; if(data.ipAddress == '%s') return [value.key]; else return [];}", ip));
+	    	
+	    	final MapReduceResult mapReduceResult = 
+	    		myPbClient.mapReduce("nodes")
+	           .addMapPhase(f).execute();  
+	       Collection<String> node = mapReduceResult.getResult(String.class);
+	       if (node.size() == 0) {
+	    	   return null;
+	       }
+	       return node.iterator().next();
+	    } catch (Exception e) {
+	    	log.error(e.getMessage(), e);
+	    	return null;
+	    }
+	}

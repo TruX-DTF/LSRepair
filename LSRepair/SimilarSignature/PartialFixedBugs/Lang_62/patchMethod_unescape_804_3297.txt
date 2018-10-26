@@ -1,0 +1,19 @@
+//**********************************************************
+//  acontes_scheduling:org.ow2.proactive.scheduler.examples.docking:Mol2FilePreview:getPathToFile:String#output:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String output) {
+        int pos = output.indexOf(MATCH_PATTERN, 0);
+        pos += MATCH_PATTERN.length();
+        String extracted = output.substring(pos, output.indexOf(".mol2", pos));
+        //extracted = ResultPreviewTool.getSystemCompliantPath(extracted);
+        return extracted + ".mol2";
+    }

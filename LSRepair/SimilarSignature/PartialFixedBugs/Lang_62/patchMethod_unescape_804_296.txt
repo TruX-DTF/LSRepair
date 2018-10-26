@@ -1,0 +1,28 @@
+//**********************************************************
+//  alkacon_opencms-core:org.opencms.util:CmsHtmlStripper:tidy:String#content:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String content) {
+
+        CmsHtmlConverter converter = new CmsHtmlConverter(
+            CmsEncoder.ENCODING_UTF_8,
+            new StringBuffer(CmsHtmlConverter.PARAM_WORD).append(";").append(CmsHtmlConverter.PARAM_XHTML).toString());
+        String result = content;
+        try {
+            result = converter.convertToString(content);
+        } catch (UnsupportedEncodingException e) {
+            // should never happen
+            if (LOG.isWarnEnabled()) {
+                LOG.warn(Messages.get().getBundle().key(Messages.LOG_WARN_TIDY_FAILURE_0), e);
+            }
+        }
+        return result;
+    }

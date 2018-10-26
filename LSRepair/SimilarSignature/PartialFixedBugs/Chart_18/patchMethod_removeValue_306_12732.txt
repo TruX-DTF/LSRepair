@@ -1,0 +1,17 @@
+//**********************************************************
+//  openjdk-mirror_jdk7u-jaxp:com.sun.org.apache.xerces.internal.impl.xs.opti:SchemaDOM:indent:int#amount:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int amount) {
+        for (int i = 0; i < amount; i++) {
+            System.out.print(' ');
+        }
+    }

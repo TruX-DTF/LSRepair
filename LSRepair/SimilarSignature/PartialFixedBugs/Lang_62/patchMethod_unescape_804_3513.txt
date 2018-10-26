@@ -1,0 +1,33 @@
+//**********************************************************
+//  adamz667_framework_base:android.bluetooth:AtParser:clean:String#input:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String input) {
+        StringBuilder out = new StringBuilder(input.length());
+
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c == '"') {
+                int j = input.indexOf('"', i + 1 );  // search for closing "
+                if (j == -1) {  // unmatched ", insert one.
+                    out.append(input.substring(i, input.length()));
+                    out.append('"');
+                    break;
+                }
+                out.append(input.substring(i, j + 1));
+                i = j;
+            } else if (c != ' ') {
+                out.append(Character.toUpperCase(c));
+            }
+        }
+
+        return out.toString();
+    }

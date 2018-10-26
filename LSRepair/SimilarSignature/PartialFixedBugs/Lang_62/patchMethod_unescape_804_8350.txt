@@ -1,0 +1,32 @@
+//**********************************************************
+//  webx_citrus:com.alibaba.citrus.service.uribroker.uri:URIBroker:setUriAndGetPath:String#uri:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String uri) {
+        if (uri != null) {
+            int i = uri.indexOf("?");
+            int j = uri.indexOf("#", i + 1);
+
+            if (j >= 0) {
+                setReference(uri.substring(j + 1));
+                uri = uri.substring(0, j);
+            }
+
+            if (i >= 0) {
+                String query = uri.substring(i + 1);
+                uri = uri.substring(0, i);
+
+                new URIBrokerQueryStringParser().parse(query);
+            }
+        }
+
+        return uri;
+    }

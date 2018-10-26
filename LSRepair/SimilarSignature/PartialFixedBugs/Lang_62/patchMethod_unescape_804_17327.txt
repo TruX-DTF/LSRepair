@@ -1,0 +1,27 @@
+//**********************************************************
+//  teihoata_Clippy:org.json:JSONTokener:nextTo:String#delimiters:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String delimiters) throws JSONException {
+        char c;
+        StringBuffer sb = new StringBuffer();
+        for (;;) {
+            c = this.next();
+            if (delimiters.indexOf(c) >= 0 || c == 0 ||
+                    c == '\n' || c == '\r') {
+                if (c != 0) {
+                    this.back();
+                }
+                return sb.toString().trim();
+            }
+            sb.append(c);
+        }
+    }

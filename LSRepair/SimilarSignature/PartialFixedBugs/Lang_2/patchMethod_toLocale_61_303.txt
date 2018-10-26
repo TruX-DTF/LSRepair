@@ -1,0 +1,74 @@
+//**********************************************************
+//  Evervolv_android_packages_inputmethods_LatinIME:com.android.inputmethod.keyboard.tools:LocaleUtils:constructLocaleFromString:String#localeStr:Locale
+//**********************************************************
+/**
+     * <p>Converts a String to a Locale.</p>
+     *
+     * <p>This method takes the string format of a locale and creates the
+     * locale object from it.</p>
+     *
+     * <pre>
+     *   LocaleUtils.toLocale("en")         = new Locale("en", "")
+     *   LocaleUtils.toLocale("en_GB")      = new Locale("en", "GB")
+     *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
+     * </pre>
+     *
+     * <p>(#) The behaviour of the JDK variant constructor changed between JDK1.3 and JDK1.4.
+     * In JDK1.3, the constructor upper cases the variant, in JDK1.4, it doesn't.
+     * Thus, the result from getVariant() may vary depending on your JDK.</p>
+     *
+     * <p>This method validates the input strictly.
+     * The language code must be lowercase.
+     * The country code must be uppercase.
+     * The separator must be an underscore.
+     * The length must be correct.
+     * </p>
+     *
+     * @param str  the locale String to convert, null returns null
+     * @return a Locale, null if null input
+     * @throws IllegalArgumentException if the string is an invalid format
+     */
+    public static Locale toLocale(final String localeStr) {
+        if (localeStr == null) {
+            return null;
+        }
+        synchronized (sLocaleCache) {
+            if (sLocaleCache.containsKey(localeStr)) {
+                return sLocaleCache.get(localeStr);
+            }
+            boolean hasRegion = false;
+            final Locale.Builder builder = new Locale.Builder();
+            final String[] localeElements = localeStr.split("_", ELEMENT_LIMIT);
+            if (localeElements.length > INDEX_LANGUAGE) {
+                final String text = localeElements[INDEX_LANGUAGE];
+                if (isValidLanguage(text)) {
+                    builder.setLanguage(text);
+                } else {
+                    throw new RuntimeException("Unknown locale format: " + localeStr);
+                }
+            }
+            if (localeElements.length > INDEX_SCRIPT) {
+                final String text = localeElements[INDEX_SCRIPT];
+                if (isValidScript(text)) {
+                    builder.setScript(text);
+                } else if (isValidRegion(text)) {
+                    builder.setRegion(text);
+                    hasRegion = true;
+                } else {
+                    throw new RuntimeException("Unknown locale format: " + localeStr);
+                }
+            }
+            if (localeElements.length > INDEX_REGION) {
+                final String text = localeElements[INDEX_REGION];
+                if (!hasRegion && isValidRegion(text)) {
+                    builder.setRegion(text);
+                } else {
+                    throw new RuntimeException("Unknown locale format: " + localeStr);
+                }
+            }
+            final Locale locale = builder.build();
+            sLocaleCache.put(localeStr, locale);
+            return locale;
+        }
+    }
+

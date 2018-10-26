@@ -1,0 +1,9 @@
+//**********************************************************
+//  edwardkort_WWIDesigner:com.wwidesigner.optimization:SingleTaperHoleGroupFromTopHemiHeadObjectiveFunction:getInitialTrustRegionRadius:double[]#initial:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] initial)
+	{
+		initialTrustRegionRadius = 10.;
+		return initialTrustRegionRadius;
+	}

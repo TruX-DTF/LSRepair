@@ -1,0 +1,68 @@
+//**********************************************************
+//  shijh_langhua:org.langhua.ofbiz.jbpm.util:JBPMStringUtil:trimToSize:String#source#int#length#int#area#String#suffix:String
+//**********************************************************
+/**
+     * Abbreviates a string nicely.
+     * 
+     * This method searches for the first space after the lower limit and abbreviates
+     * the String there. It will also append any String passed as a parameter
+     * to the end of the String. The upper limit can be specified to forcibly
+     * abbreviate a String.
+     * 
+     * @param str         the string to be abbreviated. If null is passed, null is returned.
+     *                    If the empty String is passed, the empty string is returned.
+     * @param lower       the lower limit.
+     * @param upper       the upper limit; specify -1 if no limit is desired.
+     *                    If the upper limit is lower than the lower limit, it will be
+     *                    adjusted to be the same as the lower limit.
+     * @param appendToEnd String to be appended to the end of the abbreviated string.
+     *                    This is appended ONLY if the string was indeed abbreviated.
+     *                    The append does not count towards the lower or upper limits.
+     * @return the abbreviated String.
+     * @since 2.4
+     */
+    public static String abbreviate(String source, int length, int area, String suffix) {
+
+        if ((source == null) || (source.length() <= length)) {
+            // no operation is required
+            return source;
+        }
+        if (JBPMStringUtil.isEmpty(suffix)) {
+            // we need an empty suffix
+            suffix = "";
+        }
+        // must remove the length from the after sequence chars since these are always added in the end
+        int modLength = length - suffix.length();
+        if (modLength <= 0) {
+            // we are to short, return beginning of the suffix
+            return suffix.substring(0, length);
+        }
+        int modArea = area + suffix.length();
+        if ((modArea > modLength) || (modArea < 0)) {
+            // area must not be longer then max length
+            modArea = modLength;
+        }
+
+        // first reduce the String to the maximum allowed length
+        String findPointSource = source.substring(modLength - modArea, modLength);
+
+        String result;
+        // try to find an "sentence ending" char in the text
+        int pos = lastIndexOf(findPointSource, SENTENCE_ENDING_CHARS);
+        if (pos >= 0) {
+            // found a sentence ender in the lookup area, keep the sentence ender
+            result = source.substring(0, modLength - modArea + pos + 1) + suffix;
+        } else {
+            // no sentence ender was found, try to find a whitespace
+            pos = lastWhitespaceIn(findPointSource);
+            if (pos >= 0) {
+                // found a whitespace, don't keep the whitespace
+                result = source.substring(0, modLength - modArea + pos) + suffix;
+            } else {
+                // not even a whitespace was found, just cut away what's to long
+                result = source.substring(0, modLength) + suffix;
+            }
+        }
+
+        return result;
+    }

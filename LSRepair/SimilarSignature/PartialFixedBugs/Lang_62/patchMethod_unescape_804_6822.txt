@@ -1,0 +1,24 @@
+//**********************************************************
+//  griddynamics_yhadoop-common:org.apache.hadoop.hdfs.web.resources:UserParam:validateLength:String#str:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String str) {
+    if (str == null) {
+      throw new IllegalArgumentException(
+        MessageFormat.format("Parameter [{0}], cannot be NULL", NAME));
+    }
+    int len = str.length();
+    if (len < 1) {
+      throw new IllegalArgumentException(MessageFormat.format(
+        "Parameter [{0}], it's length must be at least 1", NAME));
+    }
+    return str;
+  }

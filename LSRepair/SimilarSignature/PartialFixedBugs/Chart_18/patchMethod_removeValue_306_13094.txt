@@ -1,0 +1,17 @@
+//**********************************************************
+//  geosolutions-it_imageio-ext:it.geosolutions.imageio.plugins.arcgrid:AsciiGridsImageReader:checkImageIndex:int#imageIndex:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(final int imageIndex) {
+		/* AsciiGrid file format can "contain" only 1 image */
+		if (imageIndex != 0)
+			throw new IndexOutOfBoundsException("illegal Index: "+imageIndex);
+	}

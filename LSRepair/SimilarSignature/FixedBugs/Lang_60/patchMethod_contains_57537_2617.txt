@@ -1,0 +1,12 @@
+//**********************************************************
+//  greg-pe_android_frameworks_base:android.icu.text:ArabicShaping:isAlefChar:char#ch:boolean
+//**********************************************************
+/**
+     * Checks if the string builder contains the specified char.
+     *
+     * @param ch  the character to find
+     * @return true if the builder contains the character
+     */
+    public boolean contains(char ch) {
+        return ch == '\u0622' || ch == '\u0623' || ch == '\u0625' || ch == '\u0627';
+    }

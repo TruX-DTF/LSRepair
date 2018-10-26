@@ -1,0 +1,12 @@
+//**********************************************************
+//  Chart_1#org/jfree/chart/renderer/category/AbstractCategoryItemRenderer.java#getLegendItems#LegendItemCollection#null
+//**********************************************************
+===Buggy Code===
+if (dataset != null) {
+            return result;
+        }
+===Patch Code===
+com.rapidminer.gui.viewer.ROCChartPlotter.java
+if (dataset == null) {
+            return result;
+        }

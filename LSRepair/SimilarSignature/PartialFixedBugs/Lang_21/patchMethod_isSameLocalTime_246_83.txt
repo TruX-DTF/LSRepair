@@ -1,0 +1,21 @@
+//**********************************************************
+//  exoplatform_cs:org.exoplatform.contact:CalendarUtils:isSameDate:java.util.Calendar#date1#java.util.Calendar#date2:boolean
+//**********************************************************
+/**
+     * <p>Checks if two calendar objects represent the same local time.</p>
+     *
+     * <p>This method compares the values of the fields of the two objects.
+     * In addition, both calendars must be the same of the same type.</p>
+     * 
+     * @param cal1  the first calendar, not altered, not null
+     * @param cal2  the second calendar, not altered, not null
+     * @return true if they represent the same millisecond instant
+     * @throws IllegalArgumentException if either date is <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isSameLocalTime(java.util.Calendar date1, java.util.Calendar date2) {
+    return ( date1.get(java.util.Calendar.DATE) == date2.get(java.util.Calendar.DATE) &&
+        date1.get(java.util.Calendar.MONTH) == date2.get(java.util.Calendar.MONTH) &&
+        date1.get(java.util.Calendar.YEAR) == date2.get(java.util.Calendar.YEAR)
+    ) ;
+  }

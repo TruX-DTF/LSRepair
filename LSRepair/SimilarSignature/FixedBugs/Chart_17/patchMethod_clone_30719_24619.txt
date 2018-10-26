@@ -1,0 +1,19 @@
+//**********************************************************
+//  ymasory_programming-for-the-jvm:COM.sootNsmoke.scheme:quit:apply0:null:Object
+//**********************************************************
+/**
+     * Returns a clone of the time series.
+     * <P>
+     * Notes:
+     * <ul>
+     *   <li>no need to clone the domain and range descriptions, since String 
+     *     object is immutable;</li>
+     *   <li>we pass over to the more general method clone(start, end).</li>
+     * </ul>
+     *
+     * @return A clone of the time series.
+     * 
+     * @throws CloneNotSupportedException not thrown by this class, but 
+     *         subclasses may differ.
+     */
+    public Object clone() { System.exit(0); return null; }

@@ -1,0 +1,15 @@
+//**********************************************************
+//  mebigfatguy_fb-contrib:mebigfatguy_fb-contrib.fb-contrib.src.samples.java:CAO_Sample:testci:int#i:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int i) {
+        System.out.println("int");
+    }

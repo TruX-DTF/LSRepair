@@ -1,0 +1,19 @@
+//**********************************************************
+//  DevBoost_EMFText:antlr:PythonCharFormatter:escapeString:String#s:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String s) {
+    String retval = new String();
+    for (int i = 0; i < s.length(); i++) {
+      retval += escapeChar(s.charAt(i), false);
+    }
+    return retval;
+  }

@@ -1,0 +1,24 @@
+//**********************************************************
+//  joechen2010_ProjectModel:org.json.me:JSONArray:join:String#separator:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String separator) throws JSONException {
+        int len = length();
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < len; i += 1) {
+            if (i > 0) {
+                sb.append(separator);
+            }
+            sb.append(JSONObject.valueToString(this.myArrayList.elementAt(i)));
+        }
+        return sb.toString();
+    }

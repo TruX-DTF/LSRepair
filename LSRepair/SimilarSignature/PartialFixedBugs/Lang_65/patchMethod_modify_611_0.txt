@@ -1,0 +1,14 @@
+//**********************************************************
+//  eclipse_nebula:org.eclipse.nebula.widgets.ganttchart:GanttComposite:setDate:Calendar#date#int#side#boolean#clearMinutes:void
+//**********************************************************
+/**
+     * <p>Internal calculation method.</p>
+     * 
+     * @param val  the calendar
+     * @param field  the field constant
+     * @param round  true to round, false to truncate
+     * @throws ArithmeticException if the year is over 280 million
+     */
+    private static void modify(final Calendar date, final int side, final boolean clearMinutes) {
+        internalSetDate(date, side, clearMinutes, true);
+    }

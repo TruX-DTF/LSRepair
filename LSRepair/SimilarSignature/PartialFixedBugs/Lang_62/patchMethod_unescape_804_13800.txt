@@ -1,0 +1,47 @@
+//**********************************************************
+//  DevBoost_EMFText:org.antlr.codegen:RubyTarget$RubyRenderer:camelcase:String#value:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape( String value ) {
+            StringBuilder output_buffer = new StringBuilder();
+            int cliff = value.length();
+            char cur;
+            char next;
+            boolean at_edge = true;
+
+            if ( value.length() == 0 ) return value;
+            if ( cliff == 1 ) return value.toUpperCase();
+
+            for ( int i = 0; i < cliff; i++ ) {
+                cur  = value.charAt( i );
+
+                if ( Character.isWhitespace( cur ) ) {
+                    at_edge = true;
+                    continue;
+                } else if ( cur == '_' ) {
+                    at_edge = true;
+                    continue;
+                } else if ( Character.isDigit( cur ) ) {
+                    output_buffer.append( cur );
+                    at_edge = true;
+                    continue;
+                }
+
+                if ( at_edge ) {
+                    output_buffer.append( Character.toUpperCase( cur ) );
+                    if ( Character.isLetter( cur ) ) at_edge = false;
+                } else {
+                    output_buffer.append( cur );
+                }
+            }
+
+            return output_buffer.toString();
+        }

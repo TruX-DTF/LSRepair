@@ -1,0 +1,25 @@
+//**********************************************************
+//  eclipse_emf:org.eclipse.emf.importer.java.builder:JavaEcoreBuilder:stripTypeArguments:String#type:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String type)
+  {
+    int start = type.indexOf('<');
+    if (start > 0)
+    {
+      int end = type.lastIndexOf('>');
+      if (end > start+1)
+      {
+        return type.substring(0, start).trim();
+      }
+    }
+    return type;
+  }

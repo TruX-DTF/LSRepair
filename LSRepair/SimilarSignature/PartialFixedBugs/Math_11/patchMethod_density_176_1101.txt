@@ -1,0 +1,12 @@
+//**********************************************************
+//  aborg0_rapidminer-vega:com.rapidminer.operator.generator:SimplePolynomialClassificationFunction:calculate:double[]#att:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] att) throws FunctionException {
+		if (att.length < 1)
+			throw new FunctionException("Simple polynomial classification function", "needs at least one attribute!");
+		if ((att[0] * att[0] * att[0] * att[0]) > 100)
+			return getLabel().getMapping().mapString("positive");
+		else
+			return getLabel().getMapping().mapString("negative");
+	}

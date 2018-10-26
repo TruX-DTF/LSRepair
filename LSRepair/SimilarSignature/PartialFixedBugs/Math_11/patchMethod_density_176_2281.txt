@@ -1,0 +1,13 @@
+//**********************************************************
+//  uberto_netnumeri:com.netnumeri.shared.finance.math:FinRecipes:max_element:double[]#prices:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] prices) {
+        double max = 0;
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] > max) {
+                max = prices[i];
+            }
+        }
+        return max;
+    }

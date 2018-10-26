@@ -1,0 +1,34 @@
+//**********************************************************
+//  alibaba_dubbo:com.alibaba.dubbo.common.utils:ReflectUtils:name2desc:String#name:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String name)
+	{
+		StringBuilder sb = new StringBuilder();
+		int c = 0,index = name.indexOf('[');
+		if( index > 0 )
+		{
+			c = ( name.length() - index ) / 2;
+			name = name.substring(0,index);
+		}
+		while( c-- > 0 ) sb.append("[");
+		if( "void".equals(name) ) sb.append(JVM_VOID);
+		else if( "boolean".equals(name) ) sb.append(JVM_BOOLEAN);
+		else if( "byte".equals(name) ) sb.append(JVM_BYTE);
+		else if( "char".equals(name) ) sb.append(JVM_CHAR);
+		else if( "double".equals(name) ) sb.append(JVM_DOUBLE);
+		else if( "float".equals(name) ) sb.append(JVM_FLOAT);
+		else if( "int".equals(name) ) sb.append(JVM_INT);
+		else if( "long".equals(name) ) sb.append(JVM_LONG);
+		else if( "short".equals(name) ) sb.append(JVM_SHORT);
+		else sb.append('L').append(name.replace('.', '/')).append(';');
+		return sb.toString();
+	}

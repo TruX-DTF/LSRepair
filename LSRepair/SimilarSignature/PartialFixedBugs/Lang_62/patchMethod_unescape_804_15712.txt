@@ -1,0 +1,39 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.dynamic.data.mapping.type.radio.internal:RadioDDMFormFieldContextHelper:toString:String#value:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String value) {
+		if (Validator.isNull(value)) {
+			return StringPool.BLANK;
+		}
+
+		try {
+			JSONArray jsonArray = _jsonFactory.createJSONArray(value);
+
+			return jsonArray.getString(0);
+		}
+		catch (JSONException jsone) {
+
+			// LPS-52675
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(jsone, jsone);
+			}
+
+			String[] values = StringUtil.split(value);
+
+			if (values.length > 0) {
+				return values[0];
+			}
+
+			return StringPool.BLANK;
+		}
+	}

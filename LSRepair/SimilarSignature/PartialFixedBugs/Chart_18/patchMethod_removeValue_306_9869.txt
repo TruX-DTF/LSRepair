@@ -1,0 +1,17 @@
+//**********************************************************
+//  VoltDB_voltdb:com.google_voltpatches.common.collect:Iterators:checkNonnegative:int#position:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int position) {
+    if (position < 0) {
+      throw new IndexOutOfBoundsException("position (" + position + ") must not be negative");
+    }
+  }

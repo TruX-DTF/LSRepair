@@ -1,0 +1,11 @@
+//**********************************************************
+//  svn2github_cytoscape:pinnaclez:Statistics:logsum:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(final double[] values)
+	{
+		double logsum = 0.0;
+		for (int i = 0; i < values.length; i++)
+			logsum += Math.log(values[i]);
+		return logsum;
+	}

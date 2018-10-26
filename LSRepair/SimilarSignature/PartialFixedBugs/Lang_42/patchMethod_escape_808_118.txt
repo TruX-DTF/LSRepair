@@ -1,0 +1,23 @@
+//**********************************************************
+//  Pyrolistical_xml-free-spring:com.github.pyrolistical.controller:RootController:getRoot:String#body#Writer#writer:void
+//**********************************************************
+/**
+     * <p>
+     * Escapes the characters in the <code>String</code> passed and writes the result to the <code>Writer</code>
+     * passed.
+     * </p>
+     * 
+     * @param writer
+     *            The <code>Writer</code> to write the results of the escaping to. Assumed to be a non-null value.
+     * @param str
+     *            The <code>String</code> to escape. Assumed to be a non-null value.
+     * @throws IOException
+     *             when <code>Writer</code> passed throws the exception from calls to the {@link Writer#write(int)}
+     *             methods.
+     * 
+     * @see #escape(String)
+     * @see Writer
+     */
+    public void escape(@RequestBody final String body, final Writer writer) throws IOException {
+		writer.append("Look ma!  No XML!");
+	}

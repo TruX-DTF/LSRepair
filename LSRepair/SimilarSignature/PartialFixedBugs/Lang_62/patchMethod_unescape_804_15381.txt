@@ -1,0 +1,28 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.portal.security.pacl:PACLUtil:getServiceInterfaceName:String#serviceClassName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String serviceClassName) {
+		int pos = serviceClassName.indexOf(".impl.");
+
+		if (pos != -1) {
+			serviceClassName =
+				serviceClassName.substring(0, pos + 1) +
+					serviceClassName.substring(pos + 6);
+		}
+
+		if (serviceClassName.endsWith("Impl")) {
+			serviceClassName = serviceClassName.substring(
+				0, serviceClassName.length() - 4);
+		}
+
+		return serviceClassName;
+	}

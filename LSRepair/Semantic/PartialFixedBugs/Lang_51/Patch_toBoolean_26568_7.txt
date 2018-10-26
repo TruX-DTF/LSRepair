@@ -1,0 +1,8 @@
+//**********************************************************
+//  Lang_51#org/apache/commons/lang/BooleanUtils.java#toBoolean#boolean#String
+//**********************************************************
+===Buggy Code===
+return false;
+===Patch Code===
+java.lang.Boolean.java
+return value;

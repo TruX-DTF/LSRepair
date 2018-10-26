@@ -1,0 +1,11 @@
+//**********************************************************
+//  JoelHarman_INB372Project:guestbook:Calculator:calculateDailyAverage:double[]#result:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] result) throws CalculatorException {
+		if (result == null) throw new CalculatorException("Input is null.");
+		if (result.length <= 0) throw new CalculatorException("Result length cannot be zero: divide by zero error.");
+		double total = sumResult(result);
+		double dailyAverage = total / (DAYS_IN_YEAR * result.length);
+		return dailyAverage;
+	}

@@ -1,0 +1,31 @@
+//**********************************************************
+//  societies_SOCIETIES-Platform:org.societies.platform.TwitterConnector.impl:TwitterConnectorImpl:getOtherProfileString:String#id:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String id) {
+		OAuthRequest request = new OAuthRequest(Verb.GET, GET_OTHER_PROFILE_URL
+				+ id);
+		this.service.signRequest(twToken.getAccessToken(), request);
+		Response response = request.send();
+		JSONArray res = null;
+		JSONObject user = null;
+		try {
+			res = new JSONArray(response.getBody());
+			user = res.getJSONObject(0);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (res != null)
+			return user.toString();
+		else
+			return null;
+	}

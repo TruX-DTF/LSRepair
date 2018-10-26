@@ -1,0 +1,47 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.sync.engine.util:FileUtil:getNextFilePathName:String#filePathName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String filePathName) {
+		Path filePath = Paths.get(filePathName);
+
+		Path parentFilePath = filePath.getParent();
+
+		for (int i = 0;; i++) {
+			StringBuilder sb = new StringBuilder();
+
+			sb.append(FilenameUtils.getBaseName(filePathName));
+
+			if (i > 0) {
+				sb.append(" (");
+				sb.append(i);
+				sb.append(")");
+			}
+
+			String extension = FilenameUtils.getExtension(filePathName);
+
+			if (extension.length() > 0) {
+				sb.append(".");
+				sb.append(extension);
+			}
+
+			String tempFilePathName = getFilePathName(
+				parentFilePath.toString(), sb.toString());
+
+			if (SyncFileService.fetchSyncFile(tempFilePathName) == null) {
+				Path tempFilePath = Paths.get(tempFilePathName);
+
+				if (!exists(tempFilePath)) {
+					return tempFilePathName;
+				}
+			}
+		}
+	}

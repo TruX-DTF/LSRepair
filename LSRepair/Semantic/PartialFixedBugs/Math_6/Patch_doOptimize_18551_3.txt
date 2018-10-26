@@ -1,0 +1,16 @@
+//**********************************************************
+//  Math_6#org/apache/commons/math3/optim/nonlinear/scalar/noderiv/CMAESOptimizer.java#doOptimize#PointValuePair#null
+//**********************************************************
+===Buggy Code===
+if (stopFitness != 0) { // only if stopFitness is defined
+                if (bestFitness < (isMinimize ? stopFitness : -stopFitness)) {
+                    break generationLoop;
+                }
+            }
+===Patch Code===
+org.apache.commons.math3.optim.linear.SimplexTableau.java
+if (stopFitness < 0) { // only if stopFitness is defined
+                if (bestFitness < (isMinimize ? stopFitness : -stopFitness)) {
+                    break generationLoop;
+                }
+            }

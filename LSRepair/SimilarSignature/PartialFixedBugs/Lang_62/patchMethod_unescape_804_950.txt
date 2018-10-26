@@ -1,0 +1,18 @@
+//**********************************************************
+//  davros-_platform_frameworks_base:android.os:SystemProperties:get:String#key:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String key) {
+        if (key.length() > PROP_NAME_MAX) {
+            throw new IllegalArgumentException("key.length > " + PROP_NAME_MAX);
+        }
+        return native_get(key);
+    }

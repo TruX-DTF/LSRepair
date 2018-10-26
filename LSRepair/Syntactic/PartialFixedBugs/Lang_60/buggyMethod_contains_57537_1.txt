@@ -1,0 +1,21 @@
+//**********************************************************
+//  Lang_60#org/apache/commons/lang/text/StrBuilder.java#contains#boolean#char
+//**********************************************************
+/**
+     * Checks if the string builder contains the specified char.
+     *
+     * @param ch  the character to find
+     * @return true if the builder contains the character
+     */
+    public boolean contains(char c) {
+		char[] boundaryChars = { ' ', '.', ',', '\"', '\'', '\n', '\t', ':',
+				'!', '\'' };
+
+		for (int i = 0; i < boundaryChars.length; i++) {
+			if (boundaryChars[i] == c) {
+				return true;
+			}
+		}
+
+		return false;
+	}

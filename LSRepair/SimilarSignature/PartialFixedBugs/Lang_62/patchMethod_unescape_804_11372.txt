@@ -1,0 +1,21 @@
+//**********************************************************
+//  arcanefoam_qvtMustus:org.eclipse.imp.utils:HTMLPrinter:formatSingleMessage:String#message:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String message) {
+//        if (true) // until we hook in the HTML-enabled hover viewer
+//            return message;
+        StringBuffer buffer= new StringBuffer();
+        addPageProlog(buffer);
+        addParagraph(buffer, convertToHTMLContent(message));
+        addPageEpilog(buffer);
+        return buffer.toString();
+    }

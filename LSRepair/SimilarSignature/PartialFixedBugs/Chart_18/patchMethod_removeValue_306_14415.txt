@@ -1,0 +1,23 @@
+//**********************************************************
+//  cacciatc_happiNES-dev:vNES:HiResTimer:sleepMillisIdle:int#millis:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int millis) {
+
+        millis /= 10;
+        millis *= 10;
+
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException ie) {
+        }
+
+    }

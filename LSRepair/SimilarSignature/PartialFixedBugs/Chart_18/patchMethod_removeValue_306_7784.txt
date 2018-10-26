@@ -1,0 +1,15 @@
+//**********************************************************
+//  msg555_PowerTutor:edu.umich.PowerTutor.util:NotificationService$PrintNotifications:recordCurrentLevel:int#level:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int level) {
+      System.out.println("recordCurrentLevel[level=" + level + "]");
+    }

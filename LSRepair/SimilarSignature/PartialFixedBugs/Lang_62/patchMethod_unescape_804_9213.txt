@@ -1,0 +1,28 @@
+//**********************************************************
+//  TeamSourcery_frameworks_base:android.media:MediaFile:getFileTitle:String#path:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String path) {
+        // extract file name after last slash
+        int lastSlash = path.lastIndexOf('/');
+        if (lastSlash >= 0) {
+            lastSlash++;
+            if (lastSlash < path.length()) {
+                path = path.substring(lastSlash);
+            }
+        }
+        // truncate the file extension (if any)
+        int lastDot = path.lastIndexOf('.');
+        if (lastDot > 0) {
+            path = path.substring(0, lastDot);
+        }
+        return path;
+    }

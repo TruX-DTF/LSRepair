@@ -1,0 +1,8 @@
+//**********************************************************
+//  northern-bites_nbites:org.apache.commons.math3.optimization.general:AbstractLeastSquaresOptimizer:computeCost:double[]#residuals:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] residuals) {
+        final ArrayRealVector r = new ArrayRealVector(residuals);
+        return FastMath.sqrt(r.dotProduct(getWeight().operate(r)));
+    }

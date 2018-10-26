@@ -1,0 +1,40 @@
+//**********************************************************
+//  smidget_Network-Inference-Workspace:edu.duke.cs.banjo.data.settings:Settings:getSettingItemValueAsLoaded:String#_settingName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape( final String _settingName ) {
+        
+        SettingItem itemToFind;
+        
+        // If we can't find a matching setting, we return this value:
+        String itemValue =  new String( BANJO.DATA_SETTINGNOTFOUND );
+        
+        Iterator settingItemIterator = processedSettings.iterator();
+        while ( settingItemIterator.hasNext() ) {
+            
+            itemToFind = ( SettingItem ) settingItemIterator.next();
+            String tmpName = itemToFind.getItemNameForComparison();
+
+            if ( itemToFind.getItemNameForComparison().equalsIgnoreCase( 
+                    _settingName ) ) {
+                
+                itemValue = itemToFind.getItemValueAsLoaded();
+                
+                // if the setting has an invalid value, we return it
+                if ( !itemToFind.isValidSetting() )
+                    itemValue = BANJO.DATA_SETTINGINVALIDVALUE;
+                
+                break;
+            }
+        }
+        
+        return itemValue;
+    }

@@ -1,0 +1,45 @@
+//**********************************************************
+//  IceColdSandwich_android_frameworks_base:android.view.inputmethod:InputMethodSubtype:constructLocaleFromString:String#localeStr:Locale
+//**********************************************************
+/**
+     * <p>Converts a String to a Locale.</p>
+     *
+     * <p>This method takes the string format of a locale and creates the
+     * locale object from it.</p>
+     *
+     * <pre>
+     *   LocaleUtils.toLocale("en")         = new Locale("en", "")
+     *   LocaleUtils.toLocale("en_GB")      = new Locale("en", "GB")
+     *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
+     * </pre>
+     *
+     * <p>(#) The behaviour of the JDK variant constructor changed between JDK1.3 and JDK1.4.
+     * In JDK1.3, the constructor upper cases the variant, in JDK1.4, it doesn't.
+     * Thus, the result from getVariant() may vary depending on your JDK.</p>
+     *
+     * <p>This method validates the input strictly.
+     * The language code must be lowercase.
+     * The country code must be uppercase.
+     * The separator must be an underscore.
+     * The length must be correct.
+     * </p>
+     *
+     * @param str  the locale String to convert, null returns null
+     * @return a Locale, null if null input
+     * @throws IllegalArgumentException if the string is an invalid format
+     */
+    public static Locale toLocale(String localeStr) {
+        if (TextUtils.isEmpty(localeStr))
+            return null;
+        String[] localeParams = localeStr.split("_", 3);
+        // The length of localeStr is guaranteed to always return a 1 <= value <= 3
+        // because localeStr is not empty.
+        if (localeParams.length == 1) {
+            return new Locale(localeParams[0]);
+        } else if (localeParams.length == 2) {
+            return new Locale(localeParams[0], localeParams[1]);
+        } else if (localeParams.length == 3) {
+            return new Locale(localeParams[0], localeParams[1], localeParams[2]);
+        }
+        return null;
+    }

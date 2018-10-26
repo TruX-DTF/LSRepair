@@ -1,0 +1,11 @@
+//**********************************************************
+//  fusesource_rrd4j:org.rrd4j.core:Util:max:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] values) {
+        double max = Double.NaN;
+        for (double value : values) {
+            max = Util.max(max, value);
+        }
+        return max;
+    }

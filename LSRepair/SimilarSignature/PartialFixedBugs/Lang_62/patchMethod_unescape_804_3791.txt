@@ -1,0 +1,69 @@
+//**********************************************************
+//  joechen2010_ProjectModel:com.joe.utilities.core.util:Utils:handleRegexSpecialChars:String#anyString:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String anyString){
+		
+		if (anyString == null) 
+			return anyString;
+		
+    	StringBuffer validString = new StringBuffer();
+    	char[] theChars = anyString.toCharArray();
+    	char[] specialCharacters = new char[29];
+    	boolean specialChar_f = false;
+    	
+    	specialCharacters[0] = '$';
+    	specialCharacters[1] = '\\';
+    	specialCharacters[2] = '@';
+    	specialCharacters[3] = '#';
+    	specialCharacters[4] = '%';
+    	specialCharacters[5] = '!';
+    	specialCharacters[6] = '^';
+    	specialCharacters[7] = '&';
+    	specialCharacters[8] = '*';
+    	specialCharacters[9] = '(';
+    	specialCharacters[10] = ')';
+    	specialCharacters[11] = '_';
+    	specialCharacters[12] = '+';
+    	specialCharacters[13] = '=';
+    	specialCharacters[14] = '-';
+    	specialCharacters[15] = '{';
+    	specialCharacters[16] = '}';
+    	specialCharacters[17] = '|';
+    	specialCharacters[18] = '[';
+    	specialCharacters[19] = ']';
+    	specialCharacters[20] = '.';
+    	specialCharacters[21] = '?';
+    	specialCharacters[22] = '<';
+    	specialCharacters[23] = '>';
+    	specialCharacters[24] = '~';
+    	specialCharacters[25] = '`';
+    	specialCharacters[26] = ':';
+    	specialCharacters[27] = ';';
+    	specialCharacters[28] = '"';
+
+    	
+    	
+    	
+     	for (char c : theChars){
+    		specialChar_f = false;
+    		for(char d : specialCharacters){
+    			if(c == d){
+    				validString.append("\\" + c);
+    				specialChar_f = true;
+    			}
+    		}
+    		if(!specialChar_f){
+    			validString.append(c);
+    		}
+    	}
+		return validString.toString();
+    }

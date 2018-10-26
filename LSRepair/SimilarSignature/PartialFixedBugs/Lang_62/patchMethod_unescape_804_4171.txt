@@ -1,0 +1,36 @@
+//**********************************************************
+//  jersey_jersey-1.x:com.sun.jersey.server.impl.container.servlet:JSPTemplateProcessor:resolve:String#path:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String path) {
+        if (servletContext == null)
+            return null;
+
+        if (basePath != "")
+            path = basePath + path;
+        
+        try {
+            if (servletContext.getResource(path) != null) {
+                return path;
+            }
+                
+            if (!path.endsWith(".jsp")) {
+                path = path + ".jsp";
+                if (servletContext.getResource(path) != null) {
+                    return path;
+                }
+            }            
+        } catch (MalformedURLException ex) {
+            // TODO log
+        }
+        
+        return null;
+    }

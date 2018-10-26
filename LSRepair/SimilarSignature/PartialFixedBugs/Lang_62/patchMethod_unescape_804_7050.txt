@@ -1,0 +1,45 @@
+//**********************************************************
+//  openjdk-mirror_jdk7u-jaxp:com.sun.org.apache.xml.internal.resolver:Resolver:resolveURI:String#uri:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String uri)
+    throws MalformedURLException, IOException {
+
+    String resolved = super.resolveURI(uri);
+    if (resolved != null) {
+      return resolved;
+    }
+
+    Enumeration en = catalogEntries.elements();
+    while (en.hasMoreElements()) {
+      CatalogEntry e = (CatalogEntry) en.nextElement();
+      if (e.getEntryType() == RESOLVER) {
+        resolved = resolveExternalSystem(uri, e.getEntryArg(0));
+        if (resolved != null) {
+          return resolved;
+        }
+      } else if (e.getEntryType() == URISUFFIX) {
+        String suffix = e.getEntryArg(0);
+        String result = e.getEntryArg(1);
+
+        if (suffix.length() <= uri.length()
+            && uri.substring(uri.length()-suffix.length()).equals(suffix)) {
+          return result;
+        }
+      }
+    }
+
+    // Otherwise, look in the subordinate catalogs
+    return resolveSubordinateCatalogs(Catalog.URI,
+                                      null,
+                                      null,
+                                      uri);
+  }

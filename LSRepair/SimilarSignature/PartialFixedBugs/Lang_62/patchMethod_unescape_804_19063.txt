@@ -1,0 +1,23 @@
+//**********************************************************
+//  jkiddo_jd-core-command:jd.ide.eclipse.editors:JDSourceMapper:getJavaClassPath:String#javaSourcePath:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String javaSourcePath)
+	{
+		int index = javaSourcePath.length() - JAVA_SOURCE_SUFFIX_LENGTH;
+			
+		if (javaSourcePath.regionMatches(
+				true, index, JAVA_SOURCE_SUFFIX, 
+				0, JAVA_SOURCE_SUFFIX_LENGTH))
+			return javaSourcePath.substring(0, index) + JAVA_CLASS_SUFFIX;
+		
+		return null;
+	}

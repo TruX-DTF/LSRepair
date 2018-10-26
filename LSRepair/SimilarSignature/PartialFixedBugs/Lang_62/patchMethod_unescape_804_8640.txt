@@ -1,0 +1,31 @@
+//**********************************************************
+//  santiagozky_harmony:org.opennaas.extensions.idb.shell:CommandlineReservationClient:getReservationStatus:String#reservationId:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String reservationId)
+			throws SoapFault {
+		final GetStatusResponseType status = this.client
+				.getStatus(reservationId);
+
+		final StringBuffer result = new StringBuffer(50);
+		for (final GetStatusResponseType.ServiceStatus service : status
+				.getServiceStatus()) {
+			result.append("Status: " + service.getStatus().toString() + "\n"
+					+ "Details: \n");
+			for (final DomainStatusType domainStatus : service
+					.getDomainStatus()) {
+				result.append(" * Domain: " + domainStatus.getDomain() + " - "
+						+ domainStatus.getStatus().toString() + "\n");
+			}
+		}
+
+		return result.toString();
+	}

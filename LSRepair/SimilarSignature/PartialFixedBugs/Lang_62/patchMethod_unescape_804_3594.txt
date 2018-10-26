@@ -1,0 +1,37 @@
+//**********************************************************
+//  adamz667_framework_base:com.android.server:MountService:getMountedObbPath:String#filename:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String filename) {
+        if (filename == null) {
+            throw new IllegalArgumentException("filename cannot be null");
+        }
+
+        waitForReady();
+        warnOnNotMounted();
+
+        try {
+            ArrayList<String> rsp = mConnector.doCommand(String.format("obb path %s", filename));
+            String []tok = rsp.get(0).split(" ");
+            int code = Integer.parseInt(tok[0]);
+            if (code != VoldResponseCode.AsecPathResult) {
+                throw new IllegalStateException(String.format("Unexpected response code %d", code));
+            }
+            return tok[1];
+        } catch (NativeDaemonConnectorException e) {
+            int code = e.getCode();
+            if (code == VoldResponseCode.OpFailedStorageNotFound) {
+                return null;
+            } else {
+                throw new IllegalStateException(String.format("Unexpected response code %d", code));
+            }
+        }
+    }

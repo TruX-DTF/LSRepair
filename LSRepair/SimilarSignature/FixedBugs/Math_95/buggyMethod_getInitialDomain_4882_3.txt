@@ -1,0 +1,18 @@
+//**********************************************************
+//  Math_95#org/apache/commons/math/distribution/FDistributionImpl.java#getInitialDomain#double#double
+//**********************************************************
+/**
+     * Access the initial domain value, based on <code>p</code>, used to
+     * bracket a CDF root.  This method is used by
+     * {@link #inverseCumulativeProbability(double)} to find critical values.
+     * 
+     * @param p the desired probability for the critical value
+     * @return initial domain value
+     */
+    protected double getInitialDomain(double p) {
+        double ret;
+        double d = getDenominatorDegreesOfFreedom();
+            // use mean
+            ret = d / (d - 2.0);
+        return ret;
+    }

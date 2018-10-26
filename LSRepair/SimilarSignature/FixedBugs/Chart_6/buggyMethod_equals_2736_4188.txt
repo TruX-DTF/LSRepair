@@ -1,0 +1,21 @@
+//**********************************************************
+//  Chart_6#org/jfree/chart/util/ShapeList.java#equals#boolean#Object
+//**********************************************************
+/**
+     * Tests the list for equality with another object (typically also a list).
+     *
+     * @param obj  the other object (<code>null</code> permitted).
+     *
+     * @return A boolean.
+     */
+    public boolean equals(Object obj) {
+
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof ShapeList)) {
+            return false;
+        }
+        return super.equals(obj);
+
+    }

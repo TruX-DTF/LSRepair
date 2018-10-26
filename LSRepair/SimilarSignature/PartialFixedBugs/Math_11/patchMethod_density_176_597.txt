@@ -1,0 +1,10 @@
+//**********************************************************
+//  jmchilton_TINT:edu.umn.msi.tropix.proteomics.itraqquantitation.impl:RMethods:getPValue:double[]#x:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(final double[] x) {
+    final double xBar = StatUtils.mean(x);
+    final double xStd = RUtils.sd(x);
+    final double z = xBar / xStd;
+    return RUtils.pnorm(-1 * Math.abs(z)) * 2;
+  }

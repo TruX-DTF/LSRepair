@@ -1,0 +1,27 @@
+//**********************************************************
+//  ocpsoft_rewrite:com.ocpsoft.pretty.faces.url:QueryString:getParameter:String#name:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String name)
+   {
+      List<String> values = parameters.get(name);
+      if (values == null)
+      {
+         return null;
+      }
+
+      if (values.size() == 0)
+      {
+         return "";
+      }
+
+      return values.get(0);
+   }

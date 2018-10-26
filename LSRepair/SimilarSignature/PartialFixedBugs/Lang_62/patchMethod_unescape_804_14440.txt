@@ -1,0 +1,22 @@
+//**********************************************************
+//  caelum_guj.com.br:net.jforum.util.rss:RSSUtils:formatDate:String#date:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String date)
+	{
+		try {
+			SimpleDateFormat df = new SimpleDateFormat(SystemGlobals.getValue(ConfigKeys.DATE_TIME_FORMAT));
+			return formatDate(df.parse(date));
+		}
+		catch (ParseException e) {
+			return date;
+		}
+	}

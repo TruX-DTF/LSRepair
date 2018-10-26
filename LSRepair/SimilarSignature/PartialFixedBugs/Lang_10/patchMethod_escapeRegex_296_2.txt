@@ -1,0 +1,17 @@
+//**********************************************************
+//  sgothel_gluegen:com.jogamp.gluegen.cgram.types:Type:append:StringBuilder#sb#String#val#boolean#prepComma:StringBuilder
+//**********************************************************
+/**
+     * Escape constant fields into regular expression
+     * @param regex The destination regex
+     * @param value The source field
+     * @param unquote If true, replace two success quotes ('') with single quote (')
+     * @return The <code>StringBuilder</code>
+     */
+    private static StringBuilder escapeRegex(final StringBuilder sb, final String val, final boolean prepComma) {
+      if( prepComma ) {
+          sb.append(", ");
+      }
+      sb.append(val);
+      return sb;
+  }

@@ -1,0 +1,7 @@
+//**********************************************************
+//  sancha_jrae:math:DoubleArrays:vectorLength:double[]#x:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] x) {
+    return Math.sqrt(innerProduct(x, x));
+  }

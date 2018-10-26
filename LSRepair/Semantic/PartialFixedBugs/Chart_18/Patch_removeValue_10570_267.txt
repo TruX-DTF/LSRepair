@@ -1,0 +1,12 @@
+//**********************************************************
+//  Chart_18#org/jfree/data/DefaultKeyedValues.java#removeValue#void#int
+//**********************************************************
+===Buggy Code===
+if (index < this.keys.size()) {
+        rebuildIndex();
+        }
+===Patch Code===
+org.apache.jackrabbit.commons.iterator.RangeIteratorAdapter.java
+if (index == this.keys.size()) {
+        rebuildIndex();
+        }

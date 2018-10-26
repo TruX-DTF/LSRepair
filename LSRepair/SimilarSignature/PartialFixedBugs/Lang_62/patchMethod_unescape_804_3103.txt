@@ -1,0 +1,31 @@
+//**********************************************************
+//  samirahmed_Iris-Voice-Automation:com.samir_ahmed.Iris:WeatherMan:getXML:String#location:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String location)
+	{
+		// Set up Strings, URL
+		//String buffer;
+		String locationURL =location.replaceAll("\\s","+"); // Replace via 
+		String weatherURL = "http://www.google.com/ig/api?weather="+locationURL+"/";
+		//System.out.println(weatherURL);
+		try{			
+			String weatherXML = httpGET.download(weatherURL,this);
+
+			if (weatherXML.contains("problem")){weatherXML = "_failed_";}
+			return weatherXML;
+		}
+		catch(Exception ee){
+			ee.printStackTrace();
+			System.err.println("Weather API: Error Reading WeatherXML File");
+			return "_failed_";
+		}
+	}

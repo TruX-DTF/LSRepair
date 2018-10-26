@@ -1,0 +1,19 @@
+//**********************************************************
+//  Mgiepz_saiku-adhoc:org.saiku.adhoc.service.cda:ExportService:exportCsv:String#sessionId:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String sessionId) throws CdaException, SaikuAdhocException {
+
+		SaikuMasterModel query = sessionHolder.getModel(sessionId);
+
+		return cdaAccessor.doQuery(query, sessionId, "csv");
+		
+	}

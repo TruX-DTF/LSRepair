@@ -1,0 +1,17 @@
+//**********************************************************
+//  kalecser_jpatchaca:tasks.adapters.ui.operators:MainScreenOperator:getDateInScreenOutputFormat:String#dateMM_DD_YYYY:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String dateMM_DD_YYYY) {
+		return getDateString(dateMM_DD_YYYY, "MM_dd_yyyy", "E "
+				+ FastDateFormat.getDateInstance(FastDateFormat.SHORT)
+						.getPattern());
+	}

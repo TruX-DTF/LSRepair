@@ -1,0 +1,75 @@
+//**********************************************************
+//  apache_felix:org.apache.felix.framework.util.manifestparser:NativeLibraryClause:normalizeProcessor:String#value:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String value)
+    {
+        value = value.toLowerCase();
+
+        if(PROC_ALIASES.containsKey(value))
+        {
+            return PROC_ALIASES.get(value).get(0);
+        }
+
+        if (value.startsWith(PROC_X86_64) || value.startsWith("amd64") ||
+            value.startsWith("em64") || value.startsWith("x86_64"))
+        {
+            return PROC_X86_64;
+        }
+        else if (value.startsWith(PROC_X86) || value.startsWith("pentium")
+            || value.startsWith("i386") || value.startsWith("i486")
+            || value.startsWith("i586") || value.startsWith("i686"))
+        {
+            return PROC_X86;
+        }
+        else if (value.startsWith(PROC_68K))
+        {
+            return PROC_68K;
+        }
+        else if (value.startsWith(PROC_ARM_LE))
+        {
+            return PROC_ARM_LE;
+        }
+        else if (value.startsWith(PROC_ARM_BE))
+        {
+            return PROC_ARM_BE;
+        }
+        else if (value.startsWith(PROC_ARM))
+        {
+            return PROC_ARM;
+        }
+        else if (value.startsWith(PROC_ALPHA))
+        {
+            return PROC_ALPHA;
+        }
+        else if (value.startsWith(PROC_IGNITE) || value.startsWith("psc1k"))
+        {
+            return PROC_IGNITE;
+        }
+        else if (value.startsWith(PROC_MIPS))
+        {
+            return PROC_MIPS;
+        }
+        else if (value.startsWith(PROC_PARISC))
+        {
+            return PROC_PARISC;
+        }
+        else if (value.startsWith(PROC_POWER_PC) || value.startsWith("power")
+            || value.startsWith("ppc"))
+        {
+            return PROC_POWER_PC;
+        }
+        else if (value.startsWith(PROC_SPARC))
+        {
+            return PROC_SPARC;
+        }
+        return value;
+    }

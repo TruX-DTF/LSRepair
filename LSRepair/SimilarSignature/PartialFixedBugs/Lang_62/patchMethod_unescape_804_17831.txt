@@ -1,0 +1,27 @@
+//**********************************************************
+//  apache_felix:org.apache.felix.mosgi.console.gui:NodesTree:getProtocolPackageProvider:String#protoName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String protoName) {
+    Object o = PROTOCOL_PACKAGE_PROVIDER.get(protoName);
+    if ( o != null) {
+      return (String) o;
+    } else {
+      String packages = bc.getProperty("mosgi.jmxconsole.protocol."+protoName+".package");
+      if ( packages == null ) {
+        packages = "";
+      } else {
+        System.out.println("Protocol provider package for \""+protoName+"\" is prefixed with \""+packages+"\"");
+      }
+      PROTOCOL_PACKAGE_PROVIDER.put(protoName, packages);
+      return packages;
+    }
+  }

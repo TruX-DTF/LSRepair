@@ -1,0 +1,26 @@
+//**********************************************************
+//  hdkmraf_JSONtoNeo4j:org.neo4j.jsontoneo4j:Helper:readFile:String#file:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String file){
+        StringBuilder text = new StringBuilder();
+        String NL = System.getProperty("line.separator");
+        try {
+            Scanner scanner = new Scanner(new FileInputStream(file));
+            while (scanner.hasNextLine()){
+                text.append(scanner.nextLine()).append(NL);
+            }
+            scanner.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Helper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return text.toString();        
+    }

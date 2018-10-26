@@ -1,0 +1,29 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.journal.search:JournalArticleIndexer:doGetSortField:String#orderByCol:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String orderByCol) {
+		if (orderByCol.equals("display-date")) {
+			return "displayDate";
+		}
+		else if (orderByCol.equals("id")) {
+			return Field.ENTRY_CLASS_PK;
+		}
+		else if (orderByCol.equals("modified-date")) {
+			return Field.MODIFIED_DATE;
+		}
+		else if (orderByCol.equals("title")) {
+			return Field.TITLE;
+		}
+		else {
+			return orderByCol;
+		}
+	}

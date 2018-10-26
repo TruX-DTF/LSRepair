@@ -1,0 +1,12 @@
+//**********************************************************
+//  Lang_2#org/apache/commons/lang3/time/FastDatePrinter.java#toString#String#null
+//**********************************************************
+/**
+     * <p>Gets a debugging string version of this formatter.</p>
+     *
+     * @return a debugging string
+     */
+    @Override
+    public String toString() {
+        return "FastDatePrinter[" + mPattern + "," + mLocale + "," + mTimeZone.getID() + "]";
+    }

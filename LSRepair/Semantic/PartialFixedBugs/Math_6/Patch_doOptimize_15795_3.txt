@@ -1,0 +1,20 @@
+//**********************************************************
+//  Math_6#org/apache/commons/math3/optim/nonlinear/scalar/noderiv/CMAESOptimizer.java#doOptimize#PointValuePair#null
+//**********************************************************
+===Buggy Code===
+if (diagonalOnly <= 0) {
+                        arxk = xmean.add(BD.multiply(arz.getColumnMatrix(k))
+                                         .scalarMultiply(sigma)); // m + sig * Normal(0,C)
+                    } else {
+                        arxk = xmean.add(times(diagD,arz.getColumnMatrix(k))
+                                         .scalarMultiply(sigma));
+                    }
+===Patch Code===
+org.apache.commons.math3.optim.linear.SimplexTableau.java
+if (diagonalOnly < 0) {
+                        arxk = xmean.add(BD.multiply(arz.getColumnMatrix(k))
+                                         .scalarMultiply(sigma)); // m + sig * Normal(0,C)
+                    } else {
+                        arxk = xmean.add(times(diagD,arz.getColumnMatrix(k))
+                                         .scalarMultiply(sigma));
+                    }

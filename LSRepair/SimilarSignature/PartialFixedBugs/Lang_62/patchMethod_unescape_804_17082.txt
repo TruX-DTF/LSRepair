@@ -1,0 +1,72 @@
+//**********************************************************
+//  openmrs_openmrs-core:org.openmrs.module:ModuleClassLoader:findLibrary:String#name:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String name) {
+		if ((name == null) || "".equals(name.trim())) {
+			return null;
+		}
+		
+		if (log.isTraceEnabled()) {
+			log.trace("findLibrary(String): name=" + name + ", this=" + this);
+		}
+		String libname = System.mapLibraryName(name);
+		String result = null;
+		//TODO
+		//PathResolver pathResolver = ModuleFactory.getPathResolver();
+		//		for (Library lib : getModule().getLibraries()) {
+		//			if (lib.isCodeLibrary()) {
+		//				continue;
+		//			}
+		//			URL libUrl = null; //pathResolver.resolvePath(lib, lib.getPath() + libname);
+		//			if (log.isDebugEnabled()) {
+		//				log.debug("findLibrary(String): trying URL " + libUrl);
+		//			}
+		//			File libFile = OpenmrsUtil.url2file(libUrl);
+		//			if (libFile != null) {
+		//				if (log.isDebugEnabled()) {
+		//					log.debug("findLibrary(String): URL " + libUrl
+		//							+ " resolved as local file " + libFile);
+		//				}
+		//				if (libFile.isFile()) {
+		//					result = libFile.getAbsolutePath();
+		//					break;
+		//				}
+		//				continue;
+		//			}
+		//			// we have some kind of non-local URL
+		//			// try to copy it to local temporary file
+		//			libFile = (File) libraryCache.get(libUrl);
+		//			if (libFile != null) {
+		//				if (libFile.isFile()) {
+		//					result = libFile.getAbsolutePath();
+		//					break;
+		//				}
+		//				libraryCache.remove(libUrl);
+		//			}
+		//			if (libraryCache.containsKey(libUrl)) {
+		//				// already tried to cache this library
+		//				break;
+		//			}
+		//			libFile = cacheLibrary(libUrl, libname);
+		//			if (libFile != null) {
+		//				result = libFile.getAbsolutePath();
+		//				break;
+		//			}
+		//		}
+		if (log.isTraceEnabled()) {
+			log
+			        .trace("findLibrary(String): name=" + name + ", libname=" + libname + ", result=" + result + ", this="
+			                + this);
+		}
+		
+		return result;
+	}

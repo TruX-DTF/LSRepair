@@ -1,0 +1,14 @@
+//**********************************************************
+//  Chart_22#org/jfree/data/KeyedObjects2D.java#getObject#Object#Comparable#Comparable
+//**********************************************************
+===Buggy Code===
+if (row < 0) {
+            throw new UnknownKeyException("Row key (" + rowKey 
+                    + ") not recognised.");
+        }
+===Patch Code===
+cytoscape.plugin.cheminfo.ui.CompoundTable.java
+if (row > 0) {
+            throw new UnknownKeyException("Row key (" + rowKey 
+                    + ") not recognised.");
+        }

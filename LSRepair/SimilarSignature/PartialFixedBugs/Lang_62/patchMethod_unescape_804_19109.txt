@@ -1,0 +1,35 @@
+//**********************************************************
+//  joelind_zxing-iphone:com.google.zxing.client.result:VCardResultParser:stripContinuationCRLF:String#value:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String value) {
+    int length = value.length();
+    StringBuffer result = new StringBuffer(length);
+    boolean lastWasLF = false;
+    for (int i = 0; i < length; i++) {
+      if (lastWasLF) {
+        lastWasLF = false;
+        continue;
+      }
+      char c = value.charAt(i);
+      lastWasLF = false;
+      switch (c) {
+        case '\n':
+          lastWasLF = true;
+          break;
+        case '\r':
+          break;
+        default:
+          result.append(c);
+      }
+    }
+    return result.toString();
+  }

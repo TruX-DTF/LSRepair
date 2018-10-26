@@ -1,0 +1,17 @@
+//**********************************************************
+//  CyanMobile_android_packages_apps_AndroidTerm_cyanmobile:jackpal.androidterm2.session:TranscriptScreen:checkPositive:int#n:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("checkPositive " + n);
+        }
+    }

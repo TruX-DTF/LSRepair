@@ -1,0 +1,18 @@
+//**********************************************************
+//  Math_28#org/apache/commons/math3/optimization/linear/SimplexSolver.java#getPivotRow#Integer#SimplexTableau#int
+//**********************************************************
+===Buggy Code===
+if (row == tableau.getBasicRow(i)) {
+                            if (i < minIndex) {
+                                minIndex = i;
+                                minRow = row;
+                            }
+                        }
+===Patch Code===
+com.github.wwadge.hbnpojogen.RelationItem.java
+if (!(row == tableau.getBasicRow(i))) {
+                            if (i < minIndex) {
+                                minIndex = i;
+                                minRow = row;
+                            }
+                        }

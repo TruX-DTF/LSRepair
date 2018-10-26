@@ -1,0 +1,31 @@
+//**********************************************************
+//  janrain_engage.android:com.janrain.android.capture:CaptureRecord:getRefreshSignature:String#date:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String date) {
+        String stringToSign = "refresh_access_token\n" + date + "\n" + accessToken + "\n";
+
+        byte[] hash;
+        try {
+            Mac mac = Mac.getInstance("HmacSHA1");
+            SecretKeySpec secret = new SecretKeySpec(refreshSecret.getBytes("UTF-8"), mac.getAlgorithm());
+            mac.init(secret);
+            hash = mac.doFinal(stringToSign.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Unexpected", e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Unexpected", e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException("Unexpected", e);
+        }
+
+        return Base64.encodeToString(hash, Base64.DEFAULT);
+    }

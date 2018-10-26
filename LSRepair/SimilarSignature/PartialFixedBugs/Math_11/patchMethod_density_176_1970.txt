@@ -1,0 +1,7 @@
+//**********************************************************
+//  siyinyang_weka:weka.core.pmml:BuiltInMath:eval:double[]#args:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] args) {
+        return Math.log10(args[0]);
+      }

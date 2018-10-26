@@ -1,0 +1,13 @@
+//**********************************************************
+//  apache_ambari:org.apache.ambari.server.orm.helpers.dbms:PostgresHelper:writeDropPrimaryKeyStatement:StringBuilder#builder#String#constraintName#boolean#cascade:StringBuilder
+//**********************************************************
+/**
+     * Escape constant fields into regular expression
+     * @param regex The destination regex
+     * @param value The source field
+     * @param unquote If true, replace two success quotes ('') with single quote (')
+     * @return The <code>StringBuilder</code>
+     */
+    private static StringBuilder escapeRegex(StringBuilder builder, String constraintName, boolean cascade){
+      return builder.append("DROP CONSTRAINT ").append(constraintName + (cascade ? " CASCADE" : ""));
+  }

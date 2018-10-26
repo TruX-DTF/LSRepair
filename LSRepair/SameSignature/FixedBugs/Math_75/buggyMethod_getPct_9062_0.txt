@@ -1,0 +1,17 @@
+//**********************************************************
+//  Math_75#org/apache/commons/math/stat/Frequency.java#getPct#double#Object
+//**********************************************************
+/**
+      * Returns the percentage of values that are equal to v
+     * (as a proportion between 0 and 1).
+     * <p>
+     * Returns <code>Double.NaN</code> if no values have been added.</p>
+     *
+     * @param v the value to lookup
+     * @return the proportion of values equal to v
+     * @deprecated replaced by {@link #getPct(Comparable)} as of 2.0
+     */
+    @Deprecated
+    public double getPct(Object v) {
+        return getCumPct((Comparable<?>) v);
+    }

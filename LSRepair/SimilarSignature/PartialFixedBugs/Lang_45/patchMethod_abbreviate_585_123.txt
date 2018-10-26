@@ -1,0 +1,62 @@
+//**********************************************************
+//  jenkinsci_plot-plugin:hudson.plugins.plot:Series:getUrl:String#baseUrl#String#label#int#index#int#buildNumber:String
+//**********************************************************
+/**
+     * Abbreviates a string nicely.
+     * 
+     * This method searches for the first space after the lower limit and abbreviates
+     * the String there. It will also append any String passed as a parameter
+     * to the end of the String. The upper limit can be specified to forcibly
+     * abbreviate a String.
+     * 
+     * @param str         the string to be abbreviated. If null is passed, null is returned.
+     *                    If the empty String is passed, the empty string is returned.
+     * @param lower       the lower limit.
+     * @param upper       the upper limit; specify -1 if no limit is desired.
+     *                    If the upper limit is lower than the lower limit, it will be
+     *                    adjusted to be the same as the lower limit.
+     * @param appendToEnd String to be appended to the end of the abbreviated string.
+     *                    This is appended ONLY if the string was indeed abbreviated.
+     *                    The append does not count towards the lower or upper limits.
+     * @return the abbreviated String.
+     * @since 2.4
+     */
+    public static String abbreviate(String baseUrl, String label, int index, int buildNumber) {
+        String resultUrl = baseUrl;
+        if (resultUrl != null) {
+            if (label == null) {
+                // This implmentation searches for tokens to replace. If the
+                // argument
+                // was NULL then replacing the null with an empty string should
+                // still
+                // produce the desired outcome.
+                label = "";
+            }
+            /*
+             * Check the name first, and do replacement upon it.
+             */
+            Matcher nameMatcher = PAT_NAME.matcher(resultUrl);
+            if (nameMatcher.find()) {
+                resultUrl = nameMatcher.replaceAll(label);
+            }
+
+            /*
+             * Check the index, and do replacement on it.
+             */
+            Matcher indexMatcher = PAT_INDEX.matcher(resultUrl);
+            if (indexMatcher.find()) {
+                resultUrl = indexMatcher.replaceAll(String.valueOf(index));
+            }
+
+            /*
+             * Check the build number first, and do replacement upon it.
+             */
+            Matcher buildNumberMatcher = PAT_BUILD_NUMBER.matcher(resultUrl);
+            if (buildNumberMatcher.find()) {
+                resultUrl = buildNumberMatcher.replaceAll(String
+                        .valueOf(buildNumber));
+            }
+        }
+
+        return resultUrl;
+    }

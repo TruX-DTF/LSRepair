@@ -1,0 +1,5 @@
+//**********************************************************
+//  JorenSix_TarsosDSP:be.tarsos.dsp.beatroot:Peaks:max:double[]#arr:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] arr) { return arr[imax(arr)]; }

@@ -1,0 +1,40 @@
+//**********************************************************
+//  societies_SOCIETIES-Platform:org.societies.platform.FacebookConn.impl:FacebookConnectorImpl:getSocialData:String#path:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String path)  {
+		
+		try{
+		if (access_token==null) genError("Access token is null", "Connector with no token", 500);
+		
+		BatchRequest request = new BatchRequestBuilder(path).parameters(Parameter.with("until", lastUpdate), Parameter.with("limit", maxPostLimit)).build();
+		List<BatchResponse> batchResponses = facebookClient.executeBatch(request);
+		BatchResponse response = batchResponses.get(0);
+		
+		
+		
+		lastUpdate= new Date().toString();
+		
+		if (response==null) 
+			return genError("No response from Facebook (Empty)", "Empty response", 200);
+		else if (response.getBody().length()==0)
+			return response.toString();
+		else{
+		    JsonObject result = new JsonObject(response.getBody());
+		   return result.toString(1);
+		}
+		}
+		catch(Exception ex){
+		  return genError(ex.getMessage(), "Request failure", 400);
+		}
+	
+
+	}

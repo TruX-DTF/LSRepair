@@ -1,0 +1,41 @@
+//**********************************************************
+//  openjdk-mirror_jdk7u-jaxp:com.sun.org.apache.bcel.internal.util:InstructionFinder:compilePattern:String#pattern:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String pattern) {
+    String       lower      = pattern.toLowerCase();
+    StringBuffer buf        = new StringBuffer();
+    int          size       = pattern.length();
+
+    for(int i=0; i < size; i++) {
+      char ch = lower.charAt(i);
+
+      if(Character.isLetterOrDigit(ch)) {
+        StringBuffer name = new StringBuffer();
+
+        while((Character.isLetterOrDigit(ch) || ch == '_') && i < size) {
+          name.append(ch);
+
+          if(++i < size)
+            ch = lower.charAt(i);
+          else
+            break;
+        }
+
+        i--;
+
+        buf.append(mapName(name.toString()));
+      } else if(!Character.isWhitespace(ch))
+        buf.append(ch);
+    }
+
+    return buf.toString();
+  }

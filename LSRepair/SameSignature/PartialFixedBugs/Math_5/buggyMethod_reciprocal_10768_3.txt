@@ -1,0 +1,21 @@
+//**********************************************************
+//  Math_5#org/apache/commons/math3/complex/Complex.java#reciprocal#Complex#null
+//**********************************************************
+/** {@inheritDoc} */
+    public Complex reciprocal() {
+        if (isNaN) {
+            return NaN;
+        }
+
+        if (real == 0.0 && imaginary == 0.0) {
+            return createComplex(0.0, 0.0);
+        }
+
+        double t = FastMath.sqrt((FastMath.abs(real) + abs()) / 2.0);
+        if (real >= 0.0) {
+            return createComplex(t, imaginary / (2.0 * t));
+        } else {
+            return createComplex(FastMath.abs(imaginary) / (2.0 * t),
+                                 FastMath.copySign(1d, imaginary) * t);
+        }
+    }

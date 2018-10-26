@@ -1,0 +1,18 @@
+//**********************************************************
+//  sopeco_Software-Performance-Cockpit:org.sopeco.util:Tools:average:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] values) {
+		double result = 0;
+
+		if (values.length == 0)
+			return 0;
+		else {
+			for (Number n : values) {
+				result += n.doubleValue();
+			}
+		}
+
+		return result / values.length;
+
+	}

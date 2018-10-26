@@ -1,0 +1,16 @@
+//**********************************************************
+//  Chart_21#org/jfree/data/statistics/DefaultBoxAndWhiskerCategoryDataset.java#add#void#BoxAndWhiskerItem#Comparable#Comparable
+//**********************************************************
+===Buggy Code===
+if (maxval > this.maximumRangeValue) {
+                this.maximumRangeValue = maxval;
+                this.maximumRangeValueRow = r;
+                this.maximumRangeValueColumn = c;
+            }
+===Patch Code===
+org.basex.query.CompileContext.java
+if (maxval != this.maximumRangeValue) {
+                this.maximumRangeValue = maxval;
+                this.maximumRangeValueRow = r;
+                this.maximumRangeValueColumn = c;
+            }

@@ -1,0 +1,90 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.calevent.importer.internal:CalEventImporter:convertRecurrence:String#originalRecurrence:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String originalRecurrence)
+		throws Exception {
+
+		if (Validator.isNull(originalRecurrence)) {
+			return null;
+		}
+
+		TZSRecurrence tzsRecurrence = (TZSRecurrence)_jsonSerializer.fromJSON(
+			originalRecurrence);
+
+		if (tzsRecurrence == null) {
+			return null;
+		}
+
+		Recurrence recurrence = new Recurrence();
+
+		Frequency frequency = _frequencies.get(tzsRecurrence.getFrequency());
+
+		int interval = tzsRecurrence.getInterval();
+
+		List<PositionalWeekday> positionalWeekdays = new ArrayList<>();
+
+		if ((frequency == Frequency.DAILY) && (interval == 0)) {
+			frequency = Frequency.WEEKLY;
+
+			interval = 1;
+
+			positionalWeekdays.add(new PositionalWeekday(Weekday.MONDAY, 0));
+			positionalWeekdays.add(new PositionalWeekday(Weekday.TUESDAY, 0));
+			positionalWeekdays.add(new PositionalWeekday(Weekday.WEDNESDAY, 0));
+			positionalWeekdays.add(new PositionalWeekday(Weekday.THURSDAY, 0));
+			positionalWeekdays.add(new PositionalWeekday(Weekday.FRIDAY, 0));
+		}
+		else {
+			DayAndPosition[] dayAndPositions = tzsRecurrence.getByDay();
+
+			if (dayAndPositions != null) {
+				for (DayAndPosition dayAndPosition : dayAndPositions) {
+					Weekday weekday = _weekdays.get(
+						dayAndPosition.getDayOfWeek());
+
+					PositionalWeekday positionalWeekday = new PositionalWeekday(
+						weekday, dayAndPosition.getDayPosition());
+
+					positionalWeekdays.add(positionalWeekday);
+				}
+			}
+
+			int[] months = tzsRecurrence.getByMonth();
+
+			if (ArrayUtil.isNotEmpty(months)) {
+				List<Integer> monthsList = new ArrayList<>();
+
+				for (int month : months) {
+					monthsList.add(month);
+				}
+
+				recurrence.setMonths(monthsList);
+			}
+		}
+
+		recurrence.setInterval(interval);
+		recurrence.setFrequency(frequency);
+		recurrence.setPositionalWeekdays(positionalWeekdays);
+
+		java.util.Calendar untilJCalendar = tzsRecurrence.getUntil();
+
+		int ocurrence = tzsRecurrence.getOccurrence();
+
+		if (untilJCalendar != null) {
+			recurrence.setUntilJCalendar(untilJCalendar);
+		}
+		else if (ocurrence > 0) {
+			recurrence.setCount(ocurrence);
+		}
+
+		return RecurrenceSerializer.serialize(recurrence);
+	}

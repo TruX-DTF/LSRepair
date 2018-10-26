@@ -1,0 +1,14 @@
+//**********************************************************
+//  bcdev_beam:org.esa.beam.dataio.chris.internal:MaskRefinement:median:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] values) {
+        if (values == null) {
+            throw new NullPointerException("values == null");
+        }
+        if (values.length == 0) {
+            throw new IllegalArgumentException("values.length == 0");
+        }
+
+        return Sorter.nthElement(Arrays.copyOf(values, values.length), values.length >> 1);
+    }

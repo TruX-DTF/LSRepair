@@ -1,0 +1,10 @@
+//**********************************************************
+//  delt0r_msms:at.mabs.util:Util:sum:double[]#array:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] array){
+		double cumulant=0;
+		for(int i=0;i<array.length;i++)
+			cumulant+=array[i];
+		return cumulant;
+	}

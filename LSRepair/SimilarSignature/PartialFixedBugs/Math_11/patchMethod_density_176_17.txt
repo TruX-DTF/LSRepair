@@ -1,0 +1,7 @@
+//**********************************************************
+//  Thynix_routing-simulator:org.freenetproject.routing_simulator:RoutingSim:stdDev:double[]#a:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] a) {
+		return Math.sqrt(variance(a));
+	}

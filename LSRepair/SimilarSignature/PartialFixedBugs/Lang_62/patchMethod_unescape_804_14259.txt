@@ -1,0 +1,36 @@
+//**********************************************************
+//  openmicroscopy_bioformats:loci.formats.in:CellSensReader:getStackType:String#type:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String type) {
+    int stackType = Integer.parseInt(type);
+    switch (stackType) {
+      case DEFAULT_IMAGE:
+        return "Default image";
+      case OVERVIEW_IMAGE:
+        return "Overview image";
+      case SAMPLE_MASK:
+        return "Sample mask";
+      case FOCUS_IMAGE:
+        return "Focus image";
+      case EFI_SHARPNESS_MAP:
+        return "EFI sharpness map";
+      case EFI_HEIGHT_MAP:
+        return "EFI height map";
+      case EFI_TEXTURE_MAP:
+        return "EFI texture map";
+      case EFI_STACK:
+        return "EFI stack";
+      case MACRO_IMAGE:
+        return "Macro image";
+    }
+    return type;
+  }

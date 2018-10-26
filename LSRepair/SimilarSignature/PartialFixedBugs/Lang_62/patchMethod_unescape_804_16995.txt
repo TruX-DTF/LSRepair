@@ -1,0 +1,48 @@
+//**********************************************************
+//  teamgummy_packages_apps_LibertySettings:com.liberty.settings:InitD:getVariableValue:String#variable:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String variable)
+	{
+		String value = null;
+		
+		try
+		{
+			BufferedReader br = new BufferedReader(new FileReader(cfg), 256);
+			String line = null;
+			while ((line = br.readLine()) != null)
+			{
+				if (line.startsWith(variable))
+				{
+					value = line.substring(line.lastIndexOf("=")+1);
+					break;
+				}
+			}
+			br.close();
+		} 
+		catch (FileNotFoundException e) {
+			Log.d(TAG, cfg + " does not exist");
+			return null;
+		} 
+		catch (IOException e) {
+			Log.d(TAG, "Error reading " + cfg);
+		}
+		
+		if (value == null)
+		{
+			final String s = new CMDProcessor().su.runWaitFor("busybox grep " + variable + " " + cfg).stdout;
+			if (s != null)
+			{
+				value = s.substring(s.lastIndexOf("=")+1);
+			}
+		}
+		return value;
+	}

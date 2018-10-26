@@ -1,0 +1,34 @@
+//**********************************************************
+//  jdf_peasycam:jdf_peasycam.peasycam.resources.code:ExampleTaglet:readFile:String#theExample:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String theExample) { 
+		String record = "";
+		String myResult = "";
+		int recCount = 0;
+		String myDir = "../examples";
+		File file=new File(myDir);
+		if(file.exists()==false) {
+			myDir = "./examples";
+		}
+        try { 
+			FileReader fr = new FileReader(myDir+"/"+theExample+"/"+theExample+".pde");
+			BufferedReader br = new BufferedReader(fr);
+			record = new String();
+			while ((record = br.readLine()) != null) {
+				myResult += record+"\n";
+			} 
+		} catch (IOException e) { 
+			System.out.println(e);
+			return null;
+		}
+		return myResult;
+     }

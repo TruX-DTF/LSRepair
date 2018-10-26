@@ -1,0 +1,12 @@
+//**********************************************************
+//  tjrantal_RegionGrow:ijGrower:Filters:getMean:double[]#data:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] data){
+		double sum = 0;
+		for (int i = 0; i<data.length; ++i){
+			sum+= data[i];
+		}
+		sum/=((double) data.length);
+		return sum;
+	}

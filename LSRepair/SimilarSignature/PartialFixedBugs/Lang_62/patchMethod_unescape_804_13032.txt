@@ -1,0 +1,24 @@
+//**********************************************************
+//  romanzenka_swift:edu.mayo.mprc.fasta:FASTAOutputStream:cleanupProteinSequence:String#sequence:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String sequence) {
+		StringBuilder result = new StringBuilder(sequence.length());
+		for (int i = 0; i < sequence.length(); i++) {
+			final char aa = sequence.charAt(i);
+			if (aa >= 'A' && aa <= 'Z') {
+				result.append(aa);
+			} else if (aa >= 'a' && aa <= 'z') {
+				result.append(Character.toUpperCase(aa));
+			}
+		}
+		return result.toString();
+	}

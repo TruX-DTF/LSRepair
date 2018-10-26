@@ -1,0 +1,14 @@
+//**********************************************************
+//  ivmai_JCGO:java.util:Collections$EmptySet:remove:Object#o:boolean
+//**********************************************************
+/**
+     * Tests the list for equality with another object (typically also a list).
+     *
+     * @param obj  the other object (<code>null</code> permitted).
+     *
+     * @return A boolean.
+     */
+    public boolean equals(Object o)
+    {
+      return false;
+    }

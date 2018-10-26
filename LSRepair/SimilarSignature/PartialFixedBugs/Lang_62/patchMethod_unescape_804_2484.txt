@@ -1,0 +1,22 @@
+//**********************************************************
+//  getrailo_railo:railo.runtime.sql.old:ZUtils:getAggregateCall:String#s:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String s)
+    {
+        int i = s.indexOf('(');
+        if(i <= 0)
+            return null;
+        String s1 = s.substring(0, i);
+        if(isAggregate(s1))
+            return s1.trim();
+        return null;
+    }

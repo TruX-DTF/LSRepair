@@ -1,0 +1,8 @@
+//**********************************************************
+//  amininger_abolt:abolt.kinect:SimKinect:getHeight:double[]#xy:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] xy)
+    {
+        return 0;
+    }

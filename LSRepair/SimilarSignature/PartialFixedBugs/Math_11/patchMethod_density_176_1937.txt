@@ -1,0 +1,7 @@
+//**********************************************************
+//  geogebra_geogebra:org.geogebra.common.geogebra3D.kernel3D.geos:Geo3DVec:length:double[]#a:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] a) {
+		return length(a[0], a[1], a[2]);
+	}

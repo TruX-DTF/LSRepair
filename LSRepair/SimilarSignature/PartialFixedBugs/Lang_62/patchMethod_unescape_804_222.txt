@@ -1,0 +1,48 @@
+//**********************************************************
+//  alkacon_opencms-core:org.opencms.workplace.help:CmsHelpTemplateBean:attachRequestString:String#resourceName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String resourceName) {
+
+        StringBuffer result = new StringBuffer(resourceName);
+        boolean firstParam = true;
+        if (resourceName.indexOf('?') == -1) {
+            // no params in uri yet?
+            result.append('?');
+        } else {
+            firstParam = false;
+        }
+
+        @SuppressWarnings("unchecked")
+        Map<String, String[]> params = getJsp().getRequest().getParameterMap();
+        Iterator<Map.Entry<String, String[]>> it = params.entrySet().iterator();
+        String[] values = null;
+        while (it.hasNext()) {
+            if (values == null) {
+                // first iteration: check if params before so an & has to be used.
+                if (!firstParam) {
+                    result.append('&');
+                }
+            } else {
+                result.append("&");
+            }
+            Map.Entry<String, String[]> entry = it.next();
+            result.append(entry.getKey().toString()).append('=');
+            values = entry.getValue();
+            for (int i = 0; i < values.length; i++) {
+                result.append(values[i]);
+                if ((i + 1) < values.length) {
+                    result.append(',');
+                }
+            }
+        }
+        return result.toString();
+    }

@@ -1,0 +1,8 @@
+//**********************************************************
+//  Lang_2#org/apache/commons/lang3/LocaleUtils.java#toLocale#Locale#String
+//**********************************************************
+===Buggy Code===
+final int len = str.length();
+===Patch Code===
+12_jdk7u-jdk.test.javax.management.query.QueryMatchTest.java.QueryMatchTest.java
+int len = str.length();

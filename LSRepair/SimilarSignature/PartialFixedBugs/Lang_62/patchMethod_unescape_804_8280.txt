@@ -1,0 +1,21 @@
+//**********************************************************
+//  webx_citrus:com.alibaba.citrus.turbine.util:ControlTool:parseComponentName:String#name:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String name) {
+        int index = name == null ? -1 : name.indexOf(":");
+
+        if (index >= 0) {
+            return trimToNull(name.substring(0, index));
+        }
+
+        return null;
+    }

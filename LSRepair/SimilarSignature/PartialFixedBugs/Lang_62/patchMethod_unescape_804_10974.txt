@@ -1,0 +1,34 @@
+//**********************************************************
+//  asascience-open_ncSOS:com.asascience.ncsos.service:BaseRequestHandler:getAuthorityFromVariable:String#varName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String varName) {
+        String retval = null;
+
+        Variable crsVar = null;
+        for (Variable var : netCDFDataset.getVariables()) {
+            if (var.getFullName().equalsIgnoreCase(varName)) {
+                crsVar = var;
+                break;
+            }
+        }
+        
+        if (crsVar != null) {
+            for (Attribute attr : crsVar.getAttributes()) {
+                if (attr.getName().toLowerCase().contains("code")) {
+                    retval = attr.getValue(0).toString();
+                    break;
+                }
+            }
+        }
+        
+        return retval;
+    }

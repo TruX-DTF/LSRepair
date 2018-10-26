@@ -1,0 +1,38 @@
+//**********************************************************
+//  dana-i2cat_opennaas:com.kyben.translatecim:TranslateCIMParser:htmlize:String#str:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String str) {
+		if (str == null) {
+			return null;
+		}
+		int len = str.length();
+		StringBuilder retstr = new StringBuilder(len + 20);
+		for (char estr : str.toCharArray()) {
+			switch (estr) {
+				case '&':
+					retstr.append("&amp;");
+					break;
+				case '<':
+					retstr.append("&lt;");
+					break;
+				case '>':
+					retstr.append("&gt;");
+					break;
+				case '\n':
+					retstr.append(htmlNewLineString);
+					break;
+				default:
+					retstr.append(estr);
+			}
+		}
+		return retstr.toString();
+	}

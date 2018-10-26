@@ -1,0 +1,22 @@
+//**********************************************************
+//  sanger-pathogens_crawl2:org.genedb.crawl.hazelcast:HazelcastMonitor:stats:String#mapName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String mapName) {
+        String stats = String.format("%s (%s):\n%s\n%s\n%s",
+                mapName,
+                Hazelcast.getMap(mapName).size(),
+                Hazelcast.getConfig().findMatchingMapConfig(mapName),
+                Hazelcast.getMap(mapName),
+                Hazelcast.getMap(mapName).getLocalMapStats());
+        logger.info(stats);
+        return stats;
+    }

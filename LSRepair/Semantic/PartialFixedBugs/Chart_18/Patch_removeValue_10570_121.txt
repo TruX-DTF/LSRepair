@@ -1,0 +1,12 @@
+//**********************************************************
+//  Chart_18#org/jfree/data/DefaultKeyedValues.java#removeValue#void#int
+//**********************************************************
+===Buggy Code===
+if (index < this.keys.size()) {
+        rebuildIndex();
+        }
+===Patch Code===
+org.apache.wicket.util.collections.MultiMap.java
+if (index == this.keys.size()) {
+        rebuildIndex();
+        }

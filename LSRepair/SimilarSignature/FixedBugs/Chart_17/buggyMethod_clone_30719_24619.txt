@@ -1,0 +1,22 @@
+//**********************************************************
+//  Chart_17#org/jfree/data/time/TimeSeries.java#clone#Object#null
+//**********************************************************
+/**
+     * Returns a clone of the time series.
+     * <P>
+     * Notes:
+     * <ul>
+     *   <li>no need to clone the domain and range descriptions, since String 
+     *     object is immutable;</li>
+     *   <li>we pass over to the more general method clone(start, end).</li>
+     * </ul>
+     *
+     * @return A clone of the time series.
+     * 
+     * @throws CloneNotSupportedException not thrown by this class, but 
+     *         subclasses may differ.
+     */
+    public Object clone() throws CloneNotSupportedException {
+        Object clone = createCopy(0, getItemCount() - 1);
+        return clone;
+    }

@@ -1,0 +1,11 @@
+//**********************************************************
+//  Chart_21#org/jfree/data/statistics/DefaultBoxAndWhiskerCategoryDataset.java#add#void#BoxAndWhiskerItem#Comparable#Comparable
+//**********************************************************
+===Buggy Code===
+this.minimumRangeValueColumn = c;
+===Patch Code===
+com.laytonsmith.tools.ProfilerSummary.java
+if (c < 0 || c > 1) {
+return;
+}
+this.minimumRangeValueColumn = c;

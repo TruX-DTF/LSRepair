@@ -1,0 +1,33 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.marketplace.store.web.internal.util:MarketplaceLicenseUtil:getOrder:String#productEntryName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String productEntryName) throws Exception {
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+		jsonObject.put("cmd", "GET_ORDER");
+		jsonObject.put("hostName", LicenseManagerUtil.getHostName());
+		jsonObject.put(
+			"ipAddresses",
+			StringUtil.merge(LicenseManagerUtil.getIpAddresses()));
+		jsonObject.put(
+			"macAddresses",
+			StringUtil.merge(LicenseManagerUtil.getMacAddresses()));
+		jsonObject.put("productEntryName", productEntryName);
+		jsonObject.put("serverId", Arrays.toString(getServerIdBytes()));
+
+		String response = LicenseUtil.sendRequest(jsonObject.toString());
+
+		JSONObject responseJSONObject = JSONFactoryUtil.createJSONObject(
+			response);
+
+		return responseJSONObject.getString("orderUuid");
+	}

@@ -1,0 +1,18 @@
+//**********************************************************
+//  apache_pig:org.apache.pig.tools.grunt:GruntParser:parameterSubstitutionInGrunt:String#input:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String input) throws IOException {
+        if (mInteractive && input != null) {
+            return mPigServer.getPigContext().doParamSubstitution(new BufferedReader(new StringReader(input))).trim();
+        }
+        return input;
+    }

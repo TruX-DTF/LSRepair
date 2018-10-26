@@ -1,0 +1,61 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.portal.util:HtmlImpl:getAUICompatibleId:String#text:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String text) {
+		if (Validator.isNull(text)) {
+			return text;
+		}
+
+		StringBundler sb = null;
+
+		int lastReplacementIndex = 0;
+
+		for (int i = 0; i < text.length(); i++) {
+			char c = text.charAt(i);
+
+			if (((c <= 127) && (Validator.isChar(c) || Validator.isDigit(c))) ||
+				((c > 127) && (c != CharPool.FIGURE_SPACE) &&
+				 (c != CharPool.NARROW_NO_BREAK_SPACE) &&
+				 (c != CharPool.NO_BREAK_SPACE))) {
+
+				continue;
+			}
+
+			if (sb == null) {
+				sb = new StringBundler();
+			}
+
+			if (i > lastReplacementIndex) {
+				sb.append(text.substring(lastReplacementIndex, i));
+			}
+
+			sb.append(StringPool.UNDERLINE);
+
+			if (c != CharPool.UNDERLINE) {
+				sb.append(StringUtil.toHexString(c));
+			}
+
+			sb.append(StringPool.UNDERLINE);
+
+			lastReplacementIndex = i + 1;
+		}
+
+		if (sb == null) {
+			return text;
+		}
+
+		if (lastReplacementIndex < text.length()) {
+			sb.append(text.substring(lastReplacementIndex));
+		}
+
+		return sb.toString();
+	}

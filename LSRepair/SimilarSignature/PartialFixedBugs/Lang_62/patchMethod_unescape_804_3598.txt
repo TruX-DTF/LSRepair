@@ -1,0 +1,45 @@
+//**********************************************************
+//  adamz667_framework_base:com.android.server.pm:Installer:transaction:String#cmd:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String cmd) {
+        if (!connect()) {
+            Slog.e(TAG, "connection failed");
+            return "-1";
+        }
+
+        if (!writeCommand(cmd)) {
+            /*
+             * If installd died and restarted in the background (unlikely but
+             * possible) we'll fail on the next write (this one). Try to
+             * reconnect and write the command one more time before giving up.
+             */
+            Slog.e(TAG, "write command failed? reconnect!");
+            if (!connect() || !writeCommand(cmd)) {
+                return "-1";
+            }
+        }
+        if (LOCAL_DEBUG) {
+            Slog.i(TAG, "send: '" + cmd + "'");
+        }
+        if (readReply()) {
+            String s = new String(buf, 0, buflen);
+            if (LOCAL_DEBUG) {
+                Slog.i(TAG, "recv: '" + s + "'");
+            }
+            return s;
+        } else {
+            if (LOCAL_DEBUG) {
+                Slog.i(TAG, "fail");
+            }
+            return "-1";
+        }
+    }

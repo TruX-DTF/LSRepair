@@ -1,0 +1,36 @@
+//**********************************************************
+//  DevBoost_EMFText:antlr:CSharpCodeGenerator:processStringForASTConstructor:String#str:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape( String str )
+	{
+		/*
+		System.out.println("processStringForASTConstructor: str = "+str+
+		                   ", custom = "+(new Boolean(usingCustomAST)).toString()+
+		                   ", tree = "+(new Boolean((grammar instanceof TreeWalkerGrammar))).toString()+
+		                   ", parser = "+(new Boolean((grammar instanceof ParserGrammar))).toString()+
+		                   ", notDefined = "+(new Boolean((!(grammar.tokenManager.tokenDefined(str))))).toString()
+		                   );
+		*/
+		if( usingCustomAST &&
+			( (grammar instanceof TreeWalkerGrammar)	||
+			  (grammar instanceof ParserGrammar) )		&&
+			!(grammar.tokenManager.tokenDefined(str)) )
+		{
+			//System.out.println("processStringForASTConstructor: "+str+" with cast");
+			return "(AST)"+str;
+		}
+		else
+		{
+			//System.out.println("processStringForASTConstructor: "+str);
+			return str;
+		}
+	}

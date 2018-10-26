@@ -1,0 +1,20 @@
+//**********************************************************
+//  besn0847_Jxtadoop:org.apache.jxtadoop.hdfs:HftpFileSystem:pickOneAddress:String#hostname:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String hostname) throws UnknownHostException {
+    if ("localhost".equals(hostname))
+      return hostname;
+    InetAddress[] addrs = InetAddress.getAllByName(hostname);
+    if (addrs.length > 1)
+      return addrs[ran.nextInt(addrs.length)].getHostAddress();
+    return addrs[0].getHostAddress();
+  }

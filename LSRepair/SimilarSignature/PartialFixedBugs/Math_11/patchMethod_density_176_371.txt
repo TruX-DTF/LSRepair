@@ -1,0 +1,7 @@
+//**********************************************************
+//  apache_commons-math:org.apache.commons.math4.stat:StatUtils:min:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(final double[] values) throws MathIllegalArgumentException {
+        return MIN.evaluate(values);
+    }

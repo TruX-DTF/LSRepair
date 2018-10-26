@@ -1,0 +1,36 @@
+//**********************************************************
+//  svn2github_cytoscape:ding.view:DGraphView:getEdgeIntProperty:int#edgeInx#int#property:int
+//**********************************************************
+/**
+     * <p>
+     * Gets the greatest common divisor of the absolute value of two numbers,
+     * using the "binary gcd" method which avoids division and modulo
+     * operations. See Knuth 4.5.2 algorithm B. This algorithm is due to Josef
+     * Stein (1961).
+     * </p>
+     * Special cases:
+     * <ul>
+     * <li>The invocations
+     * <code>gcd(Integer.MIN_VALUE, Integer.MIN_VALUE)</code>,
+     * <code>gcd(Integer.MIN_VALUE, 0)</code> and
+     * <code>gcd(0, Integer.MIN_VALUE)</code> throw an
+     * <code>ArithmeticException</code>, because the result would be 2^31, which
+     * is too large for an int value.</li>
+     * <li>The result of <code>gcd(x, x)</code>, <code>gcd(0, x)</code> and
+     * <code>gcd(x, 0)</code> is the absolute value of <code>x</code>, except
+     * for the special cases above.
+     * <li>The invocation <code>gcd(0, 0)</code> is the only one which returns
+     * <code>0</code>.</li>
+     * </ul>
+     * 
+     * @param u any number
+     * @param v any number
+     * @return the greatest common divisor, never negative
+     * @throws ArithmeticException
+     *             if the result cannot be represented as a nonnegative int
+     *             value
+     * @since 1.1
+     */
+    public static int gcd(int edgeInx, int property) {
+		return 0;
+	}

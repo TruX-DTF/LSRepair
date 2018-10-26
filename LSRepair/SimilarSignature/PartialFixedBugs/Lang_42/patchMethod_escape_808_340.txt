@@ -1,0 +1,64 @@
+//**********************************************************
+//  jibx_core:org.jibx.runtime.impl:ISO88591Escaper:writeAttribute:String#text#Writer#writer:void
+//**********************************************************
+/**
+     * <p>
+     * Escapes the characters in the <code>String</code> passed and writes the result to the <code>Writer</code>
+     * passed.
+     * </p>
+     * 
+     * @param writer
+     *            The <code>Writer</code> to write the results of the escaping to. Assumed to be a non-null value.
+     * @param str
+     *            The <code>String</code> to escape. Assumed to be a non-null value.
+     * @throws IOException
+     *             when <code>Writer</code> passed throws the exception from calls to the {@link Writer#write(int)}
+     *             methods.
+     * 
+     * @see #escape(String)
+     * @see Writer
+     */
+    public void escape(String text, Writer writer) throws IOException {
+        int mark = 0;
+        for (int i = 0; i < text.length(); i++) {
+            char chr = text.charAt(i);
+            if (chr == '"') {
+                writer.write(text, mark, i-mark);
+                mark = i+1;
+                writer.write("&quot;");
+            } else if (chr == '&') {
+                writer.write(text, mark, i-mark);
+                mark = i+1;
+                writer.write("&amp;");
+            } else if (chr == '<') {
+                writer.write(text, mark, i-mark);
+                mark = i+1;
+                writer.write("&lt;");
+            } else if (chr == '>' && i > 2 && text.charAt(i-1) == ']' &&
+                text.charAt(i-2) == ']') {
+                writer.write(text, mark, i-mark-2);
+                mark = i+1;
+                writer.write("]]&gt;");
+            } else if (chr < 0x20) {
+                if (chr != 0x9 && chr != 0xA && chr != 0xD) {
+                    throw new IOException("Illegal character code 0x" +
+                        Integer.toHexString(chr) + " in attribute value text");
+                }
+            } else if (chr >= 0x80) {
+                if (chr < 0xA0 || chr > 0xFF) {
+                    writer.write(text, mark, i-mark);
+                    mark = i+1;
+                    if (chr > 0xD7FF && (chr < 0xE000 || chr == 0xFFFE ||
+                        chr == 0xFFF || chr > 0x10FFFF)) {
+                        throw new IOException("Illegal character code 0x" +
+                            Integer.toHexString(chr) +
+                            " in attribute value text");
+                    }
+                    writer.write("&#x");
+                    writer.write(Integer.toHexString(chr));
+                    writer.write(';');
+                }
+            }
+        }
+        writer.write(text, mark, text.length()-mark);
+    }

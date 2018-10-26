@@ -1,0 +1,11 @@
+//**********************************************************
+//  Exalm_Minecraft-mods:net.minecraft.src.nbxlite.noise:InfdevOldNoiseGeneratorPerlin:a:double#d1:double
+//**********************************************************
+/** Compute the hyperbolic cosine of a number.
+     * @param x number on which evaluation is done
+     * @return hyperbolic cosine of x
+     */
+    public static double cosh(double d1)
+    {
+        return d1 * d1 * d1 * (d1 * (d1 * 6D - 15D) + 10D);
+    }

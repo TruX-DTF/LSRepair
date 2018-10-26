@@ -1,0 +1,37 @@
+//**********************************************************
+//  fudax_star-framework:com.star.tools.wingui:Win32GuiByVbs:getVbsResult:String#vbs:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String vbs) {
+		String vbsfileName = System.getenv("TEMP") + "\\temp_" + SBF.getMilSecNow() + ".vbs";
+		String tmpfileName = System.getenv("TEMP") + "\\temp_" + SBF.getMilSecNow() + ".txt";
+		String vbsContent = MessageFormat.format(vbs_1, new Object[] { tmpfileName }) + vbs + "\n"
+				+ MessageFormat.format(vbs_2, new Object[] { VBSRES });
+		String resText = null;
+		File file = null;
+		BufferedReader fileReader = null;
+
+		try {
+			createVbsFile(vbsContent, new File(vbsfileName));
+			executeVbsFile(vbsfileName);
+
+			file = new File(tmpfileName);
+			fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "gbk"));
+			resText = fileReader.readLine().toString();
+			fileReader.close();
+			new File(vbsfileName).delete();
+			file.delete();
+		} catch (Exception ex) {
+			LOG.error(ex);
+			throw new RuntimeException(ex.getMessage());
+		}
+		return resText;
+	}

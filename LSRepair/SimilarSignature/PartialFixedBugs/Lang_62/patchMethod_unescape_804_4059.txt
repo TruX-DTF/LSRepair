@@ -1,0 +1,19 @@
+//**********************************************************
+//  lintool_Ivory:org.galagosearch.core.parse:Utility:caps:String#input:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String input) {
+        if (input.length() == 0) {
+            return input;
+        }
+        char first = Character.toUpperCase(input.charAt(0));
+        return "" + first + input.substring(1);
+    }

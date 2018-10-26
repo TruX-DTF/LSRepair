@@ -1,0 +1,30 @@
+//**********************************************************
+//  sriksun_Ivory:org.apache.ivory.logging:LogMover:getTTlogURL:String#jobId:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String jobId) throws Exception {
+		JobConf jobConf = new JobConf(getConf());
+		JobClient jobClient = new JobClient(jobConf);
+		RunningJob job = jobClient.getJob(JobID.forName(jobId));
+		if (job == null) {
+			LOG.warn("No running job for job id: " + jobId);
+			return null;
+		}
+		TaskCompletionEvent[] tasks = job.getTaskCompletionEvents(0);
+		// 0th even is setup, 1 event is launcher, 2 event is cleanup
+		if (tasks != null && tasks.length == 3 && tasks[1] != null) {
+			return tasks[1].getTaskTrackerHttp() + "/tasklog?attemptid="
+					+ tasks[1].getTaskAttemptId() + "&all=true";
+		} else {
+			LOG.warn("No running task for job: " + jobId);
+		}
+		return null;
+	}

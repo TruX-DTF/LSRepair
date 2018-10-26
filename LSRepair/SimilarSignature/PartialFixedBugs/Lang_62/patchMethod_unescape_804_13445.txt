@@ -1,0 +1,26 @@
+//**********************************************************
+//  ops4j_org.ops4j.pax.cdi:org.ops4j.pax.cdi.extension.impl.support:Configurable$ConfigHandler:getPropertyName:String#id:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String id) {
+            StringBuilder sb = new StringBuilder(id);
+            if (id.startsWith("get")) {
+                sb.delete(0, 3);
+            }
+            else if (id.startsWith("is")) {
+                sb.delete(0, 2);
+            }
+            char c = sb.charAt(0);
+            if (Character.isUpperCase(c)) {
+                sb.setCharAt(0, Character.toLowerCase(c));
+            }
+            return sb.toString();
+        }

@@ -1,0 +1,21 @@
+//**********************************************************
+//  davros-_platform_frameworks_base:com.android.internal.content:PackageHelper:getSdFilesystem:String#cid:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String cid) {
+       try {
+            return getMountService().getSecureContainerFilesystemPath(cid);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Failed to get container path for " + cid +
+                " with exception " + e);
+        }
+        return null;
+   }

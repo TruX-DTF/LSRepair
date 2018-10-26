@@ -1,0 +1,16 @@
+//**********************************************************
+//  Math_19#org/apache/commons/math3/optimization/direct/CMAESOptimizer.java#checkParameters#void#null
+//**********************************************************
+===Buggy Code===
+if (Double.isInfinite(lB[i]) ||
+                    Double.isInfinite(uB[i])) {
+                    hasInfiniteBounds = true;
+                    break;
+                }
+===Patch Code===
+org.mifos.rest.approval.aop.AspectJRESTApprovalInterceptor.java
+if (!(Double.isInfinite(lB[i]) ||
+                    Double.isInfinite(uB[i]))) {
+                    hasInfiniteBounds = true;
+                    break;
+                }

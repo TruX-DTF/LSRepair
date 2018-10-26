@@ -1,0 +1,16 @@
+//**********************************************************
+//  psabeva_webtools.dali:org.eclipse.jpt.jpa.core.internal.jpa2.resource.java.binary:BinaryGeneratedAnnotation2_0:removeValue:int#index:void
+//**********************************************************
+    /**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int index) {
+		throw new UnsupportedOperationException();
+	}
+

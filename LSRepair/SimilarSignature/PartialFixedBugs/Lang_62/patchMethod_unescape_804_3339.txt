@@ -1,0 +1,19 @@
+//**********************************************************
+//  LindsayBradford_PersonalFinancier:blacksmyth.general.file:StrategicFileConverter:getFileExtension:String#filePath:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String filePath) {
+    int i = filePath.lastIndexOf('.');
+    if (i >= 0) {
+        return filePath.substring(i+1);
+    }
+    return null;
+  }

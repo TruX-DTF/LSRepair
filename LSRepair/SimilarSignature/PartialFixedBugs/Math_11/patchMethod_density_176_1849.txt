@@ -1,0 +1,13 @@
+//**********************************************************
+//  BenjaminSchiller_GTNA:gtna.metrics.sampling:SamplingModularity:getAvg:double[]#dis:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] dis) {
+		double sum = 0;
+
+		for (double d : dis) {
+			sum += d;
+		}
+
+		return sum / dis.length;
+	}

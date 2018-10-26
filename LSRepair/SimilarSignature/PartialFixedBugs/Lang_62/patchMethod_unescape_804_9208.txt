@@ -1,0 +1,27 @@
+//**********************************************************
+//  TeamSourcery_frameworks_base:TeamSourcery_frameworks_base.frameworks_base.tools.preload:Record:decode:String#rawField:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String rawField) {
+        String result = rawField;
+        int offset = result.indexOf("\\u");
+        while (offset >= 0) {
+            String before = result.substring(0, offset);
+            String escaped = result.substring(offset+2, offset+6);
+            String after = result.substring(offset+6);
+
+            result = String.format("%s%c%s", before, Integer.parseInt(escaped, 16), after);
+
+            // find another but don't recurse
+            offset = result.indexOf("\\u", offset + 1);
+        }
+        return result;
+    }

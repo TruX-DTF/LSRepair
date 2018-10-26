@@ -1,0 +1,18 @@
+//**********************************************************
+//  indiff_dolphin:com.tan.server:GreetingServiceImpl:greetServer:String#input:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String input) {
+		String serverInfo = getServletContext().getServerInfo();
+		String userAgent = getThreadLocalRequest().getHeader("User-Agent");
+		return "??????, " + input + "!<br><br>I am running " + serverInfo
+				+ ".<br><br>It looks like you are using:<br>" + userAgent;
+	}

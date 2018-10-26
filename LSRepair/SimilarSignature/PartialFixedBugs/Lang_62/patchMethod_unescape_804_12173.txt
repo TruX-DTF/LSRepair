@@ -1,0 +1,23 @@
+//**********************************************************
+//  tickleman_RealPlugin:fr.crafter.tickleman.realplugin:RealFileTools:readFullTextFile:String#fileName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String fileName) throws IOException
+	{
+		StringBuffer sb = new StringBuffer(10240);
+		BufferedReader reader = new BufferedReader(new FileReader(fileName));
+		char[] chars = new char[10240];
+		while (reader.read(chars) > -1) {
+			sb.append(String.valueOf(chars));	
+		}
+		reader.close();
+		return sb.toString();
+	}

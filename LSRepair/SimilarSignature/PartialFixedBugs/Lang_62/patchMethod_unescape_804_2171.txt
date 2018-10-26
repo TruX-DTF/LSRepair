@@ -1,0 +1,22 @@
+//**********************************************************
+//  TGAC_miso-lims:uk.ac.bbsrc.tgac.miso.sqlstore:SQLPoolDAO:updateSortCol:String#sortCol:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String sortCol) {
+    sortCol = sortCol.replaceAll("[^\\w]", "");
+    if ("id".equals(sortCol)) sortCol = "poolId";
+    if ("lastModified".equals(sortCol)) {
+      sortCol = "pmod.lastModified";
+    } else {
+      sortCol = "p." + sortCol;
+    }
+    return sortCol;
+  }

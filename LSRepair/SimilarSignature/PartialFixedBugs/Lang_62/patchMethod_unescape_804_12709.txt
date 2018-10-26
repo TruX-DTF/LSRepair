@@ -1,0 +1,29 @@
+//**********************************************************
+//  felixb_websms:de.ub0r.android.websms:WebSMS:removeSpaces:String#s:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String s) {
+		StringBuilder buf = new StringBuilder();
+		final String[] ss = s.split(" ");
+		for (String ts : ss) {
+			final int l = ts.length();
+			if (l == 0) {
+				continue;
+			}
+			buf.append(Character.toUpperCase(ts.charAt(0)));
+			if (l == 1) {
+				continue;
+			}
+			buf.append(ts.substring(1));
+		}
+
+		return buf.toString();
+	}

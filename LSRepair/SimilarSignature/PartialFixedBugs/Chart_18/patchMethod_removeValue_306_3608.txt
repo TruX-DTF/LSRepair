@@ -1,0 +1,18 @@
+//**********************************************************
+//  AndroidDeveloperAlliance_platform_frameworks_base:android.net.wifi:WifiMonitor:nap:int#secs:void
+//**********************************************************
+/**
+     * Removes a value from the collection.
+     *
+     * @param index  the index of the item to remove (in the range 
+     *     <code>0</code> to <code>getItemCount() - 1</code>).
+     *     
+     * @throws IndexOutOfBoundsException if <code>index</code> is not within
+     *     the specified range.
+     */
+    public void removeValue(int secs) {
+        try {
+            Thread.sleep(secs * 1000);
+        } catch (InterruptedException ignore) {
+        }
+    }

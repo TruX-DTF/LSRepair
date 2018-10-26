@@ -1,0 +1,14 @@
+//**********************************************************
+//  openmrs_openmrs-module-reporting:org.openmrs.module.reporting.common:Fraction:compareTo:Fraction#that:int
+//**********************************************************
+/**
+     * Compares this object to another based on size.
+     * @param object the object to compare to
+     * @return -1 if this is less than <tt>object</tt>, +1 if this is greater
+     *         than <tt>object</tt>, 0 if they are equal.
+     */
+    public int compareTo(Fraction that) {
+		long n1 = this.numerator * that.denominator;
+		long n2 = this.denominator * that.numerator;
+		return ((n1 < n2) ? -1 : (n1 > n2 ? 1 : 0));
+	}

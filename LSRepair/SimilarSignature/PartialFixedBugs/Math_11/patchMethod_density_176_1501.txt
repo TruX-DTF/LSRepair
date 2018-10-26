@@ -1,0 +1,7 @@
+//**********************************************************
+//  hraberg_enumerable:org.enumerable.lambda.enumerable.primitives:EnumerableDoubles:max:double[]#array:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] array) {
+        return min(array, new ReverseNaturalOrderDoubleComparator(new NaturalOrderPrimitiveComparator()));
+    }

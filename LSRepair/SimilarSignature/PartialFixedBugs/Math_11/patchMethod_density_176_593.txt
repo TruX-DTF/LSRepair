@@ -1,0 +1,11 @@
+//**********************************************************
+//  DDMAL_jMIR:jAudioFeatureExtractor.GeneralTools:Statistics:getArraySum:double[]#to_sum:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] to_sum)
+	{
+		double sum = 0.0;
+		for (int i = 0; i < to_sum.length; i++)
+			sum += to_sum[i];
+		return sum;
+	}

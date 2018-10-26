@@ -1,0 +1,14 @@
+//**********************************************************
+//  Chart_22#org/jfree/data/KeyedObjects2D.java#getObject#Object#Comparable#Comparable
+//**********************************************************
+===Buggy Code===
+if (row < 0) {
+            throw new UnknownKeyException("Row key (" + rowKey 
+                    + ") not recognised.");
+        }
+===Patch Code===
+gov.nasa.worldwind.pick.PickedObject.java
+if (row != 0) {
+            throw new UnknownKeyException("Row key (" + rowKey 
+                    + ") not recognised.");
+        }

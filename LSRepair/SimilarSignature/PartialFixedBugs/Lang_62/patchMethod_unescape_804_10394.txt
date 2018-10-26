@@ -1,0 +1,33 @@
+//**********************************************************
+//  groovy_groovy-eclipse:org.eclipse.jdt.internal.formatter.comment:HTMLEntity2JavaReader:entity2Text:String#symbol:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String symbol) {
+		if (symbol.length() > 1 && symbol.charAt(0) == '#') {
+			int ch;
+			try {
+				if (symbol.charAt(1) == 'x') {
+					ch= Integer.parseInt(symbol.substring(2), 16);
+				} else {
+					ch= Integer.parseInt(symbol.substring(1), 10);
+				}
+				return String.valueOf((char) ch);
+			} catch (NumberFormatException e) {
+				// ignore
+			}
+		} else {
+			String str= (String) fgEntityLookup.get(symbol);
+			if (str != null) {
+				return str;
+			}
+		}
+		return "&" + symbol; // not found //$NON-NLS-1$
+	}

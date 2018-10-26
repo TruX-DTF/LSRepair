@@ -1,0 +1,9 @@
+//**********************************************************
+//  aborg0_rapidminer-vega:com.rapidminer.operator.generator:NonLinearFunction:calculate:double[]#att:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] att) throws FunctionException {
+		if (att.length < 3)
+			throw new FunctionException("Non linear function", "needs at least 3 attributes!");
+		return (att[0] * att[1] * att[2] + att[0] * att[1] + att[1] * att[1]);
+	}

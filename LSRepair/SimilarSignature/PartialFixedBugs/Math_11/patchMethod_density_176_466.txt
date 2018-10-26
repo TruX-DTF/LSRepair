@@ -1,0 +1,13 @@
+//**********************************************************
+//  kutschkem_Jayes:org.eclipse.recommenders.jayes.util:MathUtils:logsumexp:double[]#vector:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] vector) {
+        double max = absMax(vector);
+        double sum = 0;
+        for (double d : vector) {
+            sum += Math.exp(d - max);
+        }
+        sum = max + Math.log(sum);
+        return sum;
+    }

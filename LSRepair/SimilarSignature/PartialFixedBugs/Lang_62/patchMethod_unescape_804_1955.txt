@@ -1,0 +1,26 @@
+//**********************************************************
+//  apache_shiro:org.apache.shiro.util:StringUtils:uppercaseFirstChar:String#in:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String in) {
+        if (in == null || in.length() == 0) {
+            return in;
+        }
+        int length = in.length();
+        StringBuilder sb = new StringBuilder(length);
+
+        sb.append(Character.toUpperCase(in.charAt(0)));
+        if (length > 1) {
+            String remaining = in.substring(1);
+            sb.append(remaining);
+        }
+        return sb.toString();
+    }

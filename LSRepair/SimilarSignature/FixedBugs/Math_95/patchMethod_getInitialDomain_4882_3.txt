@@ -1,0 +1,14 @@
+//**********************************************************
+//  lisa-lab_pings:com.jhlabs.map:ProjectionPainter:getWidth:double#y:double
+//**********************************************************
+/**
+     * Access the initial domain value, based on <code>p</code>, used to
+     * bracket a CDF root.  This method is used by
+     * {@link #inverseCumulativeProbability(double)} to find critical values.
+     * 
+     * @param p the desired probability for the critical value
+     * @return initial domain value
+     */
+    protected double getInitialDomain( double y ) {
+		return Math.PI;
+	}

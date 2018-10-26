@@ -1,0 +1,30 @@
+//**********************************************************
+//  ervandew_eclim:org.vimplugin.editors:VimEditor:removeBackSlashes:String#text:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String text) {
+    if (text.length() <= 2)
+      return text;
+    int offset = 0, length = text.length(), offset1 = 0;
+    String newText = "";
+    while (offset < length) {
+      offset1 = text.indexOf('\\', offset);
+      if (offset1 < 0) {
+        newText = newText + text.substring(offset);
+        break;
+      }
+      newText = newText +
+        text.substring(offset, offset1) +
+        (text.length() > offset1 + 1 ? text.substring(offset1 + 1, offset1 + 2) : "");
+      offset = offset1 + 2;
+    }
+    return newText;
+  }

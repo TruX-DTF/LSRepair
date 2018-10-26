@@ -1,0 +1,18 @@
+//**********************************************************
+//  rstudio_rstudio:org.rstudio.studio.client.common:FilePathUtils:fileNameSansExtension:String#path:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String path)
+   {
+      int lastSlashIndex = path.lastIndexOf('/');
+      int extensionIndex = getExtensionIndex(path, lastSlashIndex + 1);
+      return path.substring(lastSlashIndex + 1, extensionIndex);
+   }

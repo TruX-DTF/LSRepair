@@ -1,0 +1,68 @@
+//**********************************************************
+//  rcongiu_Hive-JSON-Serde:org.openx.data.jsonserde.json:JSONObject:quote:String#string:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String string) {
+        if (string == null || string.length() == 0) {
+            return "\"\"";
+        }
+
+        char         b;
+        char         c = 0;
+        String       hhhh;
+        int          i;
+        int          len = string.length();
+        StringBuilder sb = new StringBuilder(len + 4);
+
+        sb.append('"');
+        for (i = 0; i < len; i += 1) {
+            b = c;
+            c = string.charAt(i);
+            switch (c) {
+            case '\\':
+            case '"':
+                sb.append('\\');
+                sb.append(c);
+                break;
+            case '/':
+                if (b == '<') {
+                    sb.append('\\');
+                }
+                sb.append(c);
+                break;
+            case '\b':
+                sb.append("\\b");
+                break;
+            case '\t':
+                sb.append("\\t");
+                break;
+            case '\n':
+                sb.append("\\n");
+                break;
+            case '\f':
+                sb.append("\\f");
+                break;
+            case '\r':
+                sb.append("\\r");
+                break;
+            default:
+                if (c < ' ' || (c >= '\u0080' && c < '\u00a0') ||
+                               (c >= '\u2000' && c < '\u2100')) {
+                    hhhh = "000" + Integer.toHexString(c);
+                    sb.append("\\u" + hhhh.substring(hhhh.length() - 4));
+                } else {
+                    sb.append(c);
+                }
+            }
+        }
+        sb.append('"');
+        return sb.toString();
+    }

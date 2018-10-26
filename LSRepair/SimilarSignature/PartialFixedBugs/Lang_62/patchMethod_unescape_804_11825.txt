@@ -1,0 +1,24 @@
+//**********************************************************
+//  CNA_android_packages_apps_Contacts:com.android.contacts.vcard:ExportProcessor:translateComposerError:String#errorMessage:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String errorMessage) {
+        final Resources resources = mService.getResources();
+        if (VCardComposer.FAILURE_REASON_FAILED_TO_GET_DATABASE_INFO.equals(errorMessage)) {
+            return resources.getString(R.string.composer_failed_to_get_database_infomation);
+        } else if (VCardComposer.FAILURE_REASON_NO_ENTRY.equals(errorMessage)) {
+            return resources.getString(R.string.composer_has_no_exportable_contact);
+        } else if (VCardComposer.FAILURE_REASON_NOT_INITIALIZED.equals(errorMessage)) {
+            return resources.getString(R.string.composer_not_initialized);
+        } else {
+            return errorMessage;
+        }
+    }

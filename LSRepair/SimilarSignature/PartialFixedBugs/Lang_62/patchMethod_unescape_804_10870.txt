@@ -1,0 +1,37 @@
+//**********************************************************
+//  ms969_ChenSun:com.mysql.jdbc:DatabaseMetaData:removeQuotedId:String#s:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String s) {
+		if (s == null) {
+			return null;
+		}
+
+		if (this.quotedId.equals("")) {
+			return s;
+		}
+
+		s = s.trim();
+
+		int frontOffset = 0;
+		int backOffset = s.length();
+		int quoteLength = this.quotedId.length();
+
+		if (s.startsWith(this.quotedId)) {
+			frontOffset = quoteLength;
+		}
+
+		if (s.endsWith(this.quotedId)) {
+			backOffset -= quoteLength;
+		}
+
+		return s.substring(frontOffset, backOffset);
+	}

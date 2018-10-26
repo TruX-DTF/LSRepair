@@ -1,0 +1,14 @@
+//**********************************************************
+//  manuelgentile_pxlab:de.pxlab.stat:PsychometricFunctionEngine$MinimizationFunction:valueOf:double[]#p:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] p) {
+			if (minimizationFunction == CHI_SQUARE) {
+				return valueOfChiSquare(p);
+			} else if (minimizationFunction == LOG_LIKELIHOOD) {
+				return valueOfLogLikelihood(p);
+			} else if (minimizationFunction == SQUARED_DEV_LOGIT) {
+				return valueOfSquaredDevLogit(p);
+			}
+			return valueOfChiSquare(p);
+		}

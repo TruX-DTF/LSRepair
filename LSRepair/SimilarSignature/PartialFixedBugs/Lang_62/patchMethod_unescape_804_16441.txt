@@ -1,0 +1,26 @@
+//**********************************************************
+//  motech_GHANA-National:org.motechproject.ghana.national.service:PatientService:receiveSMSOnPhoneNumber:String#motechId:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String motechId) {
+
+        Patient patient = allPatients.getPatientByMotechId(motechId);
+        MobileMidwifeEnrollment mobileMidwifeEnrollment = allMobileMidwifeEnrollments.findActiveBy(patient.getMotechId());
+        if (mobileMidwifeEnrollment != null) {
+            return mobileMidwifeEnrollment.getPhoneNumber();
+        }
+        Patient mother = getMother(motechId);
+        if (mother == null) {
+            return patient.getPhoneNumber();
+        }
+        String mothersPhoneNumber = getMothersPhoneNumber(mother);
+        return (mothersPhoneNumber != null) ? mothersPhoneNumber : patient.getPhoneNumber();
+    }

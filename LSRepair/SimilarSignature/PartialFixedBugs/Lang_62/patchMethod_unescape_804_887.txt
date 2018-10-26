@@ -1,0 +1,33 @@
+//**********************************************************
+//  davros-_platform_frameworks_base:android.accounts:AccountManagerService:getAccountLabel:String#accountType:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String accountType) {
+        RegisteredServicesCache.ServiceInfo<AuthenticatorDescription> serviceInfo =
+            mAuthenticatorCache.getServiceInfo(
+                    AuthenticatorDescription.newKey(accountType));
+        if (serviceInfo == null) {
+            throw new IllegalArgumentException("unknown account type: " + accountType);
+        }
+
+        final Context authContext;
+        try {
+            authContext = mContext.createPackageContext(
+                    serviceInfo.type.packageName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new IllegalArgumentException("unknown account type: " + accountType);
+        }
+        try {
+            return authContext.getString(serviceInfo.type.labelId);
+        } catch (Resources.NotFoundException e) {
+            throw new IllegalArgumentException("unknown account type: " + accountType);
+        }
+    }

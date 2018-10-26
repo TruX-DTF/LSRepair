@@ -1,0 +1,7 @@
+//**********************************************************
+//  northern-bites_nbites:org.apache.commons.math3.stat:StatUtils:max:double[]#values:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(final double[] values) throws MathIllegalArgumentException {
+        return MAX.evaluate(values);
+    }

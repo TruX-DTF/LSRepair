@@ -1,0 +1,37 @@
+//**********************************************************
+//  hbcit2010software_hbcitsports:cn.edu.hbcit.smms.dao.gamemanagedao:GetMessage:getFormatReg:String#finalitemname:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape( String finalitemname ){
+		String sql = "SELECT reg FROM t_scoreformat WHERE id IN (" +
+				"SELECT scoreformatid FROM t_item WHERE id IN (" +
+				"SELECT itemid FROM t_group2item WHERE id IN (" +
+				"SELECT gp2itid FROM t_finalitem WHERE finalitemname =?)))";
+		String str = null;
+		conn = dbc.getConn();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, finalitemname);
+			rs = pstmt.executeQuery();
+			while( rs.next() ){
+				str = rs.getString(1);
+			}
+			log.debug("str="+str);
+			rs.close();
+			pstmt.close();
+			dbc.freeConnection(conn);	//????????????
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.debug("getFormatReg"+e.getMessage());
+		}
+		return str;
+	}

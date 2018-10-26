@@ -1,0 +1,10 @@
+//**********************************************************
+//  kutschkem_SmithHeilmann_fork:arkref.ext.fig.basic:NumUtils:l2NormSquared:double[]#x:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] x) {
+    double sum = 0;
+    for(int i = 0; i < x.length; i++)
+      sum += x[i]*x[i];
+    return sum;
+  }

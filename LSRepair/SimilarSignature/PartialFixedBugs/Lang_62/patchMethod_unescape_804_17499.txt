@@ -1,0 +1,22 @@
+//**********************************************************
+//  ervandew_eclim:org.eclim.plugin.wst.command.validate:WstValidateCommand:toFile:String#uri:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String uri)
+  {
+    String file = uri.startsWith(URI_PREFIX) ?
+      uri.substring(URI_PREFIX.length()) : uri;
+    try{
+      return URLDecoder.decode(file, "utf-8");
+    }catch(Exception e){
+      throw new RuntimeException(e);
+    }
+  }

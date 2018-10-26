@@ -1,0 +1,37 @@
+//**********************************************************
+//  liferay_liferay-portal:com.liferay.wsrp.service.impl:WSRPProducerLocalServiceImpl:transformPortletIds:String#portletIds:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String portletIds) {
+		String[] portletIdsArray = StringUtil.split(portletIds);
+
+		for (int i = 0; i < portletIdsArray.length; i++) {
+			String portletId = portletIdsArray[i];
+
+			if (portletId.contains(PortletConstants.INSTANCE_SEPARATOR)) {
+				continue;
+			}
+
+			Portlet portlet = portletLocalService.getPortletById(portletId);
+
+			if (!portlet.isInstanceable()) {
+				continue;
+			}
+
+			String instanceId = PwdGenerator.getPassword(
+				PwdGenerator.KEY1 + PwdGenerator.KEY2 + PwdGenerator.KEY3, 4);
+
+			portletIdsArray[i] =
+				portletId + PortletConstants.INSTANCE_SEPARATOR + instanceId;
+		}
+
+		return StringUtil.merge(portletIdsArray);
+	}

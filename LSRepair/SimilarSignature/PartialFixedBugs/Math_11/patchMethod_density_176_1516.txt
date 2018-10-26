@@ -1,0 +1,13 @@
+//**********************************************************
+//  societies_SOCIETIES-Platform:org.societies.context.user.refinement.impl.bayesianLibrary.inference.solving.utils:CliqueBLOperations:getMax:double[]#input:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] input){
+		double output=0;
+		for (int i=0;i<input.length;i++){
+			if (input[i]>output){
+				output=input[i];
+			}
+		}
+		return output;
+	}

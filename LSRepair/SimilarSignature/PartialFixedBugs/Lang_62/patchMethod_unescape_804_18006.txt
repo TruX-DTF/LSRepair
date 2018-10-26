@@ -1,0 +1,21 @@
+//**********************************************************
+//  apache_felix:org.apache.felix.deploymentadmin:DeploymentPackageManifest:getNonNullHeader:String#header:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String header) throws DeploymentException {
+        if (header == null) {
+            throw new DeploymentException(CODE_MISSING_HEADER);
+        }
+        else if ("".equals(header.trim())) {
+            throw new DeploymentException(CODE_BAD_HEADER);
+        }
+        return header;
+    }

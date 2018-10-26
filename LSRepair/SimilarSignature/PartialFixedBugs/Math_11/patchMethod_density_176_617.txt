@@ -1,0 +1,19 @@
+//**********************************************************
+//  knime-mpicbg_HCS-Tools:de.mpicbg.knime.hcs.base.nodes.norm:BScore:calcMedian:double[]#row:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] row) {
+
+        ExtDescriptiveStats stats = new ExtDescriptiveStats();
+
+        // remove datapoint which are NaN or Infinite
+        for (double value : row) {
+            //Double rowValue = value;
+            if (((Double) value).isNaN() || ((Double) value).isInfinite())
+                continue;
+            stats.addValue(value);
+        }
+
+        return stats.getMedian();
+
+    }

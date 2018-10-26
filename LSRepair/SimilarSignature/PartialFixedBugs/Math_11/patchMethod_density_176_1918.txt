@@ -1,0 +1,7 @@
+//**********************************************************
+//  geogebra_geogebra:org.apache.commons.math.linear:AbstractRealVector:dotProduct:double[]#v:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] v) throws IllegalArgumentException {
+        return dotProduct(new ArrayRealVector(v, false));
+    }

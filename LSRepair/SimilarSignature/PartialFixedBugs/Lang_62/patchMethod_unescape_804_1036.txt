@@ -1,0 +1,24 @@
+//**********************************************************
+//  davros-_platform_frameworks_base:android.telephony:PhoneNumberUtils:replaceUnicodeDigits:String#number:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String number) {
+        StringBuilder normalizedDigits = new StringBuilder(number.length());
+        for (char c : number.toCharArray()) {
+            int digit = Character.digit(c, 10);
+            if (digit != -1) {
+                normalizedDigits.append(digit);
+            } else {
+                normalizedDigits.append(c);
+            }
+        }
+        return normalizedDigits.toString();
+    }

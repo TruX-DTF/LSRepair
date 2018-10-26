@@ -1,0 +1,36 @@
+//**********************************************************
+//  Unidata_thredds:ucar.nc2.wmo:Util:cleanUnit:String#unit:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String unit) {
+    if (unit == null) return null;
+    // These specific words become dimensionless
+    if (unit.equalsIgnoreCase("Proportion") || unit.equalsIgnoreCase("Numeric"))
+      unit = "";
+    // So does '-'
+    else if (unit.equalsIgnoreCase("-")) {
+      unit = "";
+    // Make sure degree(s) true gets concatenated with '_'
+    } else if (unit.startsWith("degree") && unit.endsWith("true")) {
+      unit = unit.replace(' ', '_');
+    // And only do the rest of the conversion if it's not a "* table *" entry
+    } else if (!unit.contains(" table ")) {
+      if (unit.startsWith("/")) unit = "1" + unit;
+      unit = unit.trim();
+      unit = StringUtil2.remove(unit, "**");
+      StringBuilder sb = new StringBuilder(unit);
+      StringUtil2.remove(sb, "^[]");
+      StringUtil2.replace(sb, ' ', ".");
+      StringUtil2.replace(sb, '*', ".");
+      unit = sb.toString();
+    }
+    return unit;
+  }

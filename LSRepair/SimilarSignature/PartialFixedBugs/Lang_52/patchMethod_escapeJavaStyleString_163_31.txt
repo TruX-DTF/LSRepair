@@ -1,0 +1,32 @@
+//**********************************************************
+//  SlimRoms_frameworks_base:com.android.server.net:DelayedDiskWrite:write:String#filePath#Writer#w#boolean#open:void
+//**********************************************************
+/**
+     * <p>Worker method for the {@link #escapeJavaScript(String)} method.</p>
+     * 
+     * @param out write to receieve the escaped string
+     * @param str String to escape values in, may be null
+     * @param escapeSingleQuote escapes single quotes if <code>true</code>
+     * @throws IOException if an IOException occurs
+     */
+    private static void escapeJavaStyleString(final String filePath, final Writer w, final boolean open) {
+        if (TextUtils.isEmpty(filePath)) {
+            throw new IllegalArgumentException("empty file path");
+        }
+
+        /* Do a delayed write to disk on a separate handler thread */
+        synchronized (this) {
+            if (++mWriteSequence == 1) {
+                mDiskWriteHandlerThread = new HandlerThread("DelayedDiskWriteThread");
+                mDiskWriteHandlerThread.start();
+                mDiskWriteHandler = new Handler(mDiskWriteHandlerThread.getLooper());
+            }
+        }
+
+        mDiskWriteHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                doWrite(filePath, w, open);
+            }
+        });
+    }

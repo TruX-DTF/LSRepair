@@ -1,0 +1,8 @@
+.DS_Store
+.classpath
+.project
+.settings
+.suspicious
+.temp
+*/target/
+*Test.java

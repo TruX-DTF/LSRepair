@@ -1,0 +1,14 @@
+//**********************************************************
+//  apache_mahout:org.apache.mahout.cf.taste.impl.eval:OrderBasedRecommenderEvaluator:getMeanWminus:double[]#ranks:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] ranks) {
+    int nitems = ranks.length;
+    double sum = 0.0;
+    for (double rank : ranks) {
+      if (rank < 0) {
+        sum -= rank;
+      }
+    }
+    return sum / nitems;
+  }

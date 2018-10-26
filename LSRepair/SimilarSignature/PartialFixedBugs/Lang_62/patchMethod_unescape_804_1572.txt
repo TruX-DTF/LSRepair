@@ -1,0 +1,26 @@
+//**********************************************************
+//  ParanoidAndroid_android_external_doclava:com.google.doclava:Doclava$HideHandler:filterComment:String#s:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String s) {
+      if (s == null) {
+        return null;
+      }
+
+      s = s.trim();
+
+      // Work around off by one error
+      while (s.length() >= 5 && s.charAt(s.length() - 5) == '{') {
+        s += "&nbsp;";
+      }
+
+      return s;
+    }

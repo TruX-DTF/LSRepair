@@ -1,0 +1,25 @@
+//**********************************************************
+//  Netflix_servo:com.netflix.servo.publish.atlas:ValidCharacters:toValidCharset:String#str:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String str) {
+    final int n = str.length();
+    final StringBuilder buf = new StringBuilder(n + 1);
+    for (int i = 0; i < n; i++) {
+      final char c = str.charAt(i);
+      if (c < CHARS_ALLOWED.length && CHARS_ALLOWED[c]) {
+        buf.append(c);
+      } else {
+        buf.append('_');
+      }
+    }
+    return buf.toString();
+  }

@@ -1,0 +1,46 @@
+//**********************************************************
+//  gephi_gephi:org.gephi.statistics:StatisticsModelImpl:unembedImages:String#report:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String report) {
+        StringBuilder builder = new StringBuilder();
+        String[] result = report.split("data:image/png;base64");
+        if (result.length == 0) {
+            return report;
+        }
+        try {
+            TempDir tempDir = TempDirUtils.createTempDir();
+
+            for (int i = 0; i < result.length; i++) {
+                if (result[i].contains("</IMG>")) {
+                    String next = result[i];
+                    int endIndex = next.indexOf('\"');
+                    String pngStr = next.substring(0, endIndex);
+                    byte[] imageBytes = Base64.decodeBase64(pngStr);
+                    String fileName = "image" + i + ".png";
+                    File file = tempDir.createFile(fileName);
+
+                    FileOutputStream fos = new FileOutputStream(file);
+                    fos.write(imageBytes);
+
+                    String path = "file:" + file.getAbsolutePath();
+                    builder.append(path);
+
+                    builder.append(next.substring(endIndex, next.length()));
+                } else {
+                    builder.append(result[i]);
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return builder.toString();
+    }

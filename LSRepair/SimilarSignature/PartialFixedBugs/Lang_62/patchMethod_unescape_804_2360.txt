@@ -1,0 +1,67 @@
+//**********************************************************
+//  nbros_OcaIDE:ocaml.editor.formatting:OcamlFormatter:formatCommentsAndSpaces:String#tab:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String tab) {
+
+		StringBuilder result = new StringBuilder();
+
+		boolean bInComment = false;
+
+		mainLoop: for (currentLine = 0; currentLine < lines.length; currentLine++) {
+
+			line = lines[currentLine];
+			String trimmed = line.trim();
+
+			/*
+			 * reformat comments that start after some source code and continue onto the next line
+			 */
+			if (reformatMultilineComments()) {
+				/*
+				 * The reformatMultilineComments modified the current line number so that the formatter will
+				 * take its modifications into account (when return value = true)
+				 */
+				/*
+				 * we decrement the current line number because the loop will immediately be incremented after
+				 * the "continue"
+				 */
+				currentLine--;
+				continue mainLoop;
+			}
+
+			/*
+			 * We find back code or a blank line: we can restart formatting the next comments
+			 */
+			if (!trimmed.startsWith("(*") && !bInComment)
+				bDoNotFormatComment = false;
+
+			// format the comment
+			if (!bDoNotFormatComment)
+				if (formatComment(result, tab))
+					continue;
+
+			// correct the spacing between characters on this line
+			if (!bDoNotFormatComment)
+				line = spacing(line);
+
+			result.append(line);
+
+			/*
+			 * do not add a newline after the last line, or else we would add a new line after each time the
+			 * formatter is invoked
+			 * 
+			 */
+			if (currentLine != lines.length - 1)
+				result.append(OcamlPlugin.newline);
+		}
+
+		return result.toString();
+	}

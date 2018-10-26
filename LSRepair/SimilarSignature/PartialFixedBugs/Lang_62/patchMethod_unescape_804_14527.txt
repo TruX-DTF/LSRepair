@@ -1,0 +1,26 @@
+//**********************************************************
+//  jacoco_jacoco:org.jacoco.report.internal:NormalizedFileNames:replaceIllegalChars:String#s:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String s) {
+		final StringBuilder sb = new StringBuilder(s.length());
+		boolean modified = false;
+		for (int i = 0; i < s.length(); i++) {
+			final char c = s.charAt(i);
+			if (LEGAL_CHARS.get(c)) {
+				sb.append(c);
+			} else {
+				sb.append('_');
+				modified = true;
+			}
+		}
+		return modified ? sb.toString() : s;
+	}

@@ -1,0 +1,50 @@
+//**********************************************************
+//  arcanefoam_qvtMustus:org.eclipse.imp.preferences:PreferencesService:getValue:String#pluginResourceLoc:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String pluginResourceLoc) {
+                    int idx= pluginResourceLoc.indexOf('/');
+                    if (idx <= 0) {
+                        return "<error in pluginResource specification: no plugin ID found: " + pluginResourceLoc + ">";
+                    }
+                    String pluginID= pluginResourceLoc.substring(0, idx);
+                    String resourcePath= pluginResourceLoc.substring(idx+1);
+                    Bundle bundle= Platform.getBundle(pluginID);
+                    if (bundle == null) {
+                        return "<no such plugin: " + pluginID + ">";
+                    }
+                    try {
+                        URL resourceEntry= bundle.getEntry(resourcePath);
+                        if (resourceEntry == null) {
+                            Bundle[] fragments= Platform.getFragments(bundle);
+                            if (fragments != null) {
+                                for(int i= 0; i < fragments.length; i++) {
+                                    Bundle bundleFrag= fragments[i];
+                                    resourceEntry= bundleFrag.getEntry(resourcePath);
+                                    if (resourceEntry != null) {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if (resourceEntry == null) {
+                            return "<error: no resource '" + resourcePath + "' in plugin " + pluginID + " or its fragments>";
+                        }
+                        String resourceLoc= FileLocator.toFileURL(resourceEntry).getFile();
+                        // RMF 3/17/2009 Make sure the path is really a valid one: toFileURL().getFile()
+                        // for some reason sometimes produces invalid paths like "/C:/..." on Win32.
+                        // Passing this through Path.toPortableString() seems to address the problem.
+                        resourceLoc= new Path(resourceLoc).toPortableString();
+                        return resourceLoc;
+                    } catch (IOException e) {
+                        return "<error determining location of plugin: " + pluginID + ">";
+                    }
+                }

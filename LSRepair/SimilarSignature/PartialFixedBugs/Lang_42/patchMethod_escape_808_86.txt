@@ -1,0 +1,29 @@
+//**********************************************************
+//  phimpme_android:org.wordpress.android.util:EscapeUtils:escapeHtml:Writer#writer#String#string:void
+//**********************************************************
+/**
+     * <p>
+     * Escapes the characters in the <code>String</code> passed and writes the result to the <code>Writer</code>
+     * passed.
+     * </p>
+     * 
+     * @param writer
+     *            The <code>Writer</code> to write the results of the escaping to. Assumed to be a non-null value.
+     * @param str
+     *            The <code>String</code> to escape. Assumed to be a non-null value.
+     * @throws IOException
+     *             when <code>Writer</code> passed throws the exception from calls to the {@link Writer#write(int)}
+     *             methods.
+     * 
+     * @see #escape(String)
+     * @see Writer
+     */
+    public void escape(Writer writer, String string) throws IOException {
+		if (writer == null) {
+			throw new IllegalArgumentException("The Writer must not be null.");
+		}
+		if (string == null) {
+			return;
+		}
+		Entities.HTML40_escape.escape(writer, string);
+	}

@@ -1,0 +1,16 @@
+//**********************************************************
+//  geotools_geotools:org.geotools.referencing.cs:DefaultEllipsoidalCS:getHeight:double[]#coordinates:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(final double[] coordinates)
+            throws MismatchedDimensionException
+    {
+        ensureDimensionMatch("coordinates", coordinates);
+        if (heightConverter == null) {
+            update();
+            if (heightConverter == null) {
+                throw new IllegalStateException(Errors.format(ErrorKeys.NOT_THREE_DIMENSIONAL_CS));
+            }
+        }
+        return heightConverter.convert(coordinates[heightAxis]);
+    }

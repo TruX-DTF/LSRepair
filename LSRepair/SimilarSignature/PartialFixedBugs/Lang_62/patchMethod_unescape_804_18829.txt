@@ -1,0 +1,27 @@
+//**********************************************************
+//  mbaumeler_AndroidJass:com.zuehlke.jhp.bucamp.android.server:NanoHTTPD:encodeUri:String#uri:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String uri) {
+		String newUri = "";
+		StringTokenizer st = new StringTokenizer(uri, "/ ", true);
+		while (st.hasMoreTokens()) {
+			String tok = st.nextToken();
+			if (tok.equals("/")) {
+				newUri += "/";
+			} else if (tok.equals(" ")) {
+				newUri += "%20";
+			} else {
+				newUri += URLEncoder.encode(tok);
+			}
+		}
+		return newUri;
+	}

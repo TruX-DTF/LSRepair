@@ -1,0 +1,26 @@
+//**********************************************************
+//  wufunxiang_javase:net.sukoo.study.security:Des:HEX_2_ASC:String#hex:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String hex) {
+		String asc = null;
+		int len = hex.length();
+		byte[] bs = new byte[len / 2];
+		for (int i = 0; i < len / 2; i++) {
+			bs[i] = Byte.parseByte(hex.substring(i * 2, i * 2 + 2), 16);
+		}
+		try {
+			asc = new String(bs, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return asc;
+	}

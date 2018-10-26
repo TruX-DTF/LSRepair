@@ -1,0 +1,21 @@
+//**********************************************************
+//  richardrodgers_ctask:org.dspace.ctask.general:MetadataWebService:getNamespaceURI:String#prefix:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String prefix) {
+        if (prefix == null) {
+        	throw new NullPointerException("Null prefix");
+        } else if ("xml".equals(prefix)) {
+        	return XMLConstants.XML_NS_URI;
+        }
+        String nsURI = nsMap.get(prefix);
+        return (nsURI != null) ? nsURI : XMLConstants.NULL_NS_URI;
+    }

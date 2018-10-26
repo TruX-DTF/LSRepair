@@ -1,0 +1,38 @@
+//**********************************************************
+//  sergiomt_hipergate:com.knowgate.misc:Gadgets:accentsToPosixRegEx:String#sText:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String sText) {
+    String[] aSets = new String[]{"a????????a??aaa??",
+    							                "e????????eeeee",
+    							                "i????????iiiiii",
+    							                "o????????ooo??????",
+    							                "u????????uuuuuuuuu",
+    							                "y??y??y"};
+    if (null==sText) return null;
+    final int nSets = aSets.length;
+    final int lText = sText.length();
+    final String sLext = sText.toLowerCase();
+    StringBuffer oText = new StringBuffer();
+    for (int n=0; n<lText; n++) {
+      char c = sLext.charAt(n);
+      int iMatch = -1;
+      for (int s=0; s<nSets && -1==iMatch; s++) {
+        if (aSets[s].indexOf(c)>=0) iMatch=s;
+      } // next(s)
+      
+      if (iMatch!=-1)
+      	oText.append("["+(sText.charAt(n)==c ? aSets[iMatch] : aSets[iMatch].toUpperCase())+"]");
+      else
+      	oText.append(sText.charAt(n));
+    } // next (n)
+    return oText.toString();
+  }

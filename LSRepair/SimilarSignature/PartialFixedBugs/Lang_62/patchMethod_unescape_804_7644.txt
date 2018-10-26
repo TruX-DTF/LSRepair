@@ -1,0 +1,22 @@
+//**********************************************************
+//  mrenou_connect4-minimax:com.xebia.xke.algo.minimax.connect4:MD5Util:md5Hex:String#message:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape (String message) {
+        try {
+            MessageDigest md =
+                    MessageDigest.getInstance("MD5");
+            return hex (md.digest(message.getBytes("CP1252")));
+        } catch (NoSuchAlgorithmException e) {
+        } catch (UnsupportedEncodingException e) {
+        }
+        return null;
+    }

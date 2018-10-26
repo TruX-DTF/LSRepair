@@ -1,0 +1,32 @@
+//**********************************************************
+//  SimpleServer_SimpleServer:simpleserver:Main:getVersionString:String#file:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String file) {
+    InputStream input = Main.class.getResourceAsStream(file);
+    String retversion = null;
+
+    if (input != null) {
+      BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+      try {
+        try {
+          retversion = reader.readLine();
+        } finally {
+          reader.close();
+        }
+      } catch (IOException e) {
+        println(e);
+        println("Warning, jar may be corrupted!");
+      }
+    }
+
+    return retversion;
+  }

@@ -1,0 +1,32 @@
+//**********************************************************
+//  apache_felix:org.apache.felix.webconsole:AbstractWebConsolePlugin:getCssLinks:String#appRoot:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape( final String appRoot )
+    {
+        // get the CSS references and return nothing if there are none
+        final String[] cssRefs = getCssReferences();
+        if ( cssRefs == null )
+        {
+            return ""; //$NON-NLS-1$
+        }
+
+        // build the CSS links from the references
+        final StringBuffer buf = new StringBuffer();
+        for ( int i = 0; i < cssRefs.length; i++ )
+        {
+            buf.append( "<link href='" ); //$NON-NLS-1$
+            buf.append( toUrl( cssRefs[i], appRoot ) );
+            buf.append( "' rel='stylesheet' type='text/css' />" ); //$NON-NLS-1$
+        }
+
+        return buf.toString();
+    }

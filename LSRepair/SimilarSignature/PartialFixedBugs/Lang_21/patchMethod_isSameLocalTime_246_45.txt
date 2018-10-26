@@ -1,0 +1,18 @@
+//**********************************************************
+//  christophd_citrus:com.consol.citrus.validation.matcher.core:DateRangeValidationMatcher:checkGreaterOrEqualTo:Calendar#referenceDate#Calendar#dateToCheck:boolean
+//**********************************************************
+/**
+     * <p>Checks if two calendar objects represent the same local time.</p>
+     *
+     * <p>This method compares the values of the fields of the two objects.
+     * In addition, both calendars must be the same of the same type.</p>
+     * 
+     * @param cal1  the first calendar, not altered, not null
+     * @param cal2  the second calendar, not altered, not null
+     * @return true if they represent the same millisecond instant
+     * @throws IllegalArgumentException if either date is <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isSameLocalTime(Calendar referenceDate, Calendar dateToCheck) {
+        return referenceDate.compareTo(dateToCheck) <= 0;
+    }

@@ -1,0 +1,42 @@
+//**********************************************************
+//  cstenac_osm-watch:fr.openstreetmap.watch.parsers:LastAugmentedDownloader:getHighestLink:String#baseUrl:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String baseUrl) throws Exception {
+        URL u = new URL(baseUrl);
+        HttpURLConnection huc = (HttpURLConnection)u.openConnection();
+
+        String xml = IOUtils.toString(huc.getInputStream());
+        String[] lines = StringUtils.split(xml, "\n");
+        /* Horrible :( */
+        xml = StringUtils.join(Arrays.copyOfRange(lines, 1, lines.length), "\n");
+        xml = xml.replace("]\">", "]\"/>");
+        xml = xml.replace("<hr>", "<hr/>");
+        xml = xml.replace("&nbsp;", " ");
+
+        Document doc = XMLUtils.parse(xml);
+        long max = -1;
+        String maxHref = null;
+        for (Node n : XMLUtils.xpath(doc, "/html/body/table/tr/td/a")) {
+            Element e  = (Element)n;
+            String href = e.getAttribute("href");
+            String numHref = href.replace(".osc.gz", "").replace("/", "");
+            if (numHref.length() > 0 && StringUtils.isNumeric(numHref)) {
+                long longHref = Long.parseLong(numHref);
+                if (longHref > max) {
+                    max = longHref;
+                    maxHref = href;
+                }
+            } else {
+            }
+        }
+        return maxHref;
+    }

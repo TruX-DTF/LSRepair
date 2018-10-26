@@ -1,0 +1,21 @@
+//**********************************************************
+//  collectionspace_services:org.collectionspace.services.common.document:DocumentUtils:getDescendantAuthRefFieldName:String#str:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String str) {
+		List<String> parts = getDelimitedParts(str,
+				AUTHREF_FIELD_NAME_DELIMITER);
+		if (parts.size() > 1) {
+			return parts.get(1).trim();
+		} else {
+			return str;
+		}
+	}

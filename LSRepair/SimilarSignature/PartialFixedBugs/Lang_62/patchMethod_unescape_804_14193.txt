@@ -1,0 +1,65 @@
+//**********************************************************
+//  Unidata_thredds:ucar.nc2.ogc.erddap.util:ErddapEDUnits:oneUcumToUdunits:String#ucum:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String ucum) {
+        //repeatedly pull off start of ucum and build udunits, till done
+        String oldUcum = ucum;
+        StringBuilder udunits = new StringBuilder();
+        MAIN:
+        while (true) {
+            //try to find ucum in hashMap
+            String tUdunits = ucHashMap.get(ucum);
+            if (tUdunits != null) {
+                //success! done!
+                udunits.append(tUdunits);
+                return udunits.toString();
+            }
+
+            //try to separate out a metricAcronym prefix (e.g., "k")
+            for (int p = 0; p < nMetric; p++) {
+                if (ucum.startsWith(metricAcronym[p])) {
+                    ucum = ucum.substring(metricAcronym[p].length());
+                    udunits.append(metricAcronym[p]);
+                    if (ucum.length() == 0) {
+                        udunits.append("{count}");
+                        return udunits.toString();
+                    }
+                    continue MAIN;
+                }
+            }
+
+            //try to separate out a twoAcronym prefix (e.g., "Ki")
+            for (int p = 0; p < nTwo; p++) {
+                if (ucum.startsWith(twoAcronym[p])) {
+                    ucum = ucum.substring(twoAcronym[p].length());
+                    char udch = udunits.length() > 0 ? udunits.charAt(udunits.length() - 1) : '\u0000';
+                    if (udch != '\u0000' && udch != '.' && udch != '/') {
+                        udunits.append('.');
+                    }
+                    if (ucum.length() == 0) {
+                        udunits.append("{count}");
+                        return udunits.toString();
+                    }
+                    udunits.append(twoValue[p]).append(".");
+                    continue MAIN;
+                }
+            }
+
+            //ends in comment?  try to just convert the beginning
+            int po1 = oldUcum.lastIndexOf('{');
+            if (po1 > 0 && oldUcum.endsWith("}")) {
+                return oneUcumToUdunits(oldUcum.substring(0, po1)) + oldUcum.substring(po1);
+            }
+
+            return oldUcum;
+        }
+    }

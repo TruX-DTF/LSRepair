@@ -1,0 +1,21 @@
+//**********************************************************
+//  syamn_BookEditor:syam.BookEditor.Util:Util:getSuffix:String#fileName:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String fileName) {
+        if (fileName == null)
+            return null;
+        int point = fileName.lastIndexOf(".");
+        if (point != -1) {
+            return fileName.substring(point + 1);
+        }
+        return fileName;
+    }

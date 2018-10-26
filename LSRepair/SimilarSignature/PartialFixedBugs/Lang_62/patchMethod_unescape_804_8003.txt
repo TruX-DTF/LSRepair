@@ -1,0 +1,49 @@
+//**********************************************************
+//  cacciatc_happiNES-dev:processing.core:PApplet:selectFolder:String#prompt:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(final String prompt) {
+    checkParentFrame();
+
+    try {
+      SwingUtilities.invokeAndWait(new Runnable() {
+        public void run() {
+          if (platform == MACOSX) {
+            FileDialog fileDialog =
+              new FileDialog(parentFrame, prompt, FileDialog.LOAD);
+            System.setProperty("apple.awt.fileDialogForDirectories", "true");
+            fileDialog.setVisible(true);
+            System.setProperty("apple.awt.fileDialogForDirectories", "false");
+            String filename = fileDialog.getFile();
+            selectedFile = (filename == null) ? null :
+              new File(fileDialog.getDirectory(), fileDialog.getFile());
+          } else {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle(prompt);
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+            int returned = fileChooser.showOpenDialog(parentFrame);
+            System.out.println(returned);
+            if (returned == JFileChooser.CANCEL_OPTION) {
+              selectedFile = null;
+            } else {
+              selectedFile = fileChooser.getSelectedFile();
+            }
+          }
+        }
+      });
+      return (selectedFile == null) ? null : selectedFile.getAbsolutePath();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }

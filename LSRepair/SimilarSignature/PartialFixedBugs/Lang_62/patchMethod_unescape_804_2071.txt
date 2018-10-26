@@ -1,0 +1,32 @@
+//**********************************************************
+//  rstudio_rstudio:org.rstudio.studio.client.workbench.views.files:Files:transformPathStateValue:String#value:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String value)
+         {
+            // if the value is null then return null
+            if (value == null)
+               return null;
+            
+            // only respect the value for projects
+            String projectFile = session_.getSessionInfo().getActiveProjectFile();
+            if (projectFile == null)
+               return null;
+                 
+            // ensure that the value is within the project dir (it wouldn't 
+            // be if the project directory has been moved or renamed)
+            String projectDirPath = 
+               FileSystemItem.createFile(projectFile).getParentPathString();
+            if (value.startsWith(projectDirPath))
+               return value;
+            else
+               return null;
+         }

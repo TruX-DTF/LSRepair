@@ -1,0 +1,49 @@
+//**********************************************************
+//  resteasy_Resteasy:se.unlogic.standardutils.crypto:Base64:encodeFromFile:String#filename:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String filename)
+	throws java.io.IOException {
+
+		String encodedData = null;
+		Base64.InputStream bis = null;
+		try {
+			// Set up some useful variables
+			java.io.File file = new java.io.File(filename);
+			byte[] buffer = new byte[Math.max((int) (file.length() * 1.4 + 1), 40)]; // Need max() for math on small files (v2.2.1); Need +1 for a few corner cases (v2.3.5)
+			int length = 0;
+			int numBytes = 0;
+
+			// Open a stream
+			bis = new Base64.InputStream(
+					new java.io.BufferedInputStream(
+							new java.io.FileInputStream(file)), Base64.ENCODE);
+
+			// Read until done
+			while ((numBytes = bis.read(buffer, length, 4096)) >= 0) {
+				length += numBytes;
+			} // end while
+
+			// Save in a variable to return
+			encodedData = new String(buffer, 0, length, Base64.PREFERRED_ENCODING);
+
+		} // end try
+		catch (java.io.IOException e) {
+			throw e; // Catch and release to execute finally{}
+		} // end catch: java.io.IOException
+		finally {
+			try {
+				bis.close();
+			} catch (Exception e) {}
+		} // end finally
+
+		return encodedData;
+	}

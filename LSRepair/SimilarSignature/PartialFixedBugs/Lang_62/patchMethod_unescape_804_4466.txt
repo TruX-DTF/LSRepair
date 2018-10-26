@@ -1,0 +1,24 @@
+//**********************************************************
+//  Enough-Software_j2mepolish:de.enough.polish.sourceparser:JavaSourceClass:removeSingleLineComment:String#line:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String line) {
+		if (line.length() == 0) {
+			return null;
+		}
+		int singleLineCommentPos = line.indexOf("//");
+		if (singleLineCommentPos == 0) {
+			return null;
+		} else if (singleLineCommentPos != -1) {
+			line = line.substring( 0, singleLineCommentPos ).trim();
+		}
+		return line;
+	}

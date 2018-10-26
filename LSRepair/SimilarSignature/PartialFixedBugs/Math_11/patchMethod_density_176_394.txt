@@ -1,0 +1,10 @@
+//**********************************************************
+//  aborg0_rapidminer-vega:com.rapidminer.operator.generator:RandomClassificationFunction:calculate:double[]#args:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] args) {
+		if (random.nextBoolean())
+			return getLabel().getMapping().mapString("positive");
+		else
+			return getLabel().getMapping().mapString("negative");
+	}

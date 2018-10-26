@@ -1,0 +1,17 @@
+//**********************************************************
+//  svn2github_cytoscape:org.cytoscape.subnetwork.data:DoubleVector:SST:double[]#v:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] v)
+	{
+		double sst = 0;
+		double m = DoubleVector.mean(v);
+		
+		for (int i=0;i<v.length;i++)
+		{
+			double diff = v[i]-m; 
+			sst+=diff*diff;
+		}
+		
+		return sst;
+	}

@@ -1,0 +1,36 @@
+//**********************************************************
+//  samirahmed_Iris-Voice-Automation:com.samir_ahmed.Iris:whoWhat:parseUtterance:String#command:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String command){
+		// Remove interrogativePronouns from first word
+
+		commandArray = command.split("\\s");
+		int startIndex= 1 ;
+
+		// Parse trying to find target query
+		if (commandArray.length < 2){return "";}
+		else if (!firstWord.contains(commandArray[0])){ return "";}
+		while(nextWord.contains(commandArray[startIndex])){
+			if (startIndex+1 < commandArray.length)
+			{startIndex++;}
+		}
+		if(commandArray[startIndex-1].matches("\\s*the\\s*")){startIndex--;}
+
+		// Combine rest of the string into single query variable and return
+		String content="";
+		while(startIndex != commandArray.length) {
+			content+=commandArray[startIndex]+" ";
+			startIndex++;
+		}
+		content=content.substring(0,content.length()-1);
+		return content;
+	}

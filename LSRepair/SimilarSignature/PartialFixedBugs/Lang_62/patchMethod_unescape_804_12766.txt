@@ -1,0 +1,40 @@
+//**********************************************************
+//  bcdev_ceres:com.bc.ceres.core.runtime.internal:ModuleClassLoader:findLibrary:String#libname:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String libname) {
+        for (URL url : nativeUrls) {
+            if (url.toExternalForm().endsWith(System.mapLibraryName(libname))) {
+                String absolutePath = UrlHelper.urlToFile(url).getAbsolutePath();
+                Logger logger = Logger.getLogger(System.getProperty("ceres.context", "ceres"));
+                Throwable throwable = new Throwable("This is not an exception.");
+                logger.log(Level.FINEST, "Native library found: " + absolutePath, throwable);
+                return absolutePath;
+            }
+        }
+        for (ClassLoader classLoader : delegates) {
+            if (classLoader instanceof ModuleClassLoader) {
+                String path = ((ModuleClassLoader) classLoader).findLibrary(libname);
+                if (path != null) {
+                    return path;
+                }
+            }
+        }
+        ClassLoader parent = getParent();
+        if (parent instanceof ModuleClassLoader) {
+            // Must cast, otherwise we cannot call protected ClassLoader.findLibrary() method
+            String path = ((ModuleClassLoader) parent).findLibrary(libname);
+            if (path != null) {
+                return path;
+            }
+        }
+        return super.findLibrary(libname);
+    }

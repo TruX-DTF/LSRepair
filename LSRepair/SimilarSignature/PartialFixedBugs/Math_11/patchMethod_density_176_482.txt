@@ -1,0 +1,7 @@
+//**********************************************************
+//  nicolasgramlich_AndEngine:org.andengine.util.adt.array:ArrayUtils:random:double[]#pArray:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(final double[] pArray) {
+		return pArray[MathUtils.random(0, pArray.length - 1)];
+	}

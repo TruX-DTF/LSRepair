@@ -1,0 +1,24 @@
+//**********************************************************
+//  AndroidDeveloperAlliance_platform_frameworks_base:com.android.internal.telephony.cdma.sms:CdmaSmsAddress:filterNumericSugar:String#address:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String address) {
+        StringBuilder builder = new StringBuilder();
+        int len = address.length();
+        for (int i = 0; i < len; i++) {
+            char c = address.charAt(i);
+            int mapIndex = numericCharDialableMap.indexOfKey(c);
+            if (mapIndex < 0) return null;
+            if (! numericCharDialableMap.valueAt(mapIndex)) continue;
+            builder.append(c);
+        }
+        return builder.toString();
+    }

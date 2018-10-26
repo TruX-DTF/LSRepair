@@ -1,0 +1,9 @@
+//**********************************************************
+//  nickman_jzab:org.helios.jzab.agent.commands.impl.aggregate:MinAggregator:aggregate:double[]#items:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] items) {
+			if(items==null) return 0;
+			Arrays.sort(items);
+			return items[0];
+		}

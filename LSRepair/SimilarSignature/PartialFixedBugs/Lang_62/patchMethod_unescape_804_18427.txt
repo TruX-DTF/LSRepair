@@ -1,0 +1,27 @@
+//**********************************************************
+//  GuntherDW_TweakcraftUtils:com.guntherdw.bukkit.tweakcraft.DataSources.Ban:BanHandler:getRemainingTime:String#playername:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String playername) {
+        if(this.isBanned(playername)) {
+            Ban b = isBannedBan(playername);
+            if(b.getToTime()==null) {
+                return "forever";
+            } else {
+                Long curTime = Calendar.getInstance().getTime().getTime();
+                Long toTime = b.getToTime();
+                Double timerem = Math.floor((toTime-curTime)/1000);
+                return TimeTool.calcLeft(timerem.longValue());
+            }
+        } else {
+            return null;
+        }
+    }

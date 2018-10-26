@@ -1,0 +1,31 @@
+//**********************************************************
+//  apache_tapestry5:org.apache.tapestry5.internal.services:ComponentInstantiatorSourceImpl:buildSuggestedPackageName:String#className:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String className)
+    {
+        for (String subpackage : InternalConstants.SUBPACKAGES)
+        {
+            String term = "." + subpackage + ".";
+
+            int pos = className.indexOf(term);
+
+            // Keep the leading '.' in the subpackage name and tack on "base".
+
+            if (pos > 0)
+                return className.substring(0, pos + 1) + InternalConstants.BASE_SUBPACKAGE;
+        }
+
+        // Is this even reachable? className should always be in a controlled package and so
+        // some subpackage above should have matched.
+
+        return null;
+    }

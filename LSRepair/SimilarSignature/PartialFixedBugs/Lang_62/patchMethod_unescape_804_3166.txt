@@ -1,0 +1,39 @@
+//**********************************************************
+//  ToxBank_toxbank-api-server:org.toxbank.rest.protocol.db:DbCreateDatabase:process:String#database:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String database) throws AmbitException {
+		try {
+			if (!dbExists(database)) 
+				throw new AmbitException(
+						String.format("Database `%s` does not exist. \nPlease create the database and grant privileges.",database));
+						
+			List<String> tables = tablesExists(database);
+	        if (tables.size()==0)
+	        	createTables(database);
+	        else if (!tables.contains("version")) { //
+	        	dropTables(database,tables);
+	        	createTables(database);
+	        } else throw new AmbitException(String.format("Empty database `%s` is expected, but it has %d tables!",database,tables));
+		} catch (AmbitException x) {
+			throw x;
+		} catch (Exception x) {
+			throw new AmbitException(x);
+		}
+		
+        try {
+        	Preferences.setProperty(Preferences.DATABASE, database.toString());
+        	Preferences.saveProperties(getClass().getName());
+        } catch (Exception x) {
+        	throw new AmbitException(x);
+        }
+        return database;
+    }

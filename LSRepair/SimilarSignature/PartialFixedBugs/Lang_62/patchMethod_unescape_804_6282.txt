@@ -1,0 +1,30 @@
+//**********************************************************
+//  d2rq_d2rq:de.fuberlin.wiwiss.d2rq.sql.types:SQLExactNumeric:toSQLLiteral:String#value:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String value) {
+		try {
+			return new BigDecimal(value).toString();
+		} catch (NumberFormatException ex) {
+			try {
+				double d = Double.parseDouble(value);
+				if (Double.isNaN(d) || Double.isInfinite(d)) {
+					// Valid in xsd:double, but not supported by vanilla DBs
+					return "NULL";
+				}
+				return Double.toString(d);
+			} catch (NumberFormatException ex2) {
+				// Not a number AFAICT
+				log.warn("Unsupported NUMERIC format: '" + value + "'; treating as NULL");
+				return "NULL";
+			}
+		}
+	}

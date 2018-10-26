@@ -1,0 +1,25 @@
+//**********************************************************
+//  robsonrigatto_tcc2-robson:analysis:MethodAnalysis:fixSingleSignature:String#sig:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String sig){
+		if(sig.startsWith("L")) sig=sig.substring(1);
+		if(sig.endsWith(";")) sig = sig.substring(0,sig.lastIndexOf(";"));
+		if(sig.equals("Z")) return "boolean";	//boolean
+		if(sig.equals("I")) return "int"; 		//int
+		if(sig.equals("D")) return "double";	//double
+		if(sig.equals("F")) return "float";		//float
+		if(sig.equals("S")) return "short"; 	//short
+		if(sig.equals("J")) return "long";		//long
+		if(sig.equals("C")) return "char";		//char
+		if(sig.equals("V")) return "void";		//void
+		return sig;
+	}

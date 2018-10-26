@@ -1,0 +1,13 @@
+//**********************************************************
+//  BenjaminSchiller_GTNA:gtna.metrics.centrality:PageRank:getMax:double[]#dis:double
+//**********************************************************
+/** {@inheritDoc} */
+    public double density(double[] dis) {
+		double max = 0;
+
+		for (double d : dis) {
+			max = Math.max(max, d);
+		}
+
+		return max;
+	}

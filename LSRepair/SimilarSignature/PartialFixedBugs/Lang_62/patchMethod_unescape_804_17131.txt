@@ -1,0 +1,36 @@
+//**********************************************************
+//  JodaOrg_joda-time:org.joda.time.tz:ZoneInfoCompiler$Rule:formatName:String#nameFormat:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String nameFormat) {
+            int index = nameFormat.indexOf('/');
+            if (index > 0) {
+                if (iSaveMillis == 0) {
+                    // Extract standard name.
+                    return nameFormat.substring(0, index).intern();
+                } else {
+                    return nameFormat.substring(index + 1).intern();
+                }
+            }
+            index = nameFormat.indexOf("%s");
+            if (index < 0) {
+                return nameFormat;
+            }
+            String left = nameFormat.substring(0, index);
+            String right = nameFormat.substring(index + 2);
+            String name;
+            if (iLetterS == null) {
+                name = left.concat(right);
+            } else {
+                name = left + iLetterS + right;
+            }
+            return name.intern();
+        }

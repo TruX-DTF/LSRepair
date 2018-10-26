@@ -1,0 +1,33 @@
+//**********************************************************
+//  npetalid_Promasi-Multiplayer:org.jfree.data.general:DatasetUtilities:findDomainBounds:XYDataset#dataset#boolean#includeInterval:Range
+//**********************************************************
+/**
+     * Iterates over the items in an {@link XYDataset} to find
+     * the range of x-values.
+     *
+     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param includeInterval  a flag that determines, for an
+     *          {@link IntervalXYDataset}, whether the x-interval or just the
+     *          x-value is used to determine the overall range.
+     *
+     * @return The range (possibly <code>null</code>).
+     */
+    public static Range iterateDomainBounds(XYDataset dataset,
+                                         boolean includeInterval) {
+
+        if (dataset == null) {
+            throw new IllegalArgumentException("Null 'dataset' argument.");
+        }
+
+        Range result = null;
+        // if the dataset implements DomainInfo, life is easier
+        if (dataset instanceof DomainInfo) {
+            DomainInfo info = (DomainInfo) dataset;
+            result = info.getDomainBounds(includeInterval);
+        }
+        else {
+            result = iterateDomainBounds(dataset, includeInterval);
+        }
+        return result;
+
+    }

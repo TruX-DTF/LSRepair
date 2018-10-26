@@ -1,0 +1,12 @@
+//**********************************************************
+//  Math_6#org/apache/commons/math3/optim/nonlinear/scalar/noderiv/CMAESOptimizer.java#doOptimize#PointValuePair#null
+//**********************************************************
+===Buggy Code===
+if (i >= dimension - 1) {
+                    break generationLoop;
+                }
+===Patch Code===
+org.apache.commons.math3.optim.linear.SimplexTableau.java
+if (i < dimension - 1) {
+                    break generationLoop;
+                }

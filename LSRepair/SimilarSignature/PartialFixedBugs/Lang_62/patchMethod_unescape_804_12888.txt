@@ -1,0 +1,23 @@
+//**********************************************************
+//  changshan_struts:org.apache.struts2:JSPLoader:extractClassName:String#source:String
+//**********************************************************
+/**
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
+     *
+     * @param str The <code>String</code> to escape.
+     * @return A new escaped <code>String</code>.
+     */
+    public String unescape(String source) {
+        Matcher matcher = PACKAGE_PATTERN.matcher(source);
+        matcher.find();
+        String packageName = matcher.group(1);
+
+        matcher = CLASS_PATTERN.matcher(source);
+        matcher.find();
+        String className = matcher.group(1);
+
+        return packageName + "." + className;
+    }

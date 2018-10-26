@@ -1,0 +1,68 @@
+//**********************************************************
+//  antot_DELiC4MT:ie.dcu.delic4mt:FileNGramMatcher:HighlightWordsWithAlignment:String#sentence#String#alignment#int#side#int#format:String
+//**********************************************************
+/**
+     * Abbreviates a string nicely.
+     * 
+     * This method searches for the first space after the lower limit and abbreviates
+     * the String there. It will also append any String passed as a parameter
+     * to the end of the String. The upper limit can be specified to forcibly
+     * abbreviate a String.
+     * 
+     * @param str         the string to be abbreviated. If null is passed, null is returned.
+     *                    If the empty String is passed, the empty string is returned.
+     * @param lower       the lower limit.
+     * @param upper       the upper limit; specify -1 if no limit is desired.
+     *                    If the upper limit is lower than the lower limit, it will be
+     *                    adjusted to be the same as the lower limit.
+     * @param appendToEnd String to be appended to the end of the abbreviated string.
+     *                    This is appended ONLY if the string was indeed abbreviated.
+     *                    The append does not count towards the lower or upper limits.
+     * @return the abbreviated String.
+     * @since 2.4
+     */
+    public static String abbreviate(String sentence, String alignment, int side, int format){
+
+		int alg;
+
+
+		if(alignment.trim().equals("")) return sentence;
+
+		String[] algs = alignment.split(" ");
+		String[] words = sentence.split(" ");
+
+
+		String add_prefix = "";
+		String add_suffix = "";
+
+		if (format == 0){
+			add_prefix = "<";
+			add_suffix = ">";
+		} else {
+			add_prefix = "<span class=\"highlight\">";
+			add_suffix = "</span>";
+		}
+
+
+		for( int i = 0; i < algs.length; i++){
+			String[] alg_sides = algs[i].split("-");
+			System.out.println(algs[i] + "\t" + side + "\t" + format);
+			if (side == 0)
+				alg = Integer.parseInt(alg_sides[0]);
+			else
+				alg = Integer.parseInt(alg_sides[1]);
+
+			if(!words[alg+1].startsWith(add_prefix))
+				words[alg+1] = add_prefix + words[alg+1] + add_suffix;
+
+			
+		}
+
+		String output = "";
+		for (int i = 0; i< words.length; i++){
+			if (i>0) output += " ";
+			output += words[i];
+		}
+
+		return output;
+	}
